@@ -483,6 +483,15 @@ final class HTMLTests: XCTestCase {
         let html = HTML(.body(.button(.text("X"), .ariaLabel("Close"))))
         assertEqualHTMLContent(html, #"<body><button aria-label="Close">X</button></body>"#)
     }
+    
+    func testAccessibilityControls() {
+        let html = HTML(.body(.ul(.li(.id("list"), .ariaControls("div"))), .div(.id("div"))))
+        assertEqualHTMLContent(html, """
+        <body>\
+        <ul><li id="list" aria-controls="div"></li></ul><div id="div"></div>\
+        </body>
+        """)
+    }
 
     func testDataAttributes() {
         let html = HTML(.body(
@@ -550,6 +559,7 @@ extension HTMLTests {
             ("testNavigation", testNavigation),
             ("testSection", testSection),
             ("testAccessibilityLabel", testAccessibilityLabel),
+            ("testAccessibilityControls", testAccessibilityControls),
             ("testDataAttributes", testDataAttributes),
             ("testComments", testComments)
         ]

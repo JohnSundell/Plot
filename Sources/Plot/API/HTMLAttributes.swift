@@ -320,6 +320,13 @@ public extension Node where Context: HTML.BodyContext {
     static func ariaLabel(_ label: String) -> Node {
         .attribute(named: "aria-label", value: label)
     }
+    
+    /// Assign an accessibility attribute to an element,
+    /// to establish a parent -> child relationship
+    /// - parameter child: The child to assign to the parent
+    static func ariaControls(_ child: String) -> Node {
+        .attribute(named: "aria-controls", value: child)
+    }
 }
 
 // MARK: - Other, element-specific attributes
