@@ -327,6 +327,13 @@ public extension Node where Context: HTML.BodyContext {
     static func ariaControls(_ child: String) -> Node {
         .attribute(named: "aria-controls", value: child)
     }
+    
+    /// Assign an accessibility attribute to an element,
+    /// which describes whether the element is expanded or not
+    /// - parameter isExpanded: Whether the element is expanded or not
+    static func ariaExpanded(_ isExpanded: Bool) -> Node {
+        .attribute(named: "aria-expanded", value: isExpanded ? "true" : "false")
+    }
 }
 
 // MARK: - Other, element-specific attributes
