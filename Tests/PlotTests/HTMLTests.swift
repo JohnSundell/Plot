@@ -182,12 +182,17 @@ final class HTMLTests: XCTestCase {
         let html = HTML(.body(
             .table(
                 .caption("Caption"),
-                .tr(.td("Hello"))
+                .tr(.th("Hello")),
+                .tr(.td("World"))
             )
         ))
 
         assertEqualHTMLContent(html, """
-        <body><table><caption>Caption</caption><tr><td>Hello</td></tr></table></body>
+        <body><table>\
+        <caption>Caption</caption>\
+        <tr><th>Hello</th></tr>\
+        <tr><td>World</td></tr>\
+        </table></body>
         """)
     }
 
