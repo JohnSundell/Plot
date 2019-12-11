@@ -43,8 +43,8 @@ public extension Node where Context == SiteMap.URLSetContext {
 public extension Node where Context == SiteMap.URLContext {
     /// Define the URL's location.
     /// - parameter url: The canonical location URL.
-    static func loc(_ url: String) -> Node {
-        .element(named: "loc", text: url)
+    static func loc(_ url: URLRepresentable) -> Node {
+        .element(named: "loc", text: url.string)
     }
 
     /// Define the frequency at which the URL's content is expected to change.

@@ -13,14 +13,16 @@ public extension Node where Context == HTML.HeadContext {
 
     /// Link the HTML page to an external CSS stylesheet.
     /// - parameter url: The URL of the stylesheet to link to.
-    static func stylesheet(_ url: String) -> Node {
-        .link(.rel(.stylesheet), .href(url), .type("text/css"))
+    static func stylesheet(_ url: URLRepresentable) -> Node {
+        .link(.rel(.stylesheet), .href(url.string), .type("text/css"))
     }
 
     /// Declare the HTML page's canonical URL, for social sharing and SEO.
     /// - parameter url: The URL to declare as this document's canonical URL.
-    static func url(_ url: String) -> Node {
-        .group([
+    static func url(_ url: URLRepresentable) -> Node {
+        let url = url.string
+
+        return .group([
             .link(.rel(.canonical), .href(url)),
             .meta(.name("twitter:url"), .content(url)),
             .meta(.name("og:url"), .content(url))
@@ -56,8 +58,10 @@ public extension Node where Context == HTML.HeadContext {
     /// Declare a URL to an image that should be displayed when the HTML page
     /// is shared on a social media website or app.
     /// - parameter url: The URL to declare. Should be an absolute URL.
-    static func socialImageLink(_ url: String) -> Node {
-        .group([
+    static func socialImageLink(_ url: URLRepresentable) -> Node {
+        let url = url.string
+
+        return .group([
             .meta(.name("twitter:image"), .content(url)),
             .meta(.name("og:image"), .content(url))
         ])
@@ -86,18 +90,18 @@ public extension Node where Context == HTML.HeadContext {
     /// title in various browser UIs) for the HTML page.
     /// - parameter url: The favicon's URL.
     /// - parameter type: The MIME type of the image (default: "image/png").
-    static func favicon(_ url: String, type: String = "image/png") -> Node {
-        .link(.rel(.shortcutIcon), .href(url), .type(type))
+    static func favicon(_ url: URLRepresentable, type: String = "image/png") -> Node {
+        .link(.rel(.shortcutIcon), .href(url.string), .type(type))
     }
 
     /// Declare a url to an RSS feed to associate with this HTML page.
     /// - parameter url: The URL to the RSS feed.
     /// - parameter title: An optional title that some RSS readers will display
     ///   for the feed.
-    static func rssFeedLink(_ url: String, title: String? = nil) -> Node {
+    static func rssFeedLink(_ url: URLRepresentable, title: String? = nil) -> Node {
         .link(
             .rel(.alternate),
-            .href(url),
+            .href(url.string),
             .type("application/rss+xml"),
             .attribute(named: "title", value: title)
         )

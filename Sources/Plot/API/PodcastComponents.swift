@@ -11,7 +11,7 @@ public extension Node where Context == PodcastFeed.ItemContext {
     /// - parameter byteSize: The size of the audio file in bytes.
     /// - parameter type: The MIME type of the audio (default: "audio/mpeg", or MP3).
     /// - parameter title: The title of the episode.
-    static func audio(url: String,
+    static func audio(url: URLRepresentable,
                       byteSize: Int,
                       type: String = "audio/mpeg",
                       title: String) -> Node {
