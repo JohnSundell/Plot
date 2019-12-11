@@ -12,12 +12,9 @@ jobs:
     - name: Run tests
       run: swift test -v
   Linux:
-    strategy:
-      matrix:
-        tag: ['5.0', '5.1']
     runs-on: ubuntu-latest
     container:
-      image: swift:${{ matrix.tag }}
+      image: swift:5.1
     steps:
       - uses: actions/checkout@v1
       - run: swift test
