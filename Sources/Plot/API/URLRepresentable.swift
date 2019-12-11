@@ -1,3 +1,9 @@
+/**
+*  Plot
+*  Copyright (c) John Sundell 2019
+*  MIT license, see LICENSE file for details
+*/
+
 import Foundation
 
 /// Protocol adopted by types that can represent a URL, which
