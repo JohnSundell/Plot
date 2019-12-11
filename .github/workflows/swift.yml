@@ -3,13 +3,21 @@ name: Swift
 on: [push]
 
 jobs:
-  build:
-
+  macos:
     runs-on: macOS-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Build
       run: swift build -v
     - name: Run tests
       run: swift test -v
+  Linux:
+    strategy:
+      matrix:
+        tag: ['5.0', '5.1']
+    runs-on: ubuntu-latest
+    container:
+      image: swift:${{ matrix.tag }}
+    steps:
+      - uses: actions/checkout@v1
+      - run: swift test
