@@ -7,8 +7,8 @@
 public extension Attribute where Context == PodcastFeed.EnclosureContext {
     /// Assign an URL from which the enclosure's file can be downloaded.
     /// - parameter url: The URL to assign.
-    static func url(_ url: String) -> Attribute {
-        Attribute(name: "url", value: url)
+    static func url(_ url: URLRepresentable) -> Attribute {
+        Attribute(name: "url", value: url.string)
     }
 
     /// Assign a length to the enclosure, in terms of its file size.

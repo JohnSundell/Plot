@@ -9,8 +9,8 @@
 public extension Node where Context == PodcastFeed.ChannelContext {
     /// Instruct Apple Podcasts that the podcast's feed has moved to a new URL.
     /// - parameter url: The feed's new URL.
-    static func newFeedURL(_ url: String) -> Node {
-        .element(named: "itunes:new-feed-url", text: url)
+    static func newFeedURL(_ url: URLRepresentable) -> Node {
+        .element(named: "itunes:new-feed-url", text: url.string)
     }
 
     /// Attach a copyright notice to the feed.
@@ -66,10 +66,10 @@ public extension Node where Context: PodcastContentContext {
 
     /// Associate an image with the content.
     /// - parameter url: The URL of the content's image.
-    static func image(_ url: String) -> Node {
+    static func image(_ url: URLRepresentable) -> Node {
         .selfClosedElement(
             named: "itunes:image",
-            attributes: [.any(name: "href", value: url)]
+            attributes: [.any(name: "href", value: url.string)]
         )
     }
 }
@@ -175,8 +175,8 @@ public extension Node where Context == PodcastFeed.ItemContext {
 public extension Node where Context == PodcastFeed.MediaContext {
     /// Assign an URL from which the media's file can be downloaded.
     /// - parameter url: The URL to assign.
-    static func url(_ url: String) -> Node {
-        .attribute(named: "url", value: url)
+    static func url(_ url: URLRepresentable) -> Node {
+        .attribute(named: "url", value: url.string)
     }
 
     /// Assign a length to the media item, in terms of its file size.

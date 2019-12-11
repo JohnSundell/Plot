@@ -164,16 +164,18 @@ final class HTMLTests: XCTestCase {
         """)
     }
 
-    func testAnchors() {
-        let html = HTML(.body(
+    func testAnchors() throws {
+        let html = try HTML(.body(
             .a(.href("a.html"), .target(.blank), .text("A")),
-            .a(.href("b.html"), .rel(.nofollow), .text("B"))
+            .a(.href("b.html"), .rel(.nofollow), .text("B")),
+            .a(.href(require(URL(string: "c.html"))), .text("C"))
         ))
 
         assertEqualHTMLContent(html, """
         <body>\
         <a href="a.html" target="_blank">A</a>\
         <a href="b.html" rel="nofollow">B</a>\
+        <a href="c.html">C</a>\
         </body>
         """)
     }

@@ -14,8 +14,8 @@ public extension Node where Context: RSSFeedContext {
     /// Add a namespace to this RSS feed.
     /// - parameter name: The name of the namespace to add.
     /// - parameter url: The URL of the namespace's definition.
-    static func namespace(_ name: String, _ url: String) -> Node {
-        .attribute(named: "xmlns:\(name)", value: url)
+    static func namespace(_ name: String, _ url: URLRepresentable) -> Node {
+        .attribute(named: "xmlns:\(name)", value: url.string)
     }
 }
 

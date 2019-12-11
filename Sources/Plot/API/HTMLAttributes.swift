@@ -116,16 +116,16 @@ public extension Attribute where Context == HTML.LinkContext {
 public extension Attribute where Context: HTMLLinkableContext {
     /// Assign a URL to link the element to, using its `href` attribute.
     /// - parameter url: The URL to assign.
-    static func href(_ url: String) -> Attribute {
-        Attribute(name: "href", value: url)
+    static func href(_ url: URLRepresentable) -> Attribute {
+        Attribute(name: "href", value: url.string)
     }
 }
 
 public extension Node where Context: HTMLLinkableContext {
     /// Assign a URL to link the element to, using its `href` attribute.
     /// - parameter url: The URL to assign.
-    static func href(_ url: String) -> Node {
-        .attribute(named: "href", value: url)
+    static func href(_ url: URLRepresentable) -> Node {
+        .attribute(named: "href", value: url.string)
     }
 }
 
@@ -148,17 +148,17 @@ public extension Node where Context == HTML.AnchorContext {
 
 public extension Attribute where Context: HTMLSourceContext {
     /// Assign a source to the element, using its `src` attribute.
-    /// - parameter source: The source URL to assign.
-    static func src(_ source: String) -> Attribute {
-        Attribute(name: "src", value: source)
+    /// - parameter url: The source URL to assign.
+    static func src(_ url: URLRepresentable) -> Attribute {
+        Attribute(name: "src", value: url.string)
     }
 }
 
 public extension Node where Context: HTMLSourceContext {
     /// Assign a source to the element, using its `src` attribute.
-    /// - parameter source: The source URL to assign.
-    static func src(_ source: String) -> Node {
-        .attribute(named: "src", value: source)
+    /// - parameter url: The source URL to assign.
+    static func src(_ url: URLRepresentable) -> Node {
+        .attribute(named: "src", value: url.string)
     }
 }
 
@@ -191,8 +191,8 @@ public extension Attribute where Context == HTML.VideoSourceContext {
 public extension Node where Context == HTML.FormContext {
     /// Assign a URL that this form should be sent to when submitted.
     /// - parameter url: The action URL that the form should be sent to.
-    static func action(_ url: String) -> Node {
-        .attribute(named: "action", value: url)
+    static func action(_ url: URLRepresentable) -> Node {
+        .attribute(named: "action", value: url.string)
     }
 }
 
