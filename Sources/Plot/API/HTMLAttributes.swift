@@ -194,6 +194,12 @@ public extension Node where Context == HTML.FormContext {
     static func action(_ url: URLRepresentable) -> Node {
         .attribute(named: "action", value: url.string)
     }
+    
+    /// Define the form’s Media Type.
+    /// - Parameter type: the Media Type the form will be serialized in.
+    static func enctype(_ type: HTMLFormEnctype) -> Node {
+        .attribute(named: "enctype", value: type.description)
+    }
 }
 
 public extension Node where Context == HTML.LabelContext {
