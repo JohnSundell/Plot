@@ -201,6 +201,8 @@ public extension Node where Context == HTML.FormContext {
         .attribute(named: "enctype", value: type.description)
     }
     
+    /// Defines the form’s HTTP method``
+    /// - Parameter method: HTTP verbs like `GET`, `POST`, `PUT`, `DELETE`, etc.
     static func method(_ method: HTMLFormMethod) -> Node {
         .attribute(named: "method", value: method.description)
     }

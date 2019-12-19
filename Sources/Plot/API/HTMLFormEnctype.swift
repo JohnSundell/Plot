@@ -12,15 +12,15 @@ import Foundation
 /// See HTML spec 4.10.21.3
 /// https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#text/plain-encoding-algorithm
 public enum HTMLFormEnctype: CustomStringConvertible {
-    case applicationURLEncoded, multiPartFormData, textPlain
+    case applicationURLEncoded, multipartFormData, textPlain
     
-    /// One of `applicationURLEncoded` (the default), `multiPartFormData` (for use with files), or `textPlain` (conventionally used for debugging)
+    /// One of `applicationURLEncoded` (the default), `multipartFormData` (for use with files), or `textPlain` (conventionally used for debugging)
     public var description: String {
         get {
             switch self {
                 
             /// No characters are encoded. This value is required when you are using forms that have a file, media, images, video, upload control.
-            case .multiPartFormData:
+            case .multipartFormData:
                 return "multipart/form-data"
                 
             /// Spaces are converted to `+` character, but otherwise characters are not encoded. Used mostly for debugging.

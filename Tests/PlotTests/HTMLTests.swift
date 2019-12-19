@@ -253,7 +253,7 @@ final class HTMLTests: XCTestCase {
     func testFormMultipartFormDataEncoded() {
         var html = HTML(.body(
             .form(
-                .enctype(.multiPartFormData)
+                .enctype(.multipartFormData)
             )
         ))
 
