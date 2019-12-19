@@ -251,49 +251,60 @@ final class HTMLTests: XCTestCase {
     }
     
     func testFormMultipartFormDataEncoded() {
-        let html = HTML(.body(
+        var html = HTML(.body(
             .form(
-                .action("example.com/upload"),
-                .enctype(.multiPartFormData),
-                .fieldset(
-                    .label(.for("file"), "File label"),
-                    .input(.id("file"), .type(.file))
-                ),
-                .input(.type(.submit), .value("Upload"))
+                .enctype(.multiPartFormData)
             )
         ))
 
         assertEqualHTMLContent(html, """
-        <body><form action="example.com/upload" enctype="multipart/form-data">\
-        <fieldset>\
-        <label for="file">File label</label>\
-        <input id="file" type="file"/>\
-        </fieldset>\
-        <input type="submit" value="Upload"/>\
+        <body><form enctype="multipart/form-data">\
+        </form></body>
+        """)
+        
+        html = HTML(.body(
+            .form(
+                .enctype(.textPlain)
+            )
+        ))
+        
+        assertEqualHTMLContent(html, """
+        <body><form enctype="text/plain">\
+        </form></body>
+        """)
+        
+        html = HTML(.body(
+            .form(
+                .enctype(.applicationURLEncoded)
+            )
+        ))
+        
+        assertEqualHTMLContent(html, """
+        <body><form enctype="application/x-www-form-urlencoded">\
         </form></body>
         """)
     }
     
     func testFormMethod() {
-        let html = HTML(.body(
+        var html = HTML(.body(
             .form(
-                .action("example.com"),
-                .method(.post),
-                .fieldset(
-                    .label(.for("file"), "File label"),
-                    .input(.id("file"), .type(.file))
-                ),
-                .input(.type(.submit), .value("Upload"))
+                .method(.post)
             )
         ))
 
         assertEqualHTMLContent(html, """
-        <body><form action="example.com" method="POST">\
-        <fieldset>\
-        <label for="file">File label</label>\
-        <input id="file" type="file"/>\
-        </fieldset>\
-        <input type="submit" value="Upload"/>\
+        <body><form method="POST">\
+        </form></body>
+        """)
+        
+        html = HTML(.body(
+            .form(
+                .method(.put)
+            )
+        ))
+
+        assertEqualHTMLContent(html, """
+        <body><form method="PUT">\
         </form></body>
         """)
     }
