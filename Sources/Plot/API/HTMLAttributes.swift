@@ -200,6 +200,10 @@ public extension Node where Context == HTML.FormContext {
     static func enctype(_ type: HTMLFormEnctype) -> Node {
         .attribute(named: "enctype", value: type.description)
     }
+    
+    static func method(_ method: HTMLFormMethod) -> Node {
+        .attribute(named: "method", value: method.description)
+    }
 }
 
 public extension Node where Context == HTML.LabelContext {

@@ -274,6 +274,30 @@ final class HTMLTests: XCTestCase {
         """)
     }
     
+    func testFormMethod() {
+        let html = HTML(.body(
+            .form(
+                .action("example.com"),
+                .method(.post),
+                .fieldset(
+                    .label(.for("file"), "File label"),
+                    .input(.id("file"), .type(.file))
+                ),
+                .input(.type(.submit), .value("Upload"))
+            )
+        ))
+
+        assertEqualHTMLContent(html, """
+        <body><form action="example.com" method="POST">\
+        <fieldset>\
+        <label for="file">File label</label>\
+        <input id="file" type="file"/>\
+        </fieldset>\
+        <input type="submit" value="Upload"/>\
+        </form></body>
+        """)
+    }
+    
     func testHeadings() {
         let html = HTML(.body(
             .h1("One"),
@@ -576,6 +600,7 @@ extension HTMLTests {
             ("testEmbeddedObject", testEmbeddedObject),
             ("testForm", testForm),
             ("testFormMultipartFormDataEncoded", testFormMultipartFormDataEncoded),
+            ("testFormMethod", testFormMethod),
             ("testHeadings", testHeadings),
             ("testParagraph", testParagraph),
             ("testImage", testImage),
