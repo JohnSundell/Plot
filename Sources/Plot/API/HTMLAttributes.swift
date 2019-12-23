@@ -224,6 +224,26 @@ public extension Attribute where Context == HTML.InputContext {
     }
 }
 
+public extension Node where Context == HTML.TextAreaContext {
+    /// Assign an input type to the element.
+    /// - parameter type: The input type to assign.
+    static func cols(_ cols: Int) -> Node {
+        .attribute(named: "cols", value: String(cols))
+    }
+
+    /// Assign whether the element should have autocomplete turned on or off.
+    /// - parameter isOn: Whether autocomplete should be turned on.
+    static func rows(_ rows: Int) -> Node {
+        .attribute(named: "rows", value: String(rows))
+    }
+
+    /// Assign whether the element should be autofocused when the page loads.
+    /// - parameter isOn: Whether autofocus should turned on.
+    static func autofocus(_ isOn: Bool) -> Node {
+        isOn ? .attribute(named: "autofocus", value: "true") : .empty
+    }
+}
+
 public extension Attribute where Context == HTML.OptionContext {
     /// Specify whether the option should be initially selected.
     /// - parameter isSelected: Whether the option should be selected.

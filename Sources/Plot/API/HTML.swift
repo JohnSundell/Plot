@@ -73,6 +73,8 @@ public extension HTML {
     enum ImageContext: HTMLSourceContext, HTMLStylableContext {}
     /// The context within an HTML `<input>` element.
     enum InputContext: HTMLNamableContext, HTMLValueContext {}
+    /// The context within an HTML `<textarea>` element.
+    final class TextAreaContext: HTMLNamableContext {}
     /// The context within an HTML `<label>` element.
     final class LabelContext: BodyContext {}
     /// The context within an HTML `<link>` element.
