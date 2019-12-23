@@ -428,7 +428,7 @@ public extension Node where Context == HTML.FormContext {
     }
     
     /// Add a `<textarea>` HTML element within the current context.
-    /// - parameter attributes: The element's attributes.
+    /// - parameter nodes: The element's attributes and nodes.
     static func textarea(_ nodes: Node<HTML.TextAreaContext>...) -> Node {
         .element(named: "textarea", nodes: nodes)
     }
