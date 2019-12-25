@@ -217,10 +217,42 @@ public extension Attribute where Context == HTML.InputContext {
         Attribute(name: "autocomplete", value: isOn ? "on" : "off")
     }
 
+    /// Assign whether the element is required before submitting the form.
+    /// - parameter isOn: Whether required should set to true.
+    static func required(_ isOn: Bool) -> Attribute {
+        isOn ? Attribute(name: "required", value: "true") : .empty
+    }
+    
     /// Assign whether the element should be autofocused when the page loads.
     /// - parameter isOn: Whether autofocus should turned on.
     static func autofocus(_ isOn: Bool) -> Attribute {
         isOn ? Attribute(name: "autofocus", value: "true") : .empty
+    }
+}
+
+public extension Node where Context == HTML.TextAreaContext {
+    /// Assign the number of text columns to text area.
+    /// - parameter cols: The number of columns.
+    static func cols(_ cols: Int) -> Node {
+        .attribute(named: "cols", value: String(cols))
+    }
+
+    /// Assign the number of text rows visible to text area.
+    /// - parameter rows: The number of rows..
+    static func rows(_ rows: Int) -> Node {
+        .attribute(named: "rows", value: String(rows))
+    }
+    
+    /// Assign whether the element is required before submitting the form.
+    /// - parameter isOn: Whether required should set to true.
+    static func required(_ isOn: Bool) -> Node {
+        isOn ? .attribute(named: "required", value: "true") : .empty
+    }
+    
+    /// Assign whether the element should be autofocused when the page loads.
+    /// - parameter isOn: Whether autofocus should turned on.
+    static func autofocus(_ isOn: Bool) -> Node {
+        isOn ? .attribute(named: "autofocus", value: "true") : .empty
     }
 }
 

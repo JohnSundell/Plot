@@ -420,11 +420,17 @@ public extension Node where Context == HTML.FormContext {
     static func fieldset(_ nodes: Node<HTML.FormContext>...) -> Node {
         .element(named: "fieldset", nodes: nodes)
     }
-
+    
     /// Add an `<input/>` HTML element within the current context.
     /// - parameter nodes: The element's attributes.
     static func input(_ attributes: Attribute<HTML.InputContext>...) -> Node {
         .selfClosedElement(named: "input", attributes: attributes)
+    }
+    
+    /// Add a `<textarea>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and nodes.
+    static func textarea(_ nodes: Node<HTML.TextAreaContext>...) -> Node {
+        .element(named: "textarea", nodes: nodes)
     }
 }
 
