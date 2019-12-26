@@ -51,8 +51,8 @@ final class PodcastFeedTests: XCTestCase {
     }
 
     func testPodcastLanguage() {
-        let feed = PodcastFeed(.language("en-US"))
-        assertEqualPodcastFeedContent(feed, "<language>en-US</language>")
+        let feed = PodcastFeed(.language(.usEnglish))
+        assertEqualPodcastFeedContent(feed, "<language>en-us</language>")
     }
 
     func testPodcastTTL() {

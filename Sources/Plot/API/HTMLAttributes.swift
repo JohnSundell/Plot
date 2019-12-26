@@ -96,10 +96,9 @@ public extension Node where Context: HTMLValueContext {
 
 public extension Node where Context == HTML.DocumentContext {
     /// Specify the language of the HTML document's content.
-    /// - parameter languageCode: The language's code, for example `en`
-    ///   for English and `fr` for French.
-    static func lang(_ languageCode: String) -> Node {
-        .attribute(named: "lang", value: languageCode)
+    /// - parameter language: The language to specify.
+    static func lang(_ language: Language) -> Node {
+        .attribute(named: "lang", value: language.rawValue)
     }
 }
 

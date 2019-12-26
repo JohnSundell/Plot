@@ -13,7 +13,7 @@ final class HTMLTests: XCTestCase {
     }
 
     func testPageLanguage() {
-        let html = HTML(.lang("en"))
+        let html = HTML(.lang(.english))
         XCTAssertEqual(html.render(), #"<!DOCTYPE html><html lang="en"></html>"#)
     }
 
