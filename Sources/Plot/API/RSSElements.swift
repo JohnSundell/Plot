@@ -34,10 +34,9 @@ public extension Node where Context: RSSChannelContext {
     }
 
     /// Define the channel's primary language.
-    /// - parameter languageCode: The code of the language, for example `en-US`
-    ///   for American English, or `pl-PL` for Polish.
-    static func language(_ languageCode: String) -> Node {
-        .element(named: "language", text: languageCode)
+    /// - parameter language: The channel's primary language.
+    static func language(_ language: Language) -> Node {
+        .element(named: "language", text: language.rawValue)
     }
 
     /// Declare when the feed was last built/generated.

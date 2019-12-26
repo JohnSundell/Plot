@@ -36,8 +36,8 @@ final class RSSTests: XCTestCase {
     }
 
     func testFeedLanguage() {
-        let feed = RSS(.language("en-US"))
-        assertEqualRSSFeedContent(feed, "<language>en-US</language>")
+        let feed = RSS(.language(.usEnglish))
+        assertEqualRSSFeedContent(feed, "<language>en-us</language>")
     }
 
     func testFeedTTL() {
