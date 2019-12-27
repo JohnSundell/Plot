@@ -420,7 +420,7 @@ public extension Node where Context == HTML.FormContext {
     static func fieldset(_ nodes: Node<HTML.FormContext>...) -> Node {
         .element(named: "fieldset", nodes: nodes)
     }
-    
+
     /// Add an `<input/>` HTML element within the current context.
     /// - parameter nodes: The element's attributes.
     static func input(_ attributes: Attribute<HTML.InputContext>...) -> Node {
