@@ -9,8 +9,8 @@ import Plot
 
 final class NodeTests: XCTestCase {
     func testEscapingText() {
-        let node = Node<Any>.text("Hello & welcome to <Plot>!")
-        XCTAssertEqual(node.render(), "Hello &amp; welcome to &lt;Plot&gt;!")
+        let node = Node<Any>.text("Hello & welcome to <Plot>!;")
+        XCTAssertEqual(node.render(), "Hello &amp; welcome to &lt;Plot&gt;!;")
     }
 
     func testEscapingDoubleAmpersands() {
