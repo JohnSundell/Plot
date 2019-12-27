@@ -13,6 +13,21 @@ final class NodeTests: XCTestCase {
         XCTAssertEqual(node.render(), "Hello &amp; welcome to &lt;Plot&gt;!")
     }
 
+    func testEscapingDoubleAmpersands() {
+        let node = Node<Any>.text("&&")
+        XCTAssertEqual(node.render(), "&amp;&amp;")
+    }
+
+    func testEscapingAmpersandFollowedByComparisonSymbols() {
+        let node = Node<Any>.text("&< &>")
+        XCTAssertEqual(node.render(), "&amp;&lt; &amp;&gt;")
+    }
+
+    func testNotDoubleEscapingText() {
+        let node = Node<Any>.text("Hello &amp; welcome&#160;to &lt;Plot&gt;!&text")
+        XCTAssertEqual(node.render(), "Hello &amp; welcome&#160;to &lt;Plot&gt;!&amp;text")
+    }
+
     func testNotEscapingRawString() {
         let node = Node<Any>.raw("Hello & welcome to <Plot>!")
         XCTAssertEqual(node.render(), "Hello & welcome to <Plot>!")
@@ -62,6 +77,9 @@ extension NodeTests {
     static var allTests: Linux.TestList<NodeTests> {
         [
             ("testEscapingText", testEscapingText),
+            ("testEscapingDoubleAmpersands", testEscapingDoubleAmpersands),
+            ("testEscapingAmpersandFollowedByComparisonSymbols", testEscapingAmpersandFollowedByComparisonSymbols),
+            ("testNotDoubleEscapingText", testNotDoubleEscapingText),
             ("testNotEscapingRawString", testNotEscapingRawString),
             ("testGroup", testGroup),
             ("testCustomElement", testCustomElement),
