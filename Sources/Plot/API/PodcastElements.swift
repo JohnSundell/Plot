@@ -133,7 +133,7 @@ public extension Node where Context == PodcastFeed.ItemContext {
     /// - parameter seconds: The number of seconds.
     static func duration(hours: Int, minutes: Int, seconds: Int) -> Node {
         func wrap(_ number: Int) -> String {
-            number == 0 ? "00" : String(number)
+            number < 10 ? "0\(number)" : String(number)
         }
 
         return .duration("\(wrap(hours)):\(wrap(minutes)):\(wrap(seconds))")
