@@ -167,13 +167,15 @@ final class PodcastFeedTests: XCTestCase {
     func testEpisodeDuration() {
         let feed = PodcastFeed(.item(
             .duration("00:15:12"),
-            .duration(hours: 00, minutes: 15, seconds: 12)
+            .duration(hours: 0, minutes: 15, seconds: 12),
+            .duration(hours: 1, minutes: 2, seconds: 3)
         ))
 
         assertEqualPodcastFeedContent(feed, """
         <item>\
         <itunes:duration>00:15:12</itunes:duration>\
         <itunes:duration>00:15:12</itunes:duration>\
+        <itunes:duration>01:02:03</itunes:duration>\
         </item>
         """)
     }
