@@ -11,26 +11,13 @@ import Foundation
 /// The actual encoding should be done by the browser / client. This enum merely describes the desired form behavior as HTML.
 /// See HTML spec 4.10.21.3
 /// https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#text/plain-encoding-algorithm
-public enum HTMLFormEnctype: CustomStringConvertible {
-    case applicationURLEncoded, multipartFormData, textPlain
+public enum HTMLFormEnctype: String, RawRepresentable {
+    /// All characters are encoded. This is the default behavior of HTML <form> elements.
+    case applicationURLEncoded = "application/x-www-form-urlencoded"
     
-    /// One of `applicationURLEncoded` (the default), `multipartFormData` (for use with files), or `textPlain` (conventionally used for debugging)
-    public var description: String {
-        get {
-            switch self {
-                
-            /// No characters are encoded. This value is required when you are using forms that have a file, media, images, video, upload control.
-            case .multipartFormData:
-                return "multipart/form-data"
-                
-            /// Spaces are converted to `+` character, but otherwise characters are not encoded. Used mostly for debugging.
-            case .textPlain:
-                return "text/plain"
-                
-            /// All characters are encoded. This is the default behavior of HTML <form> elements.
-            default:
-                return "application/x-www-form-urlencoded"
-            }
-        }
-    }
+    /// No characters are encoded. This value is required when you are using forms that have a file, media, images, video, upload control.
+    case multipartFormData = "multipart/form-data"
+    
+    /// Spaces are converted to `+` character, but otherwise characters are not encoded. Used mostly for debugging.
+    case textPlain = "text/plain"
 }
