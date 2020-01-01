@@ -43,9 +43,12 @@ public extension Node where Context: RSSChannelContext {
     /// - parameter date: The date the feed was generated.
     /// - parameter timeZone: The time zone of the given `Date` (default: `.current`).
     static func lastBuildDate(_ date: Date,
-                              timeZone: TimeZone = .current) -> Node {
+                              timeZone: TimeZone = .current,
+                              locale: Locale = Locale(identifier: "en_US_POSIX")) -> Node {
         let formatter = RSS.dateFormatter
         formatter.timeZone = timeZone
+        formatter.locale = locale
+        
         let dateString = formatter.string(from: date)
         return .element(named: "lastBuildDate", text: dateString)
     }
@@ -125,9 +128,12 @@ public extension Node where Context: RSSContentContext {
     /// - parameter date: The publishing date.
     /// - parameter timeZone: The time zone of the given `Date` (default: `.current`).
     static func pubDate(_ date: Date,
-                        timeZone: TimeZone = .current) -> Node {
+                        timeZone: TimeZone = .current,
+                        locale: Locale = Locale(identifier: "en_US_POSIX")) -> Node {
         let formatter = RSS.dateFormatter
         formatter.timeZone = timeZone
+        formatter.locale = locale
+        
         let dateString = formatter.string(from: date)
         return .element(named: "pubDate", text: dateString)
     }

@@ -62,9 +62,13 @@ public extension Node where Context == SiteMap.URLContext {
     /// Declare when the URL's content was last modified.
     /// - parameter date: The date the URL's content was last modified.
     /// - parameter timeZone: The time zone of the given `Date` (default: `.current`).
-    static func lastmod(_ date: Date, timeZone: TimeZone = .current) -> Node {
+    static func lastmod(_ date: Date,
+                        timeZone: TimeZone = .current,
+                        locale: Locale = Locale(identifier: "en_US_POSIX")) -> Node {
         let formatter = SiteMap.dateFormatter
         formatter.timeZone = timeZone
+        formatter.locale = locale
+        
         let dateString = formatter.string(from: date)
         return .element(named: "lastmod", text: dateString)
     }
