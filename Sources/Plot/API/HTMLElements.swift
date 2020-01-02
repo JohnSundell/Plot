@@ -271,6 +271,12 @@ public extension Node where Context: HTML.BodyContext {
         .element(named: "label", nodes: nodes)
     }
 
+    /// Add a `<main>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func main(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "main", nodes: nodes)
+    }
+
     /// Add a `<nav>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
     static func nav(_ nodes: Node<HTML.BodyContext>...) -> Node {
