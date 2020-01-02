@@ -490,6 +490,11 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, "<body><section>Section</section></body>")
     }
 
+    func testMain() {
+        let html = HTML(.body(.main("Main")))
+        assertEqualHTMLContent(html, "<body><main>Main</main></body>")
+    }
+
     func testAccessibilityLabel() {
         let html = HTML(.body(.button(.text("X"), .ariaLabel("Close"))))
         assertEqualHTMLContent(html, #"<body><button aria-label="Close">X</button></body>"#)
@@ -574,6 +579,7 @@ extension HTMLTests {
             ("testHorizontalLine", testHorizontalLine),
             ("testNavigation", testNavigation),
             ("testSection", testSection),
+            ("testMain", testMain),
             ("testAccessibilityLabel", testAccessibilityLabel),
             ("testAccessibilityControls", testAccessibilityControls),
             ("testAccessibilityExpanded", testAccessibilityExpanded),
