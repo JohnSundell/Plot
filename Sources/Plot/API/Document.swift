@@ -13,20 +13,20 @@ import Foundation
 /// Built-in document types are created simply by initializing them, while
 /// custom ones can be created using the `Document.custom` APIs.
 public protocol DocumentFormat {
-    /// The root context of the document, which all top-level elements bound
-    /// to. Each document format is free to define any number of contexts
+    /// The root context of the document, which all top-level elements are
+    /// bound to. Each document format is free to define any number of contexts
     /// in order to limit where an element or attribute may be placed.
     associatedtype RootContext
 }
 
 /// A representation of a document, which is the root element for all formats
-/// that can be expressed using Plot. For example, and HTML document will have
+/// that can be expressed using Plot. For example, an HTML document will have
 /// the type `Document<HTML>`, and an RSS feed `Document<RSS>`.
 ///
 /// You normally don't have to interact with this type directly, unless you want
 /// to define your own custom document format, since the built-in formats (such
 /// as `HTML`, `RSS` and `XML`) completely wrap this type. To create custom
-/// `Document` values, use the `.custom` static factory method.
+/// `Document` values, use the `.custom` static factory methods.
 public struct Document<Format: DocumentFormat> {
     /// The root elements that make up this document. See `Element` for more info.
     public var elements: [Element<Format.RootContext>]
