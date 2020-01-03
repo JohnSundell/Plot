@@ -11,6 +11,7 @@ public func allTests() -> [Linux.TestCase] {
         Linux.makeTestCase(using: ControlFlowTests.allTests),
         Linux.makeTestCase(using: DocumentTests.allTests),
         Linux.makeTestCase(using: HTMLTests.allTests),
+        Linux.makeTestCase(using: IndentationTests.allTests),
         Linux.makeTestCase(using: NodeTests.allTests),
         Linux.makeTestCase(using: PodcastFeedTests.allTests),
         Linux.makeTestCase(using: RSSTests.allTests),

@@ -7,7 +7,7 @@
 import Foundation
 
 /// A representation of a kind of indentation at a given level.
-public struct Indentation {
+public struct Indentation: Codable, Equatable {
     /// The kind of the indentation (see `Kind`).
     public var kind: Kind
     /// The level of the indentation (0 = root).
@@ -22,7 +22,7 @@ public struct Indentation {
 public extension Indentation {
     /// Enum defining various kinds of indentation that a document
     /// can be rendered using.
-    enum Kind {
+    enum Kind: Equatable {
         /// Each level should be indented by a given number of tabs.
         case tabs(Int)
         /// Each level should be indented by a given number of spaces.
@@ -53,6 +53,45 @@ extension Indentation.Kind: CustomStringConvertible {
             return String(repeating: "\t", count: count)
         case .spaces(let count):
             return String(repeating: " ", count: count)
+        }
+    }
+}
+
+extension Indentation.Kind: Codable {
+    private enum CodingKeys: CodingKey {
+        case kind
+        case count
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let kind = try container.decode(String.self, forKey: .kind)
+        let count = try container.decode(Int.self, forKey: .count)
+
+        switch kind {
+        case "tabs":
+            self = .tabs(count)
+        case "spaces":
+            self = .spaces(count)
+        default:
+            throw DecodingError.dataCorruptedError(
+                forKey: CodingKeys.kind,
+                in: container,
+                debugDescription: "'\(kind)' is not an indentation kind"
+            )
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        switch self {
+        case .tabs(let count):
+            try container.encode("tabs", forKey: .kind)
+            try container.encode(count, forKey: .count)
+        case .spaces(let count):
+            try container.encode("spaces", forKey: .kind)
+            try container.encode(count, forKey: .count)
         }
     }
 }
