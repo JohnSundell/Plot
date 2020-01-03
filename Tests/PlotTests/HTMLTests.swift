@@ -250,36 +250,36 @@ final class HTMLTests: XCTestCase {
         """)
     }
     
-    func testFormMultipartFormDataEncoded() {
-        var html = HTML(.body(
+    func testFormWithMultipartFormDataEncoding() {
+        let multiPartForm = HTML(.body(
             .form(
                 .enctype(.multipartFormData)
             )
         ))
 
-        assertEqualHTMLContent(html, """
+        assertEqualHTMLContent(multiPartForm, """
         <body><form enctype="multipart/form-data">\
         </form></body>
         """)
         
-        html = HTML(.body(
+        let textPlainForm = HTML(.body(
             .form(
                 .enctype(.textPlain)
             )
         ))
         
-        assertEqualHTMLContent(html, """
+        assertEqualHTMLContent(textPlainForm, """
         <body><form enctype="text/plain">\
         </form></body>
         """)
         
-        html = HTML(.body(
+        let urlEncodedForm = HTML(.body(
             .form(
                 .enctype(.applicationURLEncoded)
             )
         ))
         
-        assertEqualHTMLContent(html, """
+        assertEqualHTMLContent(urlEncodedForm, """
         <body><form enctype="application/x-www-form-urlencoded">\
         </form></body>
         """)
@@ -610,7 +610,7 @@ extension HTMLTests {
             ("testData", testData),
             ("testEmbeddedObject", testEmbeddedObject),
             ("testForm", testForm),
-            ("testFormMultipartFormDataEncoded", testFormMultipartFormDataEncoded),
+            ("testFormWithMultipartFormDataEncoding", testFormWithMultipartFormDataEncoding),
             ("testFormMethod", testFormMethod),
             ("testHeadings", testHeadings),
             ("testParagraph", testParagraph),
