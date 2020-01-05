@@ -232,6 +232,7 @@ final class HTMLTests: XCTestCase {
                 .input(.name("b"), .type(.search), .autocomplete(false), .autofocus(true)),
                 .input(.name("c"), .type(.text), .autofocus(false)),
                 .input(.name("d"), .type(.email), .autocomplete(true)),
+                .textarea(.name("e"), .rows(40), .cols(20), .maxlength(200), .autocomplete(false)),
                 .input(.type(.submit), .value("Send"))
             )
         ))
@@ -245,6 +246,7 @@ final class HTMLTests: XCTestCase {
         <input name="b" type="search" autocomplete="off" autofocus="true"/>\
         <input name="c" type="text"/>\
         <input name="d" type="email" autocomplete="on"/>\
+        <textarea name="e" rows="40" cols="20" maxlength="200" autocomplete="off"></textarea>\
         <input type="submit" value="Send"/>\
         </form></body>
         """)

@@ -426,6 +426,12 @@ public extension Node where Context == HTML.FormContext {
     static func input(_ attributes: Attribute<HTML.InputContext>...) -> Node {
         .selfClosedElement(named: "input", attributes: attributes)
     }
+    
+    /// Add an `<textarea/>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes.
+    static func textarea(_ attributes: Attribute<HTML.TextAreaContext>...) -> Node {
+        .element(named: "textarea", attributes: attributes)
+    }
 }
 
 // MARK: - Other
