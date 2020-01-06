@@ -13,4 +13,13 @@ public enum HTMLAnchorRelationship: String {
     /// Instructs bots, indexers and parsers that the link should
     /// not be followed when parsing the current page.
     case nofollow
+    case noopener
+    case noreferrer
+    case opener
+    case external
+    /// For displaying augmented reality content in iOS Safari.
+    /// Adding this tag will instruct Safari to directly open the content
+    /// rather than navigating to a new page.
+    /// https://webkit.org/blog/8421/viewing-augmented-reality-assets-in-safari-for-ios/
+    case ar
 }
