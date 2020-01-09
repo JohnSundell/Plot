@@ -554,6 +554,21 @@ final class HTMLTests: XCTestCase {
         <body data-user-name="John"><img data-icon="User"/></body>
         """)
     }
+    
+    func testSubresourceIntegrity() {
+        let html = HTML(.head(
+            .script(.src("file.js"), .integrity("sha384-fakeHash")),
+            .link(.rel(.stylesheet), .href("styles.css"), .type("text/css"), .integrity("sha512-fakeHash")),
+            .stylesheet("styles2.css", integrity: "sha256-fakeHash")
+        ))
+
+        assertEqualHTMLContent(html, """
+        <head><script src="file.js" integrity="sha384-fakeHash"></script>\
+        <link rel="stylesheet" href="styles.css" type="text/css" integrity="sha512-fakeHash"/>\
+        <link rel="stylesheet" href="styles2.css" type="text/css" integrity="sha256-fakeHash"/>\
+        </head>
+        """)
+    }
 
     func testComments() {
         let html = HTML(.comment("Hello"), .body(.comment("World")))
@@ -616,6 +631,7 @@ extension HTMLTests {
             ("testAccessibilityControls", testAccessibilityControls),
             ("testAccessibilityExpanded", testAccessibilityExpanded),
             ("testDataAttributes", testDataAttributes),
+            ("testSubresourceIntegrity", testSubresourceIntegrity),
             ("testComments", testComments)
         ]
     }
