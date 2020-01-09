@@ -377,7 +377,7 @@ If you discover an element or attribute that’s missing, please [add it](CONTRI
 
 ## Credits, alternatives and focus
 
-Plot was originally written by [John Sundell](https://twitter.com/johnsundell) as part of the Publish suite of static site generation tools, which is used to build and generate [Swift by Sundell](https://swiftbysundell.com). That suite also includes the Markdown parser [Ink](https://github.com/JohnSundell/Ink), as well as Publish itself (which will be open sourced soon).
+Plot was originally written by [John Sundell](https://twitter.com/johnsundell) as part of the Publish suite of static site generation tools, which is used to build and generate [Swift by Sundell](https://swiftbysundell.com). That suite also includes the Markdown parser [Ink](https://github.com/JohnSundell/Ink), as well as [Publish](https://github.com/JohnSundell/Publish) itself.
 
 The idea of using Swift to generate HTML has also been explored by many other people and projects in the community, some of them similar to Plot, some of them completely different. For example [Leaf](https://github.com/vapor/leaf) by [Vapor](https://vapor.codes), [swift-html](https://github.com/pointfreeco/swift-html) by [Point-Free](https://www.pointfree.co), and the [Swift Talk backend](https://github.com/objcio/swift-talk-backend) by [objc.io](https://www.objc.io). The fact that there’s a lot of simultaneous innovation within this area is a great thing — since all of these tools (including Plot) have made different decisions around their overall API design and scope, which lets each developer pick the tool that best fits their individual taste and needs (or perhaps build yet another one?).
 
