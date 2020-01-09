@@ -254,62 +254,33 @@ final class HTMLTests: XCTestCase {
         """)
     }
     
-    func testFormWithMultipartFormDataEncoding() {
-        let multiPartForm = HTML(.body(
-            .form(
-                .enctype(.multipartFormData)
-            )
-        ))
-
-        assertEqualHTMLContent(multiPartForm, """
-        <body><form enctype="multipart/form-data">\
-        </form></body>
-        """)
-        
-        let textPlainForm = HTML(.body(
-            .form(
-                .enctype(.textPlain)
-            )
+    func testFormContentType() {
+        let html = HTML(.body(
+            .form(.enctype(.urlEncoded)),
+            .form(.enctype(.multipartData)),
+            .form(.enctype(.plainText))
         ))
         
-        assertEqualHTMLContent(textPlainForm, """
-        <body><form enctype="text/plain">\
-        </form></body>
-        """)
-        
-        let urlEncodedForm = HTML(.body(
-            .form(
-                .enctype(.applicationURLEncoded)
-            )
-        ))
-        
-        assertEqualHTMLContent(urlEncodedForm, """
-        <body><form enctype="application/x-www-form-urlencoded">\
-        </form></body>
+        assertEqualHTMLContent(html, """
+        <body>\
+        <form enctype="application/x-www-form-urlencoded"></form>\
+        <form enctype="multipart/form-data"></form>\
+        <form enctype="text/plain"></form>\
+        </body>
         """)
     }
     
     func testFormMethod() {
-        var html = HTML(.body(
-            .form(
-                .method(.post)
-            )
+        let html = HTML(.body(
+            .form(.method(.get)),
+            .form(.method(.post))
         ))
 
         assertEqualHTMLContent(html, """
-        <body><form method="POST">\
-        </form></body>
-        """)
-        
-        html = HTML(.body(
-            .form(
-                .method(.put)
-            )
-        ))
-
-        assertEqualHTMLContent(html, """
-        <body><form method="PUT">\
-        </form></body>
+        <body>\
+        <form method="get"></form>\
+        <form method="post"></form>\
+        </body>
         """)
     }
     
@@ -619,7 +590,7 @@ extension HTMLTests {
             ("testData", testData),
             ("testEmbeddedObject", testEmbeddedObject),
             ("testForm", testForm),
-            ("testFormWithMultipartFormDataEncoding", testFormWithMultipartFormDataEncoding),
+            ("testFormContentType", testFormContentType),
             ("testFormMethod", testFormMethod),
             ("testHeadings", testHeadings),
             ("testParagraph", testParagraph),
