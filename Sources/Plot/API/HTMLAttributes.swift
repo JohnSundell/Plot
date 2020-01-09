@@ -128,6 +128,27 @@ public extension Node where Context: HTMLLinkableContext {
     }
 }
 
+public extension Attribute where Context == HTML.LinkContext {
+    /// Assign a hreflang string to this element.
+    /// - parameter language: The language to assign.
+    /// - parameter country: The country of the language to assign.
+    static func hreflang(_ language: Language) -> Attribute {
+        Attribute(name: "hreflang", value: language.rawValue)
+    }
+
+    /// Assign an icon sizes string to this element.
+    /// - parameter sizes: The icon sizes of the link to assign.
+    static func sizes(_ sizes: String) -> Attribute {
+        Attribute(name: "sizes", value: sizes)
+    }
+
+    /// Assign an icon color string to this element.
+    /// - parameter color: The icon color of the link to assign.
+    static func color(_ color: String) -> Attribute {
+        Attribute(name: "color", value: color)
+    }
+}
+
 public extension Node where Context == HTML.AnchorContext {
     /// Assign a target to the anchor, specifying how its URL should be opened.
     /// - parameter target: The target to assign. See `HTMLAnchorTarget`.

@@ -128,6 +128,34 @@ final class HTMLTests: XCTestCase {
         """)
     }
 
+    func testLinkHrefLangEnglish() {
+        let html = HTML(.head(.link(.rel(.alternate), .href("http://site/"), .hreflang(.english))))
+        assertEqualHTMLContent(html, """
+        <head><link rel="alternate" href="http://site/" hreflang="en"/></head>
+        """)
+    }
+
+    func testLinkHrefLangEnglishUS() {
+        let html = HTML(.head(.link(.rel(.alternate), .href("http://site/"), .hreflang(.usEnglish))))
+        assertEqualHTMLContent(html, """
+        <head><link rel="alternate" href="http://site/" hreflang="en-us"/></head>
+        """)
+    }
+
+    func testLinkHrefLangXdefault() {
+        let html = HTML(.head(.link(.rel(.alternate), .href("http://site/"), .hreflang(.xdefault))))
+        assertEqualHTMLContent(html, """
+        <head><link rel="alternate" href="http://site/" hreflang="x-default"/></head>
+        """)
+    }
+
+    func testLinkSizes() {
+        let html = HTML(.head(.link(.rel(.icon), .type("image/png"), .sizes("180x180"), .href("icon.png"))))
+        assertEqualHTMLContent(html, """
+        <head><link rel="icon" type="image/png" sizes="180x180" href="icon.png"/></head>
+        """)
+    }
+
     func testBodyWithID() {
         let html = HTML(.body(.id("anID")))
         assertEqualHTMLContent(html, #"<body id="anID"></body>"#)
@@ -579,6 +607,10 @@ extension HTMLTests {
             ("testStaticViewport", testStaticViewport),
             ("testFavicon", testFavicon),
             ("testRSSFeedLink", testRSSFeedLink),
+            ("testLinkHrefLangEnglish", testLinkHrefLangEnglish),
+            ("testLinkHrefLangEnglishUS", testLinkHrefLangEnglish),
+            ("testLinkHrefLangXdefault", testLinkHrefLangXdefault),
+            ("testLinkSizes", testLinkSizes),
             ("testBodyWithID", testBodyWithID),
             ("testBodyWithCSSClass", testBodyWithCSSClass),
             ("testOverridingBodyCSSClass", testOverridingBodyCSSClass),
