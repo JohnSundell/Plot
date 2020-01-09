@@ -48,7 +48,7 @@ public extension HTML {
     /// The context within an HTML `<a>` element.
     final class AnchorContext: BodyContext, HTMLLinkableContext {}
     /// The context within an HTML `<audio>` element.
-    enum AudioContext: HTMLMultiMediaContext {
+    enum AudioContext: HTMLMultimediaContext {
         public typealias SourceContext = AudioSourceContext
     }
     /// The context within an audio `<source>` element.
@@ -85,10 +85,14 @@ public extension HTML {
     enum MetaContext: HTMLNamableContext {}
     /// The context within an HTML `<option>` element.
     enum OptionContext: HTMLValueContext {}
+    /// The context within an HTML `<picture>` element.
+    enum PictureContext: HTMLMultimediaContext {
+        public typealias SourceContext = PictureSourceContext
+    }
+    /// The context within a picture `<source>` element.
+    enum PictureSourceContext: HTMLSourceContext, HTMLSourceSetContext, HTMLMediaContext {}
     /// The context within an HTML `<script>` element.
     enum ScriptContext: HTMLSourceContext {}
-    /// The context within an HTML `<source>` element
-    enum SourceSetContext: HTMLSourceContext, HTMLSourceSetContext, HTMLMediaContext {}
     /// The context within an HTML `<select>` element.
     enum SelectContext: HTMLOptionListContext {}
     /// The context within an HTML `<table>` element.
@@ -96,7 +100,7 @@ public extension HTML {
     /// The context within an HTML `<tr>` element.
     enum TableRowContext: HTMLStylableContext {}
     /// The context within an HTML `<video>` element.
-    enum VideoContext: HTMLMultiMediaContext {
+    enum VideoContext: HTMLMultimediaContext {
         public typealias SourceContext = VideoSourceContext
     }
     /// The context within a video `<source>` element.
@@ -112,11 +116,11 @@ public protocol HTMLDimensionContext: HTMLContext {}
 /// of link to an external resource, such as `<link>` or `<a>`.
 public protocol HTMLLinkableContext: HTMLContext {}
 /// Context shared among all HTML elements that support the `media`
-/// attribute for example `<source>`
+/// attribute for example `<source>`.
 public protocol HTMLMediaContext: HTMLContext {}
 /// Context shared among all HTML elements that enable multimedia playback,
-/// such as `<audio>` and `<video>`.
-public protocol HTMLMultiMediaContext: HTMLContext {
+/// such as `<audio>`, `<video>` and `<picture>`.
+public protocol HTMLMultimediaContext: HTMLContext {
     /// The context within the media element's `<source>` element.
     associatedtype SourceContext: HTMLSourceContext
 }

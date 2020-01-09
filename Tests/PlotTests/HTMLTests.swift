@@ -534,21 +534,21 @@ final class HTMLTests: XCTestCase {
         let html = HTML(.body(
             .picture(
                 .source(
-                    .src("/img"),
-                    .srcset("/img 2x"),
+                    .src("/img.jpg"),
+                    .srcset("/img-dark-2.jpg 2x, /img-dark-3.jpg 3x"),
                     .media("(prefers-color-scheme: dark)")
                 ),
                 .img(
-                    .src("/img"),
-                    .srcset("/img 2x")
+                    .src("/img.jpg"),
+                    .srcset("/img-light-2.jpg 2x, /img-light-3.jpg 3x")
                 )
             )
         ))
         assertEqualHTMLContent(html, """
         <body>\
         <picture>\
-        <source src="/img" srcset="/img 2x" media="(prefers-color-scheme: dark)"/>\
-        <img src="/img" srcset="/img 2x"/>\
+        <source src="/img.jpg" srcset="/img-dark-2.jpg 2x, /img-dark-3.jpg 3x" media="(prefers-color-scheme: dark)"/>\
+        <img src="/img.jpg" srcset="/img-light-2.jpg 2x, /img-light-3.jpg 3x"/>\
         </picture>\
         </body>
         """)

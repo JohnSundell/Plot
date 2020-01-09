@@ -161,7 +161,7 @@ public extension Node where Context: HTMLSourceContext {
     }
 }
 
-public extension Node where Context: HTMLMultiMediaContext {
+public extension Node where Context: HTMLMultimediaContext {
     /// Assign whether the element's media controls should be enabled.
     /// - parameter enableControls: Whether controls should be shown.
     static func controls(_ enableControls: Bool) -> Node {
@@ -187,17 +187,17 @@ public extension Attribute where Context == HTML.VideoSourceContext {
 
 public extension Attribute where Context: HTMLSourceSetContext {
     /// Assign a source to the element, using its `srcset` attribute.
-    /// - parameter url: The source URL to assign.
-    static func srcset(_ url: URLRepresentable) -> Attribute {
-        Attribute(name: "srcset", value: url.string)
+    /// - parameter versions: Comma separated list of images/pixel density pairs
+    static func srcset(_ versions: String) -> Attribute {
+        Attribute(name: "srcset", value: versions)
     }
 }
 
 public extension Attribute where Context: HTMLMediaContext {
     /// Assign a source to the element, using its `media` attribute.
-    /// - parameter url:Any valid media query that would normally be defined in a CSS
-    static func media(_ mediaQuery: String) -> Attribute {
-        Attribute(name: "media", value: mediaQuery)
+    /// - parameter query: Any valid media query that would normally be defined in CSS
+    static func media(_ query: String) -> Attribute {
+        Attribute(name: "media", value: query)
     }
 }
 
