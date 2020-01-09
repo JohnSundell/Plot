@@ -193,6 +193,18 @@ public extension Node where Context == HTML.FormContext {
     static func action(_ url: URLRepresentable) -> Node {
         .attribute(named: "action", value: url.string)
     }
+    
+    /// Define the form’s Media Type.
+    /// - Parameter type: the serialzier.
+    static func enctype(_ type: MIMEType) -> Node {
+        .attribute(named: "enctype", value: type.rawValue)
+    }
+    
+    /// Defines the form’s HTTP `method`
+    /// - Parameter method: HTTP verbs like `GET`, `POST`, `PUT`, `DELETE`, etc.
+    static func method(_ method: HTTPMethod) -> Node {
+        .attribute(named: "method", value: method.rawValue)
+    }
 }
 
 public extension Node where Context == HTML.LabelContext {

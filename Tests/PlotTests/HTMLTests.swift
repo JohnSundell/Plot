@@ -253,7 +253,66 @@ final class HTMLTests: XCTestCase {
         </form></body>
         """)
     }
+    
+    func testFormWithMultipartFormDataEncoding() {
+        let multiPartForm = HTML(.body(
+            .form(
+                .enctype(.multipartFormData)
+            )
+        ))
 
+        assertEqualHTMLContent(multiPartForm, """
+        <body><form enctype="multipart/form-data">\
+        </form></body>
+        """)
+        
+        let textPlainForm = HTML(.body(
+            .form(
+                .enctype(.textPlain)
+            )
+        ))
+        
+        assertEqualHTMLContent(textPlainForm, """
+        <body><form enctype="text/plain">\
+        </form></body>
+        """)
+        
+        let urlEncodedForm = HTML(.body(
+            .form(
+                .enctype(.applicationURLEncoded)
+            )
+        ))
+        
+        assertEqualHTMLContent(urlEncodedForm, """
+        <body><form enctype="application/x-www-form-urlencoded">\
+        </form></body>
+        """)
+    }
+    
+    func testFormMethod() {
+        var html = HTML(.body(
+            .form(
+                .method(.post)
+            )
+        ))
+
+        assertEqualHTMLContent(html, """
+        <body><form method="POST">\
+        </form></body>
+        """)
+        
+        html = HTML(.body(
+            .form(
+                .method(.put)
+            )
+        ))
+
+        assertEqualHTMLContent(html, """
+        <body><form method="PUT">\
+        </form></body>
+        """)
+    }
+    
     func testHeadings() {
         let html = HTML(.body(
             .h1("One"),
@@ -560,6 +619,8 @@ extension HTMLTests {
             ("testData", testData),
             ("testEmbeddedObject", testEmbeddedObject),
             ("testForm", testForm),
+            ("testFormWithMultipartFormDataEncoding", testFormWithMultipartFormDataEncoding),
+            ("testFormMethod", testFormMethod),
             ("testHeadings", testHeadings),
             ("testParagraph", testParagraph),
             ("testImage", testImage),
