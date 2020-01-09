@@ -19,9 +19,7 @@ public extension Node where Context == HTML.HeadContext {
             .rel(.stylesheet),
             .href(url.string),
             .type("text/css"),
-            .unwrap(integrity) {
-                .integrity($0)
-            }
+            .unwrap(integrity, Attribute.integrity)
         )
     }
 

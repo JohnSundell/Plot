@@ -45,8 +45,8 @@ public extension Attribute {
     /// applying a transform to it. If the optional is `nil`, then no attribute will
     /// be created.
     /// - parameter optional: The optional value to unwrap.
-    /// - parameter transform: The closure to use to transform the value into a node.
-    static func unwrap<T>(_ optional: T?, _ transform: (T) throws -> Attribute) rethrows -> Attribute {
+    /// - parameter transform: The closure to use to transform the value into an attribute.
+    static func unwrap<T>(_ optional: T?, _ transform: (T) throws -> Self) rethrows -> Self {
         try optional.map(transform) ?? .empty
     }
 }
