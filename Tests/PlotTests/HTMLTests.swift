@@ -156,6 +156,27 @@ final class HTMLTests: XCTestCase {
         """)
     }
 
+    func testLinkAppleTouchIcon() {
+        let html = HTML(.head(.link(.rel(.appleTouchIcon), .sizes("180x180"), .href("apple-touch-icon.png"))))
+        assertEqualHTMLContent(html, """
+        <head><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/></head>
+        """)
+    }
+
+    func testLinkManifest() {
+        let html = HTML(.head(.link(.rel(.manifest), .href("site.webmanifest"))))
+        assertEqualHTMLContent(html, """
+        <head><link rel="manifest" href="site.webmanifest"/></head>
+        """)
+    }
+
+    func testLinkMaskIcon() {
+        let html = HTML(.head(.link(.rel(.maskIcon), .href("safari-pinned-tab.svg"), .color("#000000"))))
+        assertEqualHTMLContent(html, """
+        <head><link rel="mask-icon" href="safari-pinned-tab.svg" color="#000000"/></head>
+        """)
+    }
+
     func testBodyWithID() {
         let html = HTML(.body(.id("anID")))
         assertEqualHTMLContent(html, #"<body id="anID"></body>"#)
@@ -611,6 +632,9 @@ extension HTMLTests {
             ("testLinkHrefLangEnglishUS", testLinkHrefLangEnglish),
             ("testLinkHrefLangXdefault", testLinkHrefLangXdefault),
             ("testLinkSizes", testLinkSizes),
+            ("testLinkAppleTouchIcon", testLinkAppleTouchIcon),
+            ("testLinkManifest", testLinkManifest),
+            ("testLinkMaskIcon", testLinkMaskIcon),
             ("testBodyWithID", testBodyWithID),
             ("testBodyWithCSSClass", testBodyWithCSSClass),
             ("testOverridingBodyCSSClass", testOverridingBodyCSSClass),
