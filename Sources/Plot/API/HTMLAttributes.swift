@@ -194,15 +194,16 @@ public extension Node where Context == HTML.FormContext {
         .attribute(named: "action", value: url.string)
     }
     
-    /// Define the form’s Media Type.
-    /// - Parameter type: the serialzier.
-    static func enctype(_ type: MIMEType) -> Node {
+    /// Assign a specific content type to the form.
+    /// - Parameter type: The content type to assign.
+    static func enctype(_ type: HTMLFormContentType) -> Node {
         .attribute(named: "enctype", value: type.rawValue)
     }
     
-    /// Defines the form’s HTTP `method`
-    /// - Parameter method: HTTP verbs like `GET`, `POST`, `PUT`, `DELETE`, etc.
-    static func method(_ method: HTTPMethod) -> Node {
+    /// Assign a specific HTTP request method that the form should
+    /// be submitted using.
+    /// - Parameter method: The HTTP request method to use.
+    static func method(_ method: HTMLFormMethod) -> Node {
         .attribute(named: "method", value: method.rawValue)
     }
 }
