@@ -39,3 +39,14 @@ public extension Node {
         try .group(sequence.map(transform))
     }
 }
+
+public extension Attribute {
+    /// Conditionally create a given attribute by unwrapping an optional, and then
+    /// applying a transform to it. If the optional is `nil`, then no attribute will
+    /// be created.
+    /// - parameter optional: The optional value to unwrap.
+    /// - parameter transform: The closure to use to transform the value into a node.
+    static func unwrap<T>(_ optional: T?, _ transform: (T) throws -> Attribute) rethrows -> Attribute {
+        try optional.map(transform) ?? .empty
+    }
+}

@@ -13,8 +13,16 @@ public extension Node where Context == HTML.HeadContext {
 
     /// Link the HTML page to an external CSS stylesheet.
     /// - parameter url: The URL of the stylesheet to link to.
-    static func stylesheet(_ url: URLRepresentable) -> Node {
-        .link(.rel(.stylesheet), .href(url.string), .type("text/css"))
+    /// - parameter integrity: optional base64-encoded cryptographic hash
+    static func stylesheet(_ url: URLRepresentable, integrity: String? = nil) -> Node {
+        .link(
+            .rel(.stylesheet),
+            .href(url.string),
+            .type("text/css"),
+            .unwrap(integrity) {
+                .integrity($0)
+            }
+        )
     }
 
     /// Declare the HTML page's canonical URL, for social sharing and SEO.

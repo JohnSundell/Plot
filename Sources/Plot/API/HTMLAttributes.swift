@@ -367,6 +367,24 @@ public extension Node where Context: HTML.BodyContext {
     }
 }
 
+// MARK: - Subresource Integrity
+
+public extension Attribute where Context: HTMLIntegrityContext {
+    /// Assign a source to the element, using its `integrity` attribute.
+    /// - parameter hash: base64-encoded cryptographic hash
+    static func integrity(_ hash: String) -> Attribute {
+        Attribute(name: "integrity", value: hash)
+    }
+}
+
+public extension Node where Context: HTMLIntegrityContext {
+    /// Assign a source to the element, using its `src` attribute.
+    /// - parameter hash: base64-encoded cryptographic hash
+    static func integrity(_ hash: String) -> Node {
+        .attribute(named: "integrity", value: hash)
+    }
+}
+
 // MARK: - Other, element-specific attributes
 
 public extension Node where Context == HTML.AbbreviationContext {
@@ -376,3 +394,5 @@ public extension Node where Context == HTML.AbbreviationContext {
         .attribute(named: "title", value: title)
     }
 }
+
+
