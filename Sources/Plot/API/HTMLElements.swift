@@ -301,6 +301,12 @@ public extension Node where Context: HTML.BodyContext {
         .element(named: "pre", nodes: nodes)
     }
 
+    /// Add a `<picture>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements
+    static func picture(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "picture", nodes: nodes)
+    }
+
     /// Add an `<s>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
     static func s(_ nodes: Node<HTML.BodyContext>...) -> Node {
@@ -317,6 +323,12 @@ public extension Node where Context: HTML.BodyContext {
     /// - parameter nodes: The element's attributes and child elements.
     static func select(_ nodes: Node<HTML.SelectContext>...) -> Node {
         .element(named: "select", nodes: nodes)
+    }
+
+    /// Add a `<source>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func source(_ attributes: Attribute<HTML.SourceSetContext>...) -> Node {
+        .selfClosedElement(named: "source", attributes: attributes)
     }
 
     /// Add a `<span>` HTML element within the current context.
@@ -442,7 +454,7 @@ public extension Node where Context == HTML.FormContext {
 
 // MARK: - Other
 
-public extension Node where Context: HTMLMediaContext {
+public extension Node where Context: HTMLMultiMediaContext {
     /// Add a `<source/>` HTML element within the current context.
     /// - parameter attributes: The element's attributes.
     static func source(_ attributes: Attribute<Context.SourceContext>...) -> Node {

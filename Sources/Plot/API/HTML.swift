@@ -48,7 +48,7 @@ public extension HTML {
     /// The context within an HTML `<a>` element.
     final class AnchorContext: BodyContext, HTMLLinkableContext {}
     /// The context within an HTML `<audio>` element.
-    enum AudioContext: HTMLMediaContext {
+    enum AudioContext: HTMLMultiMediaContext {
         public typealias SourceContext = AudioSourceContext
     }
     /// The context within an audio `<source>` element.
@@ -70,7 +70,7 @@ public extension HTML {
     /// The context within an HTML `<iframe>` element.
     enum IFrameContext: HTMLNamableContext, HTMLSourceContext {}
     /// The context within an HTML `<img>` element.
-    enum ImageContext: HTMLSourceContext, HTMLStylableContext {}
+    enum ImageContext: HTMLSourceContext, HTMLStylableContext, HTMLSourceSetContext {}
     /// The context within an HTML `<input>` element.
     enum InputContext: HTMLNamableContext, HTMLValueContext {}
     /// The context within an HTML `<textarea>` element.
@@ -87,6 +87,8 @@ public extension HTML {
     enum OptionContext: HTMLValueContext {}
     /// The context within an HTML `<script>` element.
     enum ScriptContext: HTMLSourceContext {}
+    /// The context within an HTML `<source>` element
+    enum SourceSetContext: HTMLSourceContext, HTMLSourceSetContext, HTMLMediaContext {}
     /// The context within an HTML `<select>` element.
     enum SelectContext: HTMLOptionListContext {}
     /// The context within an HTML `<table>` element.
@@ -94,7 +96,7 @@ public extension HTML {
     /// The context within an HTML `<tr>` element.
     enum TableRowContext: HTMLStylableContext {}
     /// The context within an HTML `<video>` element.
-    enum VideoContext: HTMLMediaContext {
+    enum VideoContext: HTMLMultiMediaContext {
         public typealias SourceContext = VideoSourceContext
     }
     /// The context within a video `<source>` element.
@@ -109,9 +111,12 @@ public protocol HTMLDimensionContext: HTMLContext {}
 /// Context shared among all HTML elements that act as some form
 /// of link to an external resource, such as `<link>` or `<a>`.
 public protocol HTMLLinkableContext: HTMLContext {}
-/// Context shared among all HTML elements that enable media playback,
+/// Context shared among all HTML elements that support the `media`
+/// attribute for example `<source>`
+public protocol HTMLMediaContext: HTMLContext {}
+/// Context shared among all HTML elements that enable multimedia playback,
 /// such as `<audio>` and `<video>`.
-public protocol HTMLMediaContext: HTMLContext {
+public protocol HTMLMultiMediaContext: HTMLContext {
     /// The context within the media element's `<source>` element.
     associatedtype SourceContext: HTMLSourceContext
 }
@@ -127,6 +132,9 @@ public protocol HTMLScriptableContext: HTMLContext {}
 /// Context shared among all HTML elements that support the `src`
 /// attribute, for example `<img>` and `<iframe>`.
 public protocol HTMLSourceContext: HTMLContext {}
+/// Context shared among all HTML elements that support the `srcset`
+/// attribute, for example `<picture>`.
+public protocol HTMLSourceSetContext: HTMLContext {}
 /// Context shared among all HTML elements that can be styled using
 /// inline CSS through the `style` attribute.
 public protocol HTMLStylableContext: HTMLContext {}
