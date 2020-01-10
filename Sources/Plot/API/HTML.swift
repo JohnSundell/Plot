@@ -78,7 +78,7 @@ public extension HTML {
     /// The context within an HTML `<label>` element.
     final class LabelContext: BodyContext {}
     /// The context within an HTML `<link>` element.
-    enum LinkContext: HTMLLinkableContext, HTMLTypeContext {}
+    enum LinkContext: HTMLLinkableContext, HTMLTypeContext, HTMLIntegrityContext {}
     /// The context within an HTML list, such as `<ul>` or `<ol>` elements.
     enum ListContext: HTMLStylableContext {}
     /// The context within an HTML `<meta>` element.
@@ -92,7 +92,7 @@ public extension HTML {
     /// The context within a picture `<source>` element.
     enum PictureSourceContext: HTMLSourceContext, HTMLSourceSetContext, HTMLMediaContext {}
     /// The context within an HTML `<script>` element.
-    enum ScriptContext: HTMLSourceContext {}
+    enum ScriptContext: HTMLSourceContext, HTMLIntegrityContext {}
     /// The context within an HTML `<select>` element.
     enum SelectContext: HTMLOptionListContext {}
     /// The context within an HTML `<table>` element.
@@ -124,6 +124,9 @@ public protocol HTMLMultimediaContext: HTMLContext {
     /// The context within the media element's `<source>` element.
     associatedtype SourceContext: HTMLSourceContext
 }
+/// Context shared among all HTML elements that support the `integrity`
+/// attribute, such as `<link>` and `<script>`
+public protocol HTMLIntegrityContext: HTMLContext {}
 /// Context shared among all HTML elements that support the `name`
 /// attribute, such as `<meta>` and `<input>`.
 public protocol HTMLNamableContext: HTMLContext {}

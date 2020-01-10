@@ -209,6 +209,19 @@ public extension Node where Context == HTML.FormContext {
     static func action(_ url: URLRepresentable) -> Node {
         .attribute(named: "action", value: url.string)
     }
+    
+    /// Assign a specific content type to the form.
+    /// - Parameter type: The content type to assign.
+    static func enctype(_ type: HTMLFormContentType) -> Node {
+        .attribute(named: "enctype", value: type.rawValue)
+    }
+    
+    /// Assign a specific HTTP request method that the form should
+    /// be submitted using.
+    /// - Parameter method: The HTTP request method to use.
+    static func method(_ method: HTMLFormMethod) -> Node {
+        .attribute(named: "method", value: method.rawValue)
+    }
 }
 
 public extension Node where Context == HTML.LabelContext {
@@ -380,6 +393,24 @@ public extension Node where Context: HTML.BodyContext {
     /// - parameter isExpanded: Whether the element is expanded or not
     static func ariaExpanded(_ isExpanded: Bool) -> Node {
         .attribute(named: "aria-expanded", value: isExpanded ? "true" : "false")
+    }
+}
+
+// MARK: - Subresource Integrity
+
+public extension Attribute where Context: HTMLIntegrityContext {
+    /// Assign a subresouce integrity hash to the element, using its `integrity` attribute.
+    /// - parameter hash: base64-encoded cryptographic hash
+    static func integrity(_ hash: String) -> Attribute {
+        Attribute(name: "integrity", value: hash)
+    }
+}
+
+public extension Node where Context: HTMLIntegrityContext {
+    /// Assign a subresouce integrity hash to the element, using its `integrity` attribute.
+    /// - parameter hash: base64-encoded cryptographic hash
+    static func integrity(_ hash: String) -> Node {
+        .attribute(named: "integrity", value: hash)
     }
 }
 

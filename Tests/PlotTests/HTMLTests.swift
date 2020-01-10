@@ -253,7 +253,37 @@ final class HTMLTests: XCTestCase {
         </form></body>
         """)
     }
+    
+    func testFormContentType() {
+        let html = HTML(.body(
+            .form(.enctype(.urlEncoded)),
+            .form(.enctype(.multipartData)),
+            .form(.enctype(.plainText))
+        ))
+        
+        assertEqualHTMLContent(html, """
+        <body>\
+        <form enctype="application/x-www-form-urlencoded"></form>\
+        <form enctype="multipart/form-data"></form>\
+        <form enctype="text/plain"></form>\
+        </body>
+        """)
+    }
+    
+    func testFormMethod() {
+        let html = HTML(.body(
+            .form(.method(.get)),
+            .form(.method(.post))
+        ))
 
+        assertEqualHTMLContent(html, """
+        <body>\
+        <form method="get"></form>\
+        <form method="post"></form>\
+        </body>
+        """)
+    }
+    
     func testHeadings() {
         let html = HTML(.body(
             .h1("One"),
@@ -524,6 +554,21 @@ final class HTMLTests: XCTestCase {
         <body data-user-name="John"><img data-icon="User"/></body>
         """)
     }
+    
+    func testSubresourceIntegrity() {
+        let html = HTML(.head(
+            .script(.src("file.js"), .integrity("sha384-fakeHash")),
+            .link(.rel(.stylesheet), .href("styles.css"), .type("text/css"), .integrity("sha512-fakeHash")),
+            .stylesheet("styles2.css", integrity: "sha256-fakeHash")
+        ))
+
+        assertEqualHTMLContent(html, """
+        <head><script src="file.js" integrity="sha384-fakeHash"></script>\
+        <link rel="stylesheet" href="styles.css" type="text/css" integrity="sha512-fakeHash"/>\
+        <link rel="stylesheet" href="styles2.css" type="text/css" integrity="sha256-fakeHash"/>\
+        </head>
+        """)
+    }
 
     func testComments() {
         let html = HTML(.comment("Hello"), .body(.comment("World")))
@@ -584,6 +629,8 @@ extension HTMLTests {
             ("testData", testData),
             ("testEmbeddedObject", testEmbeddedObject),
             ("testForm", testForm),
+            ("testFormContentType", testFormContentType),
+            ("testFormMethod", testFormMethod),
             ("testHeadings", testHeadings),
             ("testParagraph", testParagraph),
             ("testImage", testImage),
@@ -608,6 +655,7 @@ extension HTMLTests {
             ("testAccessibilityControls", testAccessibilityControls),
             ("testAccessibilityExpanded", testAccessibilityExpanded),
             ("testDataAttributes", testDataAttributes),
+            ("testSubresourceIntegrity", testSubresourceIntegrity),
             ("testComments", testComments),
             ("testPicture", testPicture)
         ]
