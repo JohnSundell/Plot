@@ -21,13 +21,32 @@ final class IndentationTests: XCTestCase {
         let decoded = try JSONDecoder().decode(Indentation.self, from: data)
         XCTAssertEqual(indentation, decoded)
     }
+
+    func testDecodingErrorForInvalidKind() throws {
+        func makeData(withKind kind: String) -> Data {
+            Data(#"{"kind":"\#(kind)","count": 3}"#.utf8)
+        }
+
+        let decoder = JSONDecoder()
+        let validData = makeData(withKind: "spaces")
+        let invalidData = makeData(withKind: "invalid")
+
+        XCTAssertNoThrow(
+            try decoder.decode(Indentation.Kind.self, from: validData)
+        )
+
+        XCTAssertThrowsError(
+            try decoder.decode(Indentation.Kind.self, from: invalidData)
+        )
+    }
 }
 
 extension IndentationTests {
     static var allTests: Linux.TestList<IndentationTests> {
         [
             ("testSpacesCoding", testSpacesCoding),
-            ("testTabsCoding", testTabsCoding)
+            ("testTabsCoding", testTabsCoding),
+            ("testDecodingErrorForInvalidKind", testDecodingErrorForInvalidKind)
         ]
     }
 }
