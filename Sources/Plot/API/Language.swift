@@ -192,7 +192,7 @@ public enum Language: String {
     case welsh = "cy"
     case wolof = "wo"
     case westernFrisian = "fy"
-    case xdefault = "x-default"
+    case xDefault = "x-default"
     case xhosa = "xh"
     case yiddish = "yi, ji"
     case yoruba = "yo"
