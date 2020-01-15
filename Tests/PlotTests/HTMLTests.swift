@@ -128,50 +128,48 @@ final class HTMLTests: XCTestCase {
         """)
     }
 
-    func testLinkHrefLangEnglish() {
-        let html = HTML(.head(.link(.rel(.alternate), .href("http://site/"), .hreflang(.english))))
+    func testLinkWithHrefLang() {
+        let html = HTML(.head(.link(
+            .rel(.alternate),
+            .href("http://site/"),
+            .hreflang(.english)
+        )))
+
         assertEqualHTMLContent(html, """
         <head><link rel="alternate" href="http://site/" hreflang="en"/></head>
         """)
     }
 
-    func testLinkHrefLangEnglishUS() {
-        let html = HTML(.head(.link(.rel(.alternate), .href("http://site/"), .hreflang(.usEnglish))))
-        assertEqualHTMLContent(html, """
-        <head><link rel="alternate" href="http://site/" hreflang="en-us"/></head>
-        """)
-    }
+    func testAppleTouchIconLink() {
+        let html = HTML(.head(.link(
+            .rel(.appleTouchIcon),
+            .sizes("180x180"),
+            .href("apple-touch-icon.png")
+        )))
 
-    func testLinkHrefLangXdefault() {
-        let html = HTML(.head(.link(.rel(.alternate), .href("http://site/"), .hreflang(.xdefault))))
-        assertEqualHTMLContent(html, """
-        <head><link rel="alternate" href="http://site/" hreflang="x-default"/></head>
-        """)
-    }
-
-    func testLinkSizes() {
-        let html = HTML(.head(.link(.rel(.icon), .type("image/png"), .sizes("180x180"), .href("icon.png"))))
-        assertEqualHTMLContent(html, """
-        <head><link rel="icon" type="image/png" sizes="180x180" href="icon.png"/></head>
-        """)
-    }
-
-    func testLinkAppleTouchIcon() {
-        let html = HTML(.head(.link(.rel(.appleTouchIcon), .sizes("180x180"), .href("apple-touch-icon.png"))))
         assertEqualHTMLContent(html, """
         <head><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/></head>
         """)
     }
 
-    func testLinkManifest() {
-        let html = HTML(.head(.link(.rel(.manifest), .href("site.webmanifest"))))
+    func testManifestLink() {
+        let html = HTML(.head(.link(
+            .rel(.manifest),
+            .href("site.webmanifest")
+        )))
+
         assertEqualHTMLContent(html, """
         <head><link rel="manifest" href="site.webmanifest"/></head>
         """)
     }
 
-    func testLinkMaskIcon() {
-        let html = HTML(.head(.link(.rel(.maskIcon), .href("safari-pinned-tab.svg"), .color("#000000"))))
+    func testMaskIconLink() {
+        let html = HTML(.head(.link(
+            .rel(.maskIcon),
+            .href("safari-pinned-tab.svg"),
+            .color("#000000")
+        )))
+
         assertEqualHTMLContent(html, """
         <head><link rel="mask-icon" href="safari-pinned-tab.svg" color="#000000"/></head>
         """)
@@ -648,13 +646,10 @@ extension HTMLTests {
             ("testStaticViewport", testStaticViewport),
             ("testFavicon", testFavicon),
             ("testRSSFeedLink", testRSSFeedLink),
-            ("testLinkHrefLangEnglish", testLinkHrefLangEnglish),
-            ("testLinkHrefLangEnglishUS", testLinkHrefLangEnglish),
-            ("testLinkHrefLangXdefault", testLinkHrefLangXdefault),
-            ("testLinkSizes", testLinkSizes),
-            ("testLinkAppleTouchIcon", testLinkAppleTouchIcon),
-            ("testLinkManifest", testLinkManifest),
-            ("testLinkMaskIcon", testLinkMaskIcon),
+            ("testLinkWithHrefLang", testLinkWithHrefLang),
+            ("testAppleTouchIconLink", testAppleTouchIconLink),
+            ("testManifestLink", testManifestLink),
+            ("testMaskIconLink", testMaskIconLink),
             ("testBodyWithID", testBodyWithID),
             ("testBodyWithCSSClass", testBodyWithCSSClass),
             ("testOverridingBodyCSSClass", testOverridingBodyCSSClass),
