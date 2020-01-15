@@ -11,12 +11,15 @@ import Foundation
 /// to the resource that it's linking to.
 public enum HTMLLinkRelationship: String {
     case alternate
+    case appleTouchIcon = "apple-touch-icon"
     case author
     case canonical
     case dnsPrefetch = "dns-prefetch"
     case help
     case icon
     case license
+    case manifest
+    case maskIcon = "mask-icon"
     case next
     case pingback
     case preconnect
