@@ -471,11 +471,3 @@ public extension Node where Context: HTMLScriptableContext {
         .element(named: "script", nodes: nodes)
     }
 }
-
-public extension Node where Context == HTML.ScriptContext {
-    /// Add a `async` attribute within the current context.
-    static var async : Node {.attribute(named: "async", value: nil, ignoreIfValueIsEmpty: false)}
-    
-    /// Add a `defer` attribute within the current context.
-    static var `defer` : Node {.attribute(named: "defer", value: nil, ignoreIfValueIsEmpty: false)}
-}
