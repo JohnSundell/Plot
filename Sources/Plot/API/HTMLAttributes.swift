@@ -416,6 +416,20 @@ public extension Node where Context: HTMLIntegrityContext {
     }
 }
 
+// MARK: - Scripts
+
+public extension Node where Context == HTML.ScriptContext {
+    /// Assign that the element's script should be loaded in `async` mode.
+    static func async() -> Node {
+        .attribute(named: "async", value: nil, ignoreIfValueIsEmpty: false)
+    }
+    
+    /// Assign that the element's script should be loaded in `defer` mode.
+    static func `defer`() -> Node {
+        .attribute(named: "defer", value: nil, ignoreIfValueIsEmpty: false)
+    }
+}
+
 // MARK: - Other, element-specific attributes
 
 public extension Node where Context == HTML.AbbreviationContext {

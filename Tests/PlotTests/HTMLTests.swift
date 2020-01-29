@@ -482,12 +482,18 @@ final class HTMLTests: XCTestCase {
 
     func testJavaScript() {
         let html = HTML(
-            .head(.script(.src("file.js"))),
+            .head(
+                .script(.src("script.js")),
+                .script(.async(), .src("async.js")),
+                .script(.defer(), .src("deferred.js"))
+            ),
             .body(.script(#"console.log("Consider going JS-free :)")"#))
         )
 
         assertEqualHTMLContent(html, """
-        <head><script src="file.js"></script></head>\
+        <head><script src="script.js"></script>\
+        <script async src="async.js"></script>\
+        <script defer src="deferred.js"></script></head>\
         <body><script>console.log("Consider going JS-free :)")</script></body>
         """)
     }
