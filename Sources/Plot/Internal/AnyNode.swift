@@ -19,6 +19,8 @@ extension Node: AnyNode {
             renderer.addText(text)
         case .raw(let text):
             renderer.addRawText(text)
+        case .rawFile(let text, let encoding):
+            renderer.addRawFile(text, encoding: encoding)
         case .group(let nodes):
             nodes.forEach { $0.render(into: renderer) }
         case .empty:

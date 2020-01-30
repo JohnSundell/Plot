@@ -32,6 +32,11 @@ final class NodeTests: XCTestCase {
         let node = Node<Any>.raw("Hello & welcome to <Plot>!")
         XCTAssertEqual(node.render(), "Hello & welcome to <Plot>!")
     }
+    
+    func testRawFile() {
+        let node = Node<Any>.rawFile("TestResources/test.html", .utf8)
+        XCTAssertEqual(node.render(), #"<div class="foo" />"#)
+    }
 
     func testGroup() {
         let node = Node<Any>.group(.text("Hello"), .text("World"))

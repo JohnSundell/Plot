@@ -51,6 +51,13 @@ internal final class ElementRenderer {
     func addRawText(_ text: String) {
         body.append(text)
     }
+    
+    func addRawFile(_ path: String, encoding: String.Encoding) {
+        let fileURL = URL(fileURLWithPath: path)
+        do {
+            body.append(try String(contentsOf: fileURL, encoding: encoding))
+        } catch {}
+    }
 
     func render<C>(withClosingMode closingMode: Element<C>.ClosingMode) -> String {
         guard !elementName.isEmpty else { return body }

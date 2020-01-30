@@ -23,6 +23,8 @@ public enum Node<Context> {
     case text(String)
     /// A piece of raw text that will be rendered as-is.
     case raw(String)
+    /// An external file that will have its contents rendered.
+    case rawFile(String, String.Encoding)
     /// A group of nodes that should be rendered in sequence.
     case group([Node])
     /// An empty node, which won't be rendered.
@@ -135,6 +137,14 @@ extension Node: Renderable {
             return text.escaped()
         case .raw(let text):
             return text
+        case .rawFile(let path, let encoding):
+            let fileURL = URL(fileURLWithPath: path)
+            do {
+                let content = try String(contentsOf: fileURL, encoding: encoding)
+                return content
+            } catch {
+                return ""
+            }
         case .group(let nodes):
             return nodes.render(indentedBy: indentationKind)
         case .empty:
