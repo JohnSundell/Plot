@@ -71,6 +71,19 @@ final class NodeTests: XCTestCase {
 
         XCTAssertEqual(node.render(), #"<custom key="value"/>"#)
     }
+    
+    func testNodeCanBeCreatedUsingStringValue() {
+        let node = Node<Any>("Hello World")
+        
+        XCTAssertEqual(node.render(), "Hello World")
+    }
+    
+    func testNodeCanBeCreatedUsingStringVariable() {
+        let text = "Hello World"
+        let node = Node<Any>(text)
+        
+        XCTAssertEqual(node.render(), "Hello World")
+    }
 }
 
 extension NodeTests {
@@ -86,7 +99,9 @@ extension NodeTests {
             ("testCustomAttribute", testCustomAttribute),
             ("testCustomElementWithCustomAttribute", testCustomElementWithCustomAttribute),
             ("testCustomElementWithCustomAttributeWithSpecificContext", testCustomElementWithCustomAttributeWithSpecificContext),
-            ("testCustomSelfClosedElementWithCustomAttribute", testCustomSelfClosedElementWithCustomAttribute)
+            ("testCustomSelfClosedElementWithCustomAttribute", testCustomSelfClosedElementWithCustomAttribute),
+            ("testNodeCanBeCreatedUsingStringValue", testNodeCanBeCreatedUsingStringValue),
+            ("testNodeCanBeCreatedUsingStringVariable", testNodeCanBeCreatedUsingStringVariable)
         ]
     }
 }
