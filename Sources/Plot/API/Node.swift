@@ -59,14 +59,14 @@ public extension Node {
 
     /// Create a custom element with a given name and an array of attributes.
     /// - parameter name: The name of the element to create.
-    /// - parameter nodes: The attributes to add to the element.
+    /// - parameter attributes: The attributes to add to the element.
     static func element<C>(named name: String, attributes: [Attribute<C>]) -> Node {
         .element(Element(name: name, nodes: attributes.asNodes()))
     }
 
     /// Create a custom element with a given name and an array of attributes.
     /// - parameter name: The name of the element to create.
-    /// - parameter nodes: The attributes to add to the element.
+    /// - parameter attributes: The attributes to add to the element.
     static func element(named name: String, attributes: [Attribute<Context>]) -> Node {
         .element(Element(name: name, nodes: attributes.asNodes()))
     }
@@ -79,14 +79,14 @@ public extension Node {
 
     /// Create a custom self-closed element with a given name and an array of attributes.
     /// - parameter name: The name of the element to create.
-    /// - parameter nodes: The attributes to add to the element.
+    /// - parameter attributes: The attributes to add to the element.
     static func selfClosedElement<C>(named name: String, attributes: [Attribute<C>]) -> Node {
         .element(Element(name: name, closingMode: .selfClosing, nodes: attributes.asNodes()))
     }
 
     /// Create a custom self-closed element with a given name and an array of attributes.
     /// - parameter name: The name of the element to create.
-    /// - parameter nodes: The attributes to add to the element.
+    /// - parameter attributes: The attributes to add to the element.
     static func selfClosedElement(named name: String, attributes: [Attribute<Context>]) -> Node {
         .element(Element(name: name, closingMode: .selfClosing, nodes: attributes.asNodes()))
     }
