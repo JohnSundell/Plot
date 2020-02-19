@@ -26,11 +26,11 @@ public extension Node {
     /// be created.
     /// - parameter optional: The optional value to unwrap.
     /// - parameter transform: The closure to use to transform the value into a node.
-    /// - parameter isNil: The closure to use when the value is nil.
+    /// - parameter default: The closure to use when the value is nil.
     static func unwrap<T>(_ optional: T?,
                           _ transform: (T) throws -> Node,
-                          _ isNil: () -> Node = { .empty }) rethrows -> Node {
-        try optional.map(transform) ?? isNil()
+                          _ default: () -> Node = { .empty }) rethrows -> Node {
+        try optional.map(transform) ?? default()
     }
 
     /// Transform any sequence of values into a group of nodes, by applying a
@@ -49,10 +49,10 @@ public extension Attribute {
     /// be created.
     /// - parameter optional: The optional value to unwrap.
     /// - parameter transform: The closure to use to transform the value into an attribute.
-    /// - parameter isNil: The closure to use when the value is nil.
+    /// - parameter default: The closure to use when the value is nil.
     static func unwrap<T>(_ optional: T?,
                           _ transform: (T) throws -> Self,
-                          _ isNil: () -> Self = { .empty }) rethrows -> Self {
-        try optional.map(transform) ?? isNil()
+                          _ default: () -> Self = { .empty }) rethrows -> Self {
+        try optional.map(transform) ?? default()
     }
 }
