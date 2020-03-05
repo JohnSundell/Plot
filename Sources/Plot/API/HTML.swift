@@ -42,7 +42,7 @@ public extension HTML {
     /// The context within an HTML document's `<head>` element.
     enum HeadContext: HTMLContext, HTMLScriptableContext {}
     /// The context within an HTML document's `<body>` element.
-    class BodyContext: HTMLStylableContext, HTMLScriptableContext {}
+    class BodyContext: HTMLStylableContext, HTMLScriptableContext, HTMLImageContainerContext {}
     /// The context within an HTML `<abbr>` element.
     final class AbbreviationContext: BodyContext {}
     /// The context within an HTML `<a>` element.
@@ -85,6 +85,12 @@ public extension HTML {
     enum MetaContext: HTMLNamableContext {}
     /// The context within an HTML `<option>` element.
     enum OptionContext: HTMLValueContext {}
+    /// The context within an HTML `<picture>` element.
+    enum PictureContext: HTMLSourceListContext, HTMLImageContainerContext {
+        public typealias SourceContext = PictureSourceContext
+    }
+    /// The context within a picture `<source>` element.
+    enum PictureSourceContext {}
     /// The context within an HTML `<script>` element.
     enum ScriptContext: HTMLSourceContext, HTMLIntegrityContext {}
     /// The context within an HTML `<select>` element.
@@ -106,15 +112,14 @@ public protocol HTMLContext {}
 /// Context shared among all HTML elements that can have their dimensions
 /// (width and height) specified through attributes, such as `<video>`.
 public protocol HTMLDimensionContext: HTMLContext {}
+/// Context shared among all HTML elements that can contain an `<img>` element.
+public protocol HTMLImageContainerContext: HTMLContext {}
 /// Context shared among all HTML elements that act as some form
 /// of link to an external resource, such as `<link>` or `<a>`.
 public protocol HTMLLinkableContext: HTMLContext {}
 /// Context shared among all HTML elements that enable media playback,
 /// such as `<audio>` and `<video>`.
-public protocol HTMLMediaContext: HTMLContext {
-    /// The context within the media element's `<source>` element.
-    associatedtype SourceContext: HTMLSourceContext
-}
+public protocol HTMLMediaContext: HTMLSourceListContext {}
 /// Context shared among all HTML elements that support the `integrity`
 /// attribute, such as `<link>` and `<script>`
 public protocol HTMLIntegrityContext: HTMLContext {}
@@ -130,6 +135,12 @@ public protocol HTMLScriptableContext: HTMLContext {}
 /// Context shared among all HTML elements that support the `src`
 /// attribute, for example `<img>` and `<iframe>`.
 public protocol HTMLSourceContext: HTMLContext {}
+/// Context shared among all HTML elements that can act as containers
+/// for a list of `<source>` elements.
+public protocol HTMLSourceListContext: HTMLContext {
+    /// The context within the element's `<source>` child elements.
+    associatedtype SourceContext
+}
 /// Context shared among all HTML elements that can be styled using
 /// inline CSS through the `style` attribute.
 public protocol HTMLStylableContext: HTMLContext {}
