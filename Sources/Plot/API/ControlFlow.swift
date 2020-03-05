@@ -29,8 +29,8 @@ public extension Node {
     /// - parameter defaultValue: The closure to use when the value is nil.
     static func unwrap<T>(_ optional: T?,
                           _ transform: (T) throws -> Node,
-                          _ defaultValue: () -> Node = { .empty }) rethrows -> Node {
-        try optional.map(transform) ?? defaultValue()
+                          else defaultValue: Node? = .empty ) rethrows -> Node {
+        try optional.map(transform) ?? defaultValue ?? .empty
     }
 
     /// Transform any sequence of values into a group of nodes, by applying a
@@ -52,7 +52,7 @@ public extension Attribute {
     /// - parameter defaultValue: The closure to use when the value is nil.
     static func unwrap<T>(_ optional: T?,
                           _ transform: (T) throws -> Self,
-                          _ defaultValue: () -> Self = { .empty }) rethrows -> Self {
-        try optional.map(transform) ?? defaultValue()
+                          else defaultValue: Self? = .empty ) rethrows -> Self {
+        try optional.map(transform) ?? defaultValue ?? .empty
     }
 }
