@@ -253,12 +253,6 @@ public extension Node where Context: HTML.BodyContext {
         .element(named: "iframe", attributes: attributes)
     }
 
-    /// Add an `<img/>` HTML element within the current context.
-    /// - parameter attributes: The element's attributes.
-    static func img(_ attributes: Attribute<HTML.ImageContext>...) -> Node {
-        .selfClosedElement(named: "img", attributes: attributes)
-    }
-
     /// Add an `<ins>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
     static func ins(_ nodes: Node<HTML.BodyContext>...) -> Node {
@@ -299,6 +293,12 @@ public extension Node where Context: HTML.BodyContext {
     /// - parameter nodes: The element's attributes and child elements.
     static func p(_ nodes: Node<HTML.BodyContext>...) -> Node {
         .element(named: "p", nodes: nodes)
+    }
+
+    /// Add a `<picture>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func picture(_ nodes: Node<HTML.PictureContext>...) -> Node {
+        .element(named: "picture", nodes: nodes)
     }
 
     /// Add a `<pre>` HTML element within the current context.
@@ -424,6 +424,24 @@ public extension Node where Context == HTML.TableRowContext {
     }
 }
 
+// MARK: - Media
+
+public extension Node where Context: HTMLImageContainerContext {
+    /// Add an `<img/>` HTML element within the current context.
+    /// - parameter attributes: The element's attributes.
+    static func img(_ attributes: Attribute<HTML.ImageContext>...) -> Node {
+        .selfClosedElement(named: "img", attributes: attributes)
+    }
+}
+
+public extension Node where Context: HTMLSourceListContext {
+    /// Add a `<source/>` HTML element within the current context.
+    /// - parameter attributes: The element's attributes.
+    static func source(_ attributes: Attribute<Context.SourceContext>...) -> Node {
+        .selfClosedElement(named: "source", attributes: attributes)
+    }
+}
+
 // MARK: - Forms
 
 public extension Node where Context == HTML.FormContext {
@@ -447,14 +465,6 @@ public extension Node where Context == HTML.FormContext {
 }
 
 // MARK: - Other
-
-public extension Node where Context: HTMLMediaContext {
-    /// Add a `<source/>` HTML element within the current context.
-    /// - parameter attributes: The element's attributes.
-    static func source(_ attributes: Attribute<Context.SourceContext>...) -> Node {
-        .selfClosedElement(named: "source", attributes: attributes)
-    }
-}
 
 public extension Node where Context == HTML.DetailsContext {
     /// Add a `<summary>` HTML element within the current context.

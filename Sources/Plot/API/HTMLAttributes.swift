@@ -203,6 +203,20 @@ public extension Attribute where Context == HTML.VideoSourceContext {
     }
 }
 
+public extension Attribute where Context == HTML.PictureSourceContext {
+    /// Assign a string describing a set of sources, using the `srcset` attribute.
+    /// - parameter set: The set of sources that this element should point to.
+    static func srcset(_ set: String) -> Attribute {
+        Attribute(name: "srcset", value: set)
+    }
+
+    /// Assign a media query that determines whether this source should be used.
+    /// - parameter query: The media query that the browser should evaluate.
+    static func media(_ query: String) -> Attribute {
+        Attribute(name: "media", value: query)
+    }
+}
+
 // MARK: - Forms, input and options
 
 public extension Node where Context == HTML.FormContext {

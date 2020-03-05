@@ -632,6 +632,23 @@ final class HTMLTests: XCTestCase {
         let html = HTML(.comment("Hello"), .body(.comment("World")))
         assertEqualHTMLContent(html, "<!--Hello--><body><!--World--></body>")
     }
+
+    func testPicture() {
+        let html = HTML(.body(.picture(
+            .source(
+                .srcset("dark.jpg"),
+                .media("(prefers-color-scheme: dark)")
+            ),
+            .img(.src("default.jpg"))
+        )))
+
+        assertEqualHTMLContent(html, """
+        <body><picture>\
+        <source srcset="dark.jpg" media="(prefers-color-scheme: dark)"/>\
+        <img src="default.jpg"/>\
+        </picture></body>
+        """)
+    }
 }
 
 extension HTMLTests {
@@ -695,7 +712,8 @@ extension HTMLTests {
             ("testAccessibilityExpanded", testAccessibilityExpanded),
             ("testDataAttributes", testDataAttributes),
             ("testSubresourceIntegrity", testSubresourceIntegrity),
-            ("testComments", testComments)
+            ("testComments", testComments),
+            ("testPicture", testPicture)
         ]
     }
 }
