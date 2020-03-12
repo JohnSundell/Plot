@@ -122,7 +122,8 @@ public extension Node {
         .group(members)
     }
     
-    /// Appends text to the attribute's value, separated by a space by default.
+    /// Appends text to the value, separated by a space by default. Only available on Nodes
+    /// of type `.attribute`, `.text`, and `.raw`.
     /// - parameter additionalValue: The value to append to the existing value.
     /// - parameter separator: The separator used between the new and existing value,
     /// defaults to a space if not specified.
