@@ -27,6 +27,14 @@ public struct Attribute<Context> {
         self.value = value
         self.ignoreIfValueIsEmpty = ignoreIfValueIsEmpty
     }
+    
+    /// Appends text to the attribute's value, separated by a space by default.
+    /// - parameter additionalValue: The value to append to the existing value.
+    /// - parameter separator: The separator used between the new and existing value,
+    /// defaults to a space if not specified.
+    public mutating func append(_ additionalValue: String, separator: String = " ") {
+        value?.append(separator + additionalValue)
+    }
 }
 
 public extension Attribute {

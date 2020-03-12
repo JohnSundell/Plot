@@ -189,6 +189,11 @@ final class HTMLTests: XCTestCase {
         let html = HTML(.body(.class("a"), .class("b")))
         assertEqualHTMLContent(html, #"<body class="b"></body>"#)
     }
+    
+    func testAppendingBodyCSSClass() {
+        let html = HTML(.body(Node.class("a").append("b")))
+        assertEqualHTMLContent(html, #"<body class="a b"></body>"#)
+    }
 
     func testUnorderedList() {
         let html = HTML(.body(.ul(.li("Text"))))
@@ -676,6 +681,7 @@ extension HTMLTests {
             ("testBodyWithID", testBodyWithID),
             ("testBodyWithCSSClass", testBodyWithCSSClass),
             ("testOverridingBodyCSSClass", testOverridingBodyCSSClass),
+            ("testAppendingBodyCSSClass", testAppendingBodyCSSClass),
             ("testUnorderedList", testUnorderedList),
             ("testOrderedList", testOrderedList),
             ("testDescriptionList", testDescriptionList),

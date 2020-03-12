@@ -121,6 +121,26 @@ public extension Node {
     static func group(_ members: Node...) -> Node {
         .group(members)
     }
+    
+    /// Appends text to the attribute's value, separated by a space by default.
+    /// - parameter additionalValue: The value to append to the existing value.
+    /// - parameter separator: The separator used between the new and existing value,
+    /// defaults to a space if not specified.
+    func append(_ additionalValue: String, separator: String = " ") -> Node {
+        switch self {
+        case var .attribute(attribute):
+            attribute.append(additionalValue, separator: separator)
+            return .attribute(attribute)
+        case var .text(text):
+            text.append(separator + additionalValue)
+            return .text(text)
+        case var .raw(text):
+            text.append(separator + additionalValue)
+            return .raw(text)
+        default:
+            return self
+        }
+    }
 }
 
 extension Node: Renderable {
