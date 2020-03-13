@@ -30,7 +30,7 @@ public extension Node {
     ///   the passed `optional` is `nil`.
     static func unwrap<T>(_ optional: T?,
                           _ transform: (T) throws -> Node,
-                          else fallbackNode: Node = .empty ) rethrows -> Node {
+                          else fallbackNode: Node = .empty) rethrows -> Node {
         try optional.map(transform) ?? fallbackNode
     }
 
