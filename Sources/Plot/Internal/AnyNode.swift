@@ -13,8 +13,8 @@ extension Node: AnyNode {
         switch self {
         case .element(let element):
             renderer.addElement(element)
-        case .attribute(let attribute):
-            renderer.addAttribute(attribute)
+        case .attribute(let attribute, let separator):
+            renderer.addAttribute(attribute, separator: separator ?? " ")
         case .text(let text):
             renderer.addText(text)
         case .raw(let text):

@@ -191,7 +191,7 @@ final class HTMLTests: XCTestCase {
     }
     
     func testAppendingBodyCSSClass() {
-        let html = HTML(.body(Node.class("a").append("b")))
+        let html = HTML(.body(.class("a"), .append(.class("b"))))
         assertEqualHTMLContent(html, #"<body class="a b"></body>"#)
     }
 

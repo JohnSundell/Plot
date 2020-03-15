@@ -15,6 +15,8 @@ public struct Attribute<Context> {
     public var name: String
     /// The attribute's value
     public var value: String?
+    /// Whether the attribute should be appended to an existing attribute if found
+    public var shouldAppend: Bool
     /// Whether the attribute should be completely ignored if it has no value
     public var ignoreIfValueIsEmpty: Bool
 
@@ -22,18 +24,12 @@ public struct Attribute<Context> {
     /// opt out of ignoring the attribute if its value is empty.
     public init(name: String,
                 value: String?,
+                shouldAppend: Bool = false,
                 ignoreIfValueIsEmpty: Bool = true) {
         self.name = name
         self.value = value
+        self.shouldAppend = shouldAppend
         self.ignoreIfValueIsEmpty = ignoreIfValueIsEmpty
-    }
-    
-    /// Appends text to the attribute's value, separated by a space by default.
-    /// - parameter additionalValue: The value to append to the existing value.
-    /// - parameter separator: The separator used between the new and existing value,
-    /// defaults to a space if not specified.
-    public mutating func append(_ additionalValue: String, separator: String = " ") {
-        value?.append(separator + additionalValue)
     }
 }
 
@@ -59,8 +55,18 @@ internal extension Attribute where Context == Any {
     }
 }
 
+internal extension Attribute {
+    /// Appends text to the attribute's value, separated by a space by default.
+    /// - parameter additionalValue: The value to append to the existing value.
+    /// - parameter separator: The separator to use between the new and existing values.
+    mutating func append(_ additionalValue: String, separator: String) {
+        value?.append(separator + additionalValue)
+    }
+}
+
 internal protocol AnyAttribute {
     var name: String { get }
+    var value: String? { get }
     func render() -> String
 }
 

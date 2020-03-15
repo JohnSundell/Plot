@@ -32,16 +32,27 @@ internal final class ElementRenderer {
         containsChildElements = true
     }
 
-    func addAttribute<C>(_ attribute: Attribute<C>) {
+    func addAttribute<C>(_ attribute: Attribute<C>, separator: String) {
         guard !attribute.name.isEmpty else { return }
 
         if let index = attributeIndexes[attribute.name] {
-            attributes[index] = attribute
+            if attribute.shouldAppend, let value = attribute.value {
+                appendValueToAttribute(at: index, value: value, context: C.self, separator: separator)
+            } else {
+                attributes[index] = attribute
+            }
             return
         }
 
         attributes.append(attribute)
         attributeIndexes[attribute.name] = attributes.count - 1
+    }
+    
+    private func appendValueToAttribute<C>(at index: Int, value: String, context: C, separator: String) {
+        let existingAttribute = attributes[index]
+        var newAttribute = Attribute<C>(name: existingAttribute.name, value: existingAttribute.value)
+        newAttribute.append(value, separator: separator)
+        attributes[index] = newAttribute
     }
 
     func addText(_ text: String) {

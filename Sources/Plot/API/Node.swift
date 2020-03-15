@@ -18,7 +18,7 @@ public enum Node<Context> {
     /// An element, which can potentially have children.
     case element(Element<Context>)
     /// An attribute attached to an element.
-    case attribute(Attribute<Context>)
+    case attribute(Attribute<Context>, separator: String? = nil)
     /// A piece of free-form text that should be escaped.
     case text(String)
     /// A piece of raw text that will be rendered as-is.
@@ -115,32 +115,21 @@ public extension Node {
             ignoreIfValueIsEmpty: ignoreIfValueIsEmpty
         ))
     }
+    
+    /// Appends a value to a previously added attribute.
+    /// - parameter attribute: The attribute to append.
+    /// - parameter separator: The separator to use between the new and existing values,
+    ///   defaults to a space if not specified.
+    static func append(_ attribute: Attribute<Context>, separator: String = " ") -> Node {
+        var attribute = attribute
+        attribute.shouldAppend = true
+        return .attribute(attribute, separator: separator)
+    }
 
     /// Create a group of nodes using variadic parameter syntax.
     /// - parameter members: The nodes that should be included in the group.
     static func group(_ members: Node...) -> Node {
         .group(members)
-    }
-    
-    /// Appends text to the value, separated by a space by default. Only available on Nodes
-    /// of type `.attribute`, `.text`, and `.raw`.
-    /// - parameter additionalValue: The value to append to the existing value.
-    /// - parameter separator: The separator used between the new and existing value,
-    /// defaults to a space if not specified.
-    func append(_ additionalValue: String, separator: String = " ") -> Node {
-        switch self {
-        case var .attribute(attribute):
-            attribute.append(additionalValue, separator: separator)
-            return .attribute(attribute)
-        case var .text(text):
-            text.append(separator + additionalValue)
-            return .text(text)
-        case var .raw(text):
-            text.append(separator + additionalValue)
-            return .raw(text)
-        default:
-            return self
-        }
     }
 }
 
@@ -150,7 +139,7 @@ extension Node: Renderable {
         case .element(let element):
             let indentation = indentationKind.map(Indentation.init)
             return element.render(indentedBy: indentation)
-        case .attribute(let attribute):
+        case .attribute(let attribute, _):
             return attribute.render()
         case .text(let text):
             return text.escaped()
