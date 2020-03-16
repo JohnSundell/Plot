@@ -242,7 +242,7 @@ public extension Node where Context == HTML.FormContext {
     /// Adds the `novalidate` attribute to the form, which
     /// prevents native browser validation on the form.
     /// - Parameter method: The HTTP request method to use.
-    static func novalidate(_ isOn: Bool) -> Attribute {
+    static func novalidate(_ isOn: Bool = true) -> Node {
         isOn ? .attribute(named: "novalidate") : .empty
     }
 }
