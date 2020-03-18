@@ -410,6 +410,13 @@ public extension Node where Context: HTML.BodyContext {
     static func ariaExpanded(_ isExpanded: Bool) -> Node {
         .attribute(named: "aria-expanded", value: isExpanded ? "true" : "false")
     }
+    
+    /// Assign an accessibility attribute to an element,
+    /// which removes an element from the accessibility tree
+    /// - parameter isHidden: Whether the element is hidden or not
+    static func ariaHidden(_ isHidden: Bool) -> Node {
+        .attribute(named: "aria-hidden", value: isHidden ? "true" : "false")
+    }
 }
 
 // MARK: - Subresource Integrity
