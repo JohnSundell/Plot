@@ -601,6 +601,11 @@ final class HTMLTests: XCTestCase {
         let html = HTML(.body(.a(.ariaExpanded(true))))
         assertEqualHTMLContent(html, #"<body><a aria-expanded="true"></a></body>"#)
     }
+    
+    func testAccessibilityHidden() {
+        let html = HTML(.body(.a(.ariaHidden(true))))
+        assertEqualHTMLContent(html, #"<body><a aria-hidden="true"></a></body>"#)
+    }
 
     func testDataAttributes() {
         let html = HTML(.body(
@@ -710,6 +715,7 @@ extension HTMLTests {
             ("testAccessibilityLabel", testAccessibilityLabel),
             ("testAccessibilityControls", testAccessibilityControls),
             ("testAccessibilityExpanded", testAccessibilityExpanded),
+            ("testAccessibilityHidden", testAccessibilityHidden),
             ("testDataAttributes", testDataAttributes),
             ("testSubresourceIntegrity", testSubresourceIntegrity),
             ("testComments", testComments),
