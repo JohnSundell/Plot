@@ -238,6 +238,13 @@ public extension Node where Context == HTML.FormContext {
     static func method(_ method: HTMLFormMethod) -> Node {
         .attribute(named: "method", value: method.rawValue)
     }
+    
+    /// Assign a target to the form, specifying where the response
+    /// received after submitting the form should be displayed.
+    /// - parameter target: The target to assign. See `HTMLAnchorTarget`.
+    static func target(_ target: HTMLAnchorTarget) -> Node {
+        .attribute(named: "target", value: target.rawValue)
+    }
 }
 
 public extension Node where Context == HTML.LabelContext {
