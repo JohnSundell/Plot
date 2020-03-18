@@ -254,6 +254,12 @@ public extension Attribute where Context == HTML.InputContext {
     static func type(_ type: HTMLInputType) -> Attribute {
         Attribute(name: "type", value: type.rawValue)
     }
+    
+    /// Assigns a placeholder to the input field.
+    /// - parameter placeholder: The placeholder to assign.
+    static func placeholder(_ placeholder: String) -> Attribute {
+        Attribute(name: "placeholder", value: placeholder)
+    }
 
     /// Assign whether the element should have autocomplete turned on or off.
     /// - parameter isOn: Whether autocomplete should be turned on.
