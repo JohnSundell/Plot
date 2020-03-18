@@ -199,6 +199,20 @@ let html = HTML(.body(
 ))
 ```
 
+It's sometimes also necessary to display other content when a optional is `nil`, fortunately `.unwrap()` has a easy to use fallback mechanism:
+
+```swift
+let user: User? = loadUser()
+
+let html = HTML(.body(
+    .unwrap(user) ({
+        .p("Hello, \($0.name)")
+    }, 
+    else: .text("Please log in")
+    )
+))
+```
+
 Finally, the `.forEach()` command can be used to transform any Swift `Sequence` into a group of nodes, which is incredibly useful when constructing lists:
 
 ```swift
