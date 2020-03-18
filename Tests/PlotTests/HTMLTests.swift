@@ -334,7 +334,7 @@ final class HTMLTests: XCTestCase {
     func testFormNoValidate() {
         let html = HTML(.body(
             .form(.novalidate())
-            ))
+        ))
         
         assertEqualHTMLContent(html, """
         <body>\
