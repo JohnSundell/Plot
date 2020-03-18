@@ -331,6 +331,18 @@ final class HTMLTests: XCTestCase {
         """)
     }
     
+    func testFormNoValidate() {
+        let html = HTML(.body(
+            .form(.novalidate())
+        ))
+        
+        assertEqualHTMLContent(html, """
+        <body>\
+        <form novalidate></form>\
+        </body>
+        """)
+    }
+    
     func testHeadings() {
         let html = HTML(.body(
             .h1("One"),
@@ -691,6 +703,7 @@ extension HTMLTests {
             ("testForm", testForm),
             ("testFormContentType", testFormContentType),
             ("testFormMethod", testFormMethod),
+            ("testFormNoValidate", testFormNoValidate),
             ("testHeadings", testHeadings),
             ("testParagraph", testParagraph),
             ("testImage", testImage),

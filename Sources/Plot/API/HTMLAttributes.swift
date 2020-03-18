@@ -238,6 +238,13 @@ public extension Node where Context == HTML.FormContext {
     static func method(_ method: HTMLFormMethod) -> Node {
         .attribute(named: "method", value: method.rawValue)
     }
+    
+    /// Add the `novalidate` attribute to the form, which
+    /// disables any native browser validation on the form.
+    /// - parameter isOn: Whether validation should be disabled.
+    static func novalidate(_ isOn: Bool = true) -> Node {
+        isOn ? .attribute(named: "novalidate") : .empty
+    }
 }
 
 public extension Node where Context == HTML.LabelContext {
