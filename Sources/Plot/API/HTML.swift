@@ -83,6 +83,8 @@ public extension HTML {
     enum ListContext: HTMLStylableContext {}
     /// The context within an HTML `<meta>` element.
     enum MetaContext: HTMLNamableContext {}
+    /// The contect within an HTM `<object>` element.
+    enum ObjectContext: HTMLDimensionContext, HTMLLinkableDataContext, HTMLTypeContext  {}
     /// The context within an HTML `<option>` element.
     enum OptionContext: HTMLValueContext {}
     /// The context within an HTML `<picture>` element.
@@ -117,6 +119,9 @@ public protocol HTMLImageContainerContext: HTMLContext {}
 /// Context shared among all HTML elements that act as some form
 /// of link to an external resource, such as `<link>` or `<a>`.
 public protocol HTMLLinkableContext: HTMLContext {}
+/// Context shared among all HTML elements that support the `data` (URL)
+/// attribute, such as `<object>.`
+public protocol HTMLLinkableDataContext: HTMLContext {}
 /// Context shared among all HTML elements that enable media playback,
 /// such as `<audio>` and `<video>`.
 public protocol HTMLMediaContext: HTMLSourceListContext {}

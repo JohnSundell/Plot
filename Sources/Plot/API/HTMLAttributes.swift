@@ -179,6 +179,22 @@ public extension Node where Context: HTMLSourceContext {
     }
 }
 
+public extension Attribute where Context: HTMLLinkableDataContext {
+    /// Assign an external resource to the element, using its `data` attribute.
+    /// - parameter url: The data URL to assign.
+    static func data(_ url: URLRepresentable) -> Attribute {
+        Attribute(name: "data", value: url.string)
+    }
+}
+
+public extension Node where Context: HTMLLinkableDataContext {
+    /// Assign an external resource to the element, using its `data` attribute.
+    /// - parameter url: The data URL to assign.
+    static func data(_ url: URLRepresentable) -> Node {
+        .attribute(named: "data", value: url.string)
+    }
+}
+
 public extension Node where Context: HTMLMediaContext {
     /// Assign whether the element's media controls should be enabled.
     /// - parameter enableControls: Whether controls should be shown.
