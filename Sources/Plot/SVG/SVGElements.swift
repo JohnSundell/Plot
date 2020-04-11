@@ -22,6 +22,10 @@ public extension Node where Context : SVGStructuralElementContext {
     static func g(_ nodes: Node<SVGDoc.GContext>...) -> Node {
         .element(named: "svg:g", nodes: nodes)
     }
+    
+    static func svg(_ nodes: Node<SVGDoc.SVGContext>...) -> Node {
+           .element(named: "svg:svg", nodes: nodes)
+       }
 
     static func path(_ nodes: Node<SVGDoc.PathContext>...) -> Node {
         .element(named: "svg:path", nodes: nodes)

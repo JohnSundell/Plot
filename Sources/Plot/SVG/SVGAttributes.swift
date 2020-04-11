@@ -62,34 +62,25 @@ public extension Node where Context == SVGDoc.PathContext {
 
 
 public extension Node where Context : SVGSizableContext {
+    
     /// https://www.w3.org/TR/SVG2/geometry.html#X
-    static func x(_ value: Double) -> Node {
+    static func x(_ value: SVGLengthQuantity) -> Node {
         return .attribute(named: "x", value: value.asString())
     }
     
-    /// https://www.w3.org/TR/SVG2/geometry.html#X
-    static func x(_ length: SVGLength) -> Node {
-        return .attribute(named: "x", value: length.value.asString() + length.unit.rawValue)
-    }
-    
     /// https://www.w3.org/TR/SVG2/geometry.html#Y
-    static func y(_ value: Double) -> Node {
+    static func y(_ value: SVGLengthQuantity) -> Node {
         return .attribute(named: "y", value: value.asString())
     }
     
     /// https://www.w3.org/TR/SVG2/geometry.html#Y
-    static func y(_ length: SVGLength) -> Node {
-        return .attribute(named: "y", value: length.value.asString() + length.unit.rawValue)
-    }
-    
-    /// https://www.w3.org/TR/SVG2/geometry.html#Y
-    static func width(_ value: Double) -> Node {
+    static func width(_ value: SVGLengthQuantity) -> Node {
         return .attribute(named: "width", value: value.asString())
     }
     
     /// https://www.w3.org/TR/SVG2/geometry.html#Y
-    static func width(_ length: SVGLength) -> Node {
-        return .attribute(named: "width", value: length.value.asString() + length.unit.rawValue)
+    static func height(_ value: SVGLengthQuantity) -> Node {
+        return .attribute(named: "height", value: value.asString())
     }
     
 }

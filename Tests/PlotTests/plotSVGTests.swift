@@ -7,7 +7,7 @@ final class PlotSVGTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         
-        var length: SVGLength = 10.0
+        var length: SVGLengthQuantity = 10.0
         XCTAssertEqual(length.unit, .none)
         XCTAssertEqual(length.value, 10.0)
         
@@ -23,7 +23,7 @@ final class PlotSVGTests: XCTestCase {
         XCTAssertEqual(length.unit, .pixels)
         XCTAssertEqual(length.value, 15.3)
         
-        let test1 = SVGDoc(.viewport("0 0 100 100"),.g(.g(.g(),.path())))
+        let test1 = SVGDoc(.viewport("0 0 100 100"),.g(.svg(.x(10), .y("10em"), .width("2.5px"),.height("19.4"), .g(),.path())))
         print(test1.render())
     }
 }

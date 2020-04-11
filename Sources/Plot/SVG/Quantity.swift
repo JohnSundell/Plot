@@ -7,32 +7,27 @@
 
 import Foundation
 
-
-public enum LengthUnits : String, CaseIterable {
-    case none = ""
-    case percent = "%"
-    case pixels = "px"
-    case inches = "In"
-    case centimeters = "cm"
-    case millimeters = "mm"
-    case points = "pt"
-    case picas = "pc"
-    case fontSize = "em"
-    case fontSmallCapSize = "ex"
-    case fontCharacterUnitSize = "ch"
-    case fontRootSize = "rem"
+public protocol QuantityUnits : CaseIterable {
+    var rawValue: String {get}
 }
 
-public struct SVGLength {
+
+public struct Quantity<Units : QuantityUnits> {
     public let value: Double
-    public let unit: LengthUnits
-    init (value: Double, unit: LengthUnits = .none) {
+    public let unit: Units?
+    init (value: Double, unit: Units? = nil) {
         self.value = value
         self.unit = unit
     }
+    func asString(decimals: Int = 2) -> String {
+        if let u = unit {
+            return value.asString(decimals: decimals) + u.rawValue
+        }
+        return value.asString(decimals: decimals)
+    }
 }
 
-extension SVGLength : ExpressibleByFloatLiteral {
+extension Quantity : ExpressibleByFloatLiteral {
     public typealias FloatLiteralType = Double
     
     public init(floatLiteral value: Double) {
@@ -40,18 +35,18 @@ extension SVGLength : ExpressibleByFloatLiteral {
     }
 }
 
-extension SVGLength : ExpressibleByIntegerLiteral {
+extension Quantity : ExpressibleByIntegerLiteral {
     public typealias IntegerLiteralType = Int
     public init(integerLiteral value: Self.IntegerLiteralType) {
         self.init(value: Double(value))
     }
 }
 
-extension SVGLength : ExpressibleByStringLiteral {
+extension Quantity : ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     
     public init(stringLiteral value: Self.StringLiteralType) {
-        for unit in LengthUnits.allCases {
+        for unit in Units.allCases {
             switch value.hasEnding(unit.rawValue) {
             case .no: continue
             case .remaining(let number):
@@ -68,6 +63,6 @@ extension SVGLength : ExpressibleByStringLiteral {
         assert(false)
         self.init(value: 0)
     }
-    
 }
+
 

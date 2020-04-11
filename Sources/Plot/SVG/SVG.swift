@@ -42,6 +42,22 @@ extension SVGDoc: Renderable {
 //public protocol IItemContext {}
 
 
+public enum SVGLengthUnits : String, QuantityUnits {
+    case percent = "%"
+    case pixels = "px"
+    case inches = "In"
+    case centimeters = "cm"
+    case millimeters = "mm"
+    case points = "pt"
+    case picas = "pc"
+    case fontSize = "em"
+    case fontSmallCapSize = "ex"
+    case fontCharacterUnitSize = "ch"
+    case fontRootSize = "rem"
+}
+
+public typealias SVGLengthQuantity = Quantity<SVGLengthUnits>
+
 public extension SVGDoc {
     
 //    enum RootContext: XMLRootContext {}
