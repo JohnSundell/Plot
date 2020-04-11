@@ -88,7 +88,7 @@ public extension Node where Context == HTML.HeadContext {
     /// - parameter initialScale: The initial scale that the page should use.
     static func viewport(_ widthMode: HTMLViewportWidthMode,
                          initialScale: Double = 1,
-                         viewportFitMode: HTMLViewportFitMode? = nil) -> Node {
+                         viewportFit: HTMLViewportFitMode? = nil) -> Node {
         var content = "width=\(widthMode.string), initial-scale=\(initialScale)"
         if let viewportFitMode = viewportFitMode {
             content += ", viewport-fit=\(viewportFitMode.rawValue)"
