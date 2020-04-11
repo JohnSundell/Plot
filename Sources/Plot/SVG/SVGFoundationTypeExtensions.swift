@@ -27,3 +27,20 @@ extension NSPoint {
         return "\(x.asString()) \(newY.asString())"
     }
 }
+
+enum HasEndingResult {
+    case no
+    case remaining(String)
+}
+extension String {
+    func hasEnding(_ ending: String) -> HasEndingResult {
+        if let range = self.range(of: ending) {
+            return .remaining(String(self.prefix(upTo: range.lowerBound)).trim())
+        }
+        return .no
+    }
+    
+    func trim() -> String {
+        return self.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+    }
+}

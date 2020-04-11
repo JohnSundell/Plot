@@ -16,6 +16,7 @@ public func allTests() -> [Linux.TestCase] {
         Linux.makeTestCase(using: PodcastFeedTests.allTests),
         Linux.makeTestCase(using: RSSTests.allTests),
         Linux.makeTestCase(using: SiteMapTests.allTests),
-        Linux.makeTestCase(using: XMLTests.allTests)
+        Linux.makeTestCase(using: XMLTests.allTests),
+        Linux.makeTestCase(using: PlotSVGTests.allTests)
     ]
 }
