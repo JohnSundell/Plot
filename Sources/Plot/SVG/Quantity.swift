@@ -15,11 +15,11 @@ public protocol QuantityUnits : CaseIterable {
 public struct Quantity<Units : QuantityUnits> {
     public let value: Double
     public let unit: Units?
-    init (value: Double, unit: Units? = nil) {
+    public init (value: Double, unit: Units? = nil) {
         self.value = value
         self.unit = unit
     }
-    func asString(decimals: Int = 2) -> String {
+    public func asString(decimals: Int = 2) -> String {
         if let u = unit {
             return value.asString(decimals: decimals) + u.rawValue
         }

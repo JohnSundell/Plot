@@ -8,20 +8,20 @@
 import Foundation
 
 
-extension Double {
+public extension Double {
     func asString(decimals: Int = 2) -> String {
         return String(format: "%.\(decimals)f", self)
     }
 }
 
-extension CGFloat {
+public extension CGFloat {
     func asString(decimals: Int = 2) -> String {
         return Double(self).asString(decimals: decimals)
     }
 }
 
 
-extension NSPoint {
+public extension NSPoint {
     func svg(adjustY: Double) -> String {
         let newY = adjustY - Double(self.y)
         return "\(x.asString()) \(newY.asString())"
@@ -32,6 +32,7 @@ enum HasEndingResult {
     case no
     case remaining(String)
 }
+
 extension String {
     func hasEnding(_ ending: String) -> HasEndingResult {
         if let range = self.range(of: ending) {
@@ -40,7 +41,7 @@ extension String {
         return .no
     }
     
-    func trim() -> String {
+    public func trim() -> String {
         return self.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
     }
 }

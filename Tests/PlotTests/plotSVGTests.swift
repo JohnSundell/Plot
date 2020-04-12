@@ -16,12 +16,18 @@ final class PlotSVGTests: XCTestCase {
         XCTAssertEqual(length.value, 10.0)
         
         length = "10pt"
-        XCTAssertEqual(length.unit, .points)
+        XCTAssertEqual(length.unit, .point)
         XCTAssertEqual(length.value, 10.0)
         
         length = "15.3px"
-        XCTAssertEqual(length.unit, .pixels)
+        XCTAssertEqual(length.unit, .pixel)
         XCTAssertEqual(length.value, 15.3)
+        
+        
+        length = "17.32323E5 mm"
+        XCTAssertEqual(length.unit, .millimeter)
+        XCTAssertEqual(length.value, 1732323)
+        XCTAssertEqual(length.asString(), "1732323.00mm")
         
         let test1 = SVGDoc(.viewport("0 0 100 100"),.g(.svg(.x(10), .y("10em"), .width("2.5px"),.height("19.4"), .g(),.path())))
         print(test1.render())

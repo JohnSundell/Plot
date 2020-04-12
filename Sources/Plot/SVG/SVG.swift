@@ -33,23 +33,15 @@ extension SVGDoc: Renderable {
         document.render(indentedBy: indentationKind)
     }
 }
-//
-//public protocol ISVGContext {
-//    /// The feed's channel context.
-//    associatedtype Context: IItemContext
-//}
-//
-//public protocol IItemContext {}
-
 
 public enum SVGLengthUnits : String, QuantityUnits {
     case percent = "%"
-    case pixels = "px"
-    case inches = "In"
-    case centimeters = "cm"
-    case millimeters = "mm"
-    case points = "pt"
-    case picas = "pc"
+    case pixel = "px"
+    case inch = "In"
+    case centimeter = "cm"
+    case millimeter = "mm"
+    case point = "pt"
+    case pica = "pc"
     case fontSize = "em"
     case fontSmallCapSize = "ex"
     case fontCharacterUnitSize = "ch"

@@ -60,7 +60,7 @@ public extension Node where Context == SVGDoc.PathContext {
 
 
 
-
+/// https://www.w3.org/TR/SVG2/geometry.html
 public extension Node where Context : SVGSizableContext {
     
     /// https://www.w3.org/TR/SVG2/geometry.html#X
@@ -73,12 +73,12 @@ public extension Node where Context : SVGSizableContext {
         return .attribute(named: "y", value: value.asString())
     }
     
-    /// https://www.w3.org/TR/SVG2/geometry.html#Y
+    ///https://www.w3.org/TR/SVG2/geometry.html#Sizing
     static func width(_ value: SVGLengthQuantity) -> Node {
         return .attribute(named: "width", value: value.asString())
     }
     
-    /// https://www.w3.org/TR/SVG2/geometry.html#Y
+    ///https://www.w3.org/TR/SVG2/geometry.html#Sizing
     static func height(_ value: SVGLengthQuantity) -> Node {
         return .attribute(named: "height", value: value.asString())
     }
