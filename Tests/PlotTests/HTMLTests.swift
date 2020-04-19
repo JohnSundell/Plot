@@ -590,6 +590,11 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, "<body><section>Section</section></body>")
     }
 
+    func testAside() {
+        let html = HTML(.body(.aside("Aside")))
+        assertEqualHTMLContent(html, "<body><aside>Aside</aside></body>")
+    }
+
     func testMain() {
         let html = HTML(.body(.main("Main")))
         assertEqualHTMLContent(html, "<body><main>Main</main></body>")
