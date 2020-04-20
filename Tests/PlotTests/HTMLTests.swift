@@ -729,6 +729,7 @@ extension HTMLTests {
             ("testNoScript", testNoScript),
             ("testNavigation", testNavigation),
             ("testSection", testSection),
+            ("testAside", testAside),
             ("testMain", testMain),
             ("testAccessibilityLabel", testAccessibilityLabel),
             ("testAccessibilityControls", testAccessibilityControls),
