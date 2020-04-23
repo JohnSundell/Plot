@@ -47,8 +47,8 @@ final class DocumentTests: XCTestCase {
         let document = Document.custom(
             withFormat: FormatStub.self,
             elements: [
-                .named("one", nodes: [
-                    .element(named: "two", nodes: [
+                .named<FormatStub.RootContext>("one", nodes: [
+                    .element<FormatStub.RootContext>(named: "two", nodes: [
                         .selfClosedElement(named: "three")
                     ])
                 ]),

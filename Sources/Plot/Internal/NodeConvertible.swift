@@ -13,3 +13,9 @@ internal extension Array where Element: NodeConvertible {
         map { $0.asNode() }
     }
 }
+
+extension Node: NodeConvertible {
+    func asNode() -> AnyNode {
+        return self
+    }
+}
