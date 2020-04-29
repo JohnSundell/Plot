@@ -199,6 +199,20 @@ let html = HTML(.body(
 ))
 ```
 
+Just like `.if()`, the `.unwrap()` command can also be passed an `else` clause that will be used if the optional being unwrapped turned out to be `nil`:
+
+```swift
+let user: User? = loadUser()
+
+let html = HTML(.body(
+    .unwrap(user, {
+        .p("Hello, \($0.name)")
+    }, 
+    else: .text("Please log in")
+    )
+))
+```
+
 Finally, the `.forEach()` command can be used to transform any Swift `Sequence` into a group of nodes, which is incredibly useful when constructing lists:
 
 ```swift
