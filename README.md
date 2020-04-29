@@ -205,7 +205,7 @@ Just like `.if()`, the `.unwrap()` command can also be passed an `else` clause t
 let user: User? = loadUser()
 
 let html = HTML(.body(
-    .unwrap(user) ({
+    .unwrap(user, {
         .p("Hello, \($0.name)")
     }, 
     else: .text("Please log in")
