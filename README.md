@@ -199,7 +199,7 @@ let html = HTML(.body(
 ))
 ```
 
-It's sometimes also necessary to display other content when a optional is `nil`, fortunately `.unwrap()` has a easy to use fallback mechanism:
+Just like `.if()`, the `.unwrap()` command can also be passed an `else` clause that will be used if the optional being unwrapped turned out to be `nil`:
 
 ```swift
 let user: User? = loadUser()
