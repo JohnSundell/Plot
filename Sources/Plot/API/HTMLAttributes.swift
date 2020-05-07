@@ -50,13 +50,6 @@ public extension Node where Context: HTMLContext {
     static func data(named name: String, value: String) -> Node {
         .attribute(named: "data-\(name)", value: value)
     }
-
-    /// Add a script to execute when the user clicks the current element.
-    /// - parameter script: The script to execute when the user clicks on the node.
-    ///   Usually prefixed with `javascript:`.
-    static func onclick(_ script: String) -> Node {
-        .attribute(named: "onclick", value: script)
-    }
 }
 
 public extension Attribute where Context: HTMLNamableContext {
@@ -468,6 +461,17 @@ public extension Node where Context == HTML.ScriptContext {
     /// Assign that the element's script should be loaded in `defer` mode.
     static func `defer`() -> Node {
         .attribute(named: "defer", value: nil, ignoreIfValueIsEmpty: false)
+    }
+}
+
+// MARK: - Javascript
+
+public extension Node where Context: HTML.BodyContext {
+    /// Add a script to execute when the user clicks the current element.
+    /// - parameter script: The script to execute when the user clicks on the node.
+    ///   Usually prefixed with `javascript:`.
+    static func onclick(_ script: String) -> Node {
+        .attribute(named: "onclick", value: script)
     }
 }
 
