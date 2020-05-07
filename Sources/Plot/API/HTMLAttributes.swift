@@ -52,7 +52,8 @@ public extension Node where Context: HTMLContext {
     }
 
     /// Add a script to execute when the user clicks the current element.
-    /// - parameter script: The script to execute when the user clicks on the node. Usually prefixed with `javascript:`.
+    /// - parameter script: The script to execute when the user clicks on the node.
+    ///   Usually prefixed with `javascript:`.
     static func onclick(_ script: String) -> Node {
         .attribute(named: "onclick", value: script)
     }
