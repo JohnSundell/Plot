@@ -464,6 +464,17 @@ public extension Node where Context == HTML.ScriptContext {
     }
 }
 
+// MARK: - Javascript
+
+public extension Node where Context: HTML.BodyContext {
+    /// Add a script to execute when the user clicks the current element.
+    /// - parameter script: The script to execute when the user clicks on the node.
+    ///   Usually prefixed with `javascript:`.
+    static func onclick(_ script: String) -> Node {
+        .attribute(named: "onclick", value: script)
+    }
+}
+
 // MARK: - Other, element-specific attributes
 
 public extension Node where Context == HTML.AbbreviationContext {

@@ -671,6 +671,19 @@ final class HTMLTests: XCTestCase {
         </picture></body>
         """)
     }
+
+    func testOnClick() {
+        let html = HTML(
+            .body(
+                .div(
+                    .onclick("javascript:alert('Hello World')")
+                )
+            )
+        )
+        assertEqualHTMLContent(html, """
+        <body><div onclick="javascript:alert('Hello World')"></div></body>
+        """)
+    }
 }
 
 extension HTMLTests {
@@ -738,7 +751,8 @@ extension HTMLTests {
             ("testDataAttributes", testDataAttributes),
             ("testSubresourceIntegrity", testSubresourceIntegrity),
             ("testComments", testComments),
-            ("testPicture", testPicture)
+            ("testPicture", testPicture),
+            ("testOnClick", testOnClick)
         ]
     }
 }
