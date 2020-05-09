@@ -188,6 +188,12 @@ public extension Node where Context: HTML.BodyContext {
         .selfClosedElement(named: "embed", attributes: attributes)
     }
 
+    /// Add a `<fieldset>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func fieldset(_ nodes: Node<HTML.FormContext>...) -> Node {
+        .element(named: "fieldset", nodes: nodes)
+    }
+
     /// Add a `<form>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
     static func form(_ nodes: Node<HTML.FormContext>...) -> Node {
@@ -257,6 +263,12 @@ public extension Node where Context: HTML.BodyContext {
     /// - parameter attributes: The element's attributes.
     static func iframe(_ attributes: Attribute<HTML.IFrameContext>...) -> Node {
         .element(named: "iframe", attributes: attributes)
+    }
+
+    /// Add an `<input/>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes.
+    static func input(_ attributes: Attribute<HTML.InputContext>...) -> Node {
+        .selfClosedElement(named: "input", attributes: attributes)
     }
 
     /// Add an `<ins>` HTML element within the current context.
@@ -347,6 +359,12 @@ public extension Node where Context: HTML.BodyContext {
     /// - parameter nodes: The element's attributes and child elements.
     static func table(_ nodes: Node<HTML.TableContext>...) -> Node {
         .element(named: "table", nodes: nodes)
+    }
+
+    /// Add a `<textarea>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and nodes.
+    static func textarea(_ nodes: Node<HTML.TextAreaContext>...) -> Node {
+        .element(named: "textarea", nodes: nodes)
     }
 
     /// Add a `<u>` HTML element within the current context.
@@ -445,28 +463,6 @@ public extension Node where Context: HTMLSourceListContext {
     /// - parameter attributes: The element's attributes.
     static func source(_ attributes: Attribute<Context.SourceContext>...) -> Node {
         .selfClosedElement(named: "source", attributes: attributes)
-    }
-}
-
-// MARK: - Forms
-
-public extension Node where Context == HTML.FormContext {
-    /// Add a `<fieldset>` HTML element within the current context.
-    /// - parameter nodes: The element's attributes and child elements.
-    static func fieldset(_ nodes: Node<HTML.FormContext>...) -> Node {
-        .element(named: "fieldset", nodes: nodes)
-    }
-
-    /// Add an `<input/>` HTML element within the current context.
-    /// - parameter nodes: The element's attributes.
-    static func input(_ attributes: Attribute<HTML.InputContext>...) -> Node {
-        .selfClosedElement(named: "input", attributes: attributes)
-    }
-    
-    /// Add a `<textarea>` HTML element within the current context.
-    /// - parameter nodes: The element's attributes and nodes.
-    static func textarea(_ nodes: Node<HTML.TextAreaContext>...) -> Node {
-        .element(named: "textarea", nodes: nodes)
     }
 }
 
