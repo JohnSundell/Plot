@@ -480,7 +480,8 @@ final class HTMLTests: XCTestCase {
             .u("Underlined"),
             .s("Strikethrough"),
             .ins("Inserted"),
-            .del("Deleted")
+            .del("Deleted"),
+            .small("Small")
         ))
 
         assertEqualHTMLContent(html, """
@@ -493,6 +494,7 @@ final class HTMLTests: XCTestCase {
         <s>Strikethrough</s>\
         <ins>Inserted</ins>\
         <del>Deleted</del>\
+        <small>Small</small>\
         </body>
         """)
     }
