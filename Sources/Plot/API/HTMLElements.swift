@@ -343,6 +343,12 @@ public extension Node where Context: HTML.BodyContext {
         .element(named: "select", nodes: nodes)
     }
 
+    /// Add a `<small>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func small(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "small", nodes: nodes)
+    }
+
     /// Add a `<span>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
     static func span(_ nodes: Node<HTML.BodyContext>...) -> Node {
