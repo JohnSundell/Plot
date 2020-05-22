@@ -599,6 +599,11 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, "<body>One<hr/>Two</body>")
     }
 
+    func testHorizontalLineAttributes() {
+        let html = HTML(.body("One", .hr(.class("alternate")), "Two"))
+        assertEqualHTMLContent(html, #"<body>One<hr class="alternate"/>Two</body>"#)
+    }
+
     func testNoScript() {
         let html = HTML(.body(.noscript("NoScript")))
         assertEqualHTMLContent(html, "<body><noscript>NoScript</noscript></body>")
@@ -764,6 +769,7 @@ extension HTMLTests {
             ("testDetails", testDetails),
             ("testLineBreak", testLineBreak),
             ("testHorizontalLine", testHorizontalLine),
+            ("testHorizontalLineAttributes", testHorizontalLineAttributes),
             ("testNoScript", testNoScript),
             ("testNavigation", testNavigation),
             ("testSection", testSection),

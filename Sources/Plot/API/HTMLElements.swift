@@ -249,8 +249,9 @@ public extension Node where Context: HTML.BodyContext {
     }
 
     /// Add a `<hr/>` HTML element within the current context.
-    static func hr() -> Node {
-        .selfClosedElement(named: "hr")
+    /// - parameter attributes: The element's attributes.
+    static func hr(_ attributes: Attribute<HTML.BodyContext>...) -> Node {
+        .selfClosedElement(named: "hr", attributes: attributes)
     }
 
     /// Add an `<i>` HTML element within the current context.
