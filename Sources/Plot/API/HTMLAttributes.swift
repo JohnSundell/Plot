@@ -483,13 +483,3 @@ public extension Node where Context: HTML.BodyContext {
         .attribute(named: "onclick", value: script)
     }
 }
-
-// MARK: - Other, element-specific attributes
-
-public extension Node where Context == HTML.AbbreviationContext {
-    /// Specify the abbreviation's full text through its `title` attribute.
-    /// - parameter title: The title to assign.
-    static func title(_ title: String) -> Node {
-        .attribute(named: "title", value: title)
-    }
-}

@@ -43,8 +43,6 @@ public extension HTML {
     enum HeadContext: HTMLContext, HTMLScriptableContext {}
     /// The context within an HTML document's `<body>` element.
     class BodyContext: HTMLStylableContext, HTMLScriptableContext, HTMLImageContainerContext {}
-    /// The context within an HTML `<abbr>` element.
-    final class AbbreviationContext: BodyContext {}
     /// The context within an HTML `<a>` element.
     final class AnchorContext: BodyContext, HTMLLinkableContext {}
     /// The context within an HTML `<audio>` element.
