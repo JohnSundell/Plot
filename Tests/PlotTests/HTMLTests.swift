@@ -602,13 +602,6 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, "<body><noscript>NoScript</noscript></body>")
     }
 
-    func testDivWithTitleAttribute() {
-        let html = HTML(.body(.div("Element"), .title("Title")))
-        assertEqualHTMLContent(html, """
-        <body><div title="Title">Element</div></body>
-        """)
-    }
-
     func testNavigation() {
         let html = HTML(.body(.nav("Navigation")))
         assertEqualHTMLContent(html, "<body><nav>Navigation</nav></body>")
