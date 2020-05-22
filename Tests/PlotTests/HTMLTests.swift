@@ -193,12 +193,14 @@ final class HTMLTests: XCTestCase {
     func testTitleAttribute() {
         let html = HTML(.body(
             .div(.title("Division title"),
-                .p(.title("Paragraph title"), "Paragraph")
+                .p(.title("Paragraph title"), "Paragraph"),
+                .a(.href("#"), .title("Link title"), "Link")
         )))
         assertEqualHTMLContent(html, """
         <body>\
         <div title="Division title">\
         <p title="Paragraph title">Paragraph</p>\
+        <a href="#" title="Link title">Link</a>\
         </div>\
         </body>
         """)
