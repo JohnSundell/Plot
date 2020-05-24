@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Swift-5.1-orange.svg" />
+    <img src="https://img.shields.io/badge/Swift-5.2-orange.svg" />
     <a href="https://swift.org/package-manager">
         <img src="https://img.shields.io/badge/swiftpm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
     </a>
@@ -207,7 +207,7 @@ let user: User? = loadUser()
 let html = HTML(.body(
     .unwrap(user, {
         .p("Hello, \($0.name)")
-    }, 
+    },
     else: .text("Please log in")
     )
 ))
@@ -339,6 +339,12 @@ let siteMap = SiteMap(
 ```
 
 For more information about what data is required to build a podcast feed, see [Apple’s podcasting guide](https://itunespartner.apple.com/podcasts), and for more information about the SiteMap format, see [its official spec](https://www.sitemaps.org/protocol.html).
+
+## System requirements
+
+To be able to successfully use Plot, make sure that your system has Swift version 5.2 (or later) installed. If you’re using a Mac, also make sure that `xcode-select` is pointed at an Xcode installation that includes the required version of Swift, and that you’re running macOS Catalina (10.15) or later. 
+
+Please note that Plot **does not** officially support any form of beta software, including beta versions of Xcode and macOS, or unreleased versions of Swift.
 
 ## Installation
 
