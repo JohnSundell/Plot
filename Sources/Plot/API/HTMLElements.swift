@@ -89,7 +89,7 @@ public extension Node where Context: HTML.BodyContext {
 
     /// Add an `<abbr>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
-    static func abbr(_ nodes: Node<HTML.AbbreviationContext>...) -> Node {
+    static func abbr(_ nodes: Node<HTML.BodyContext>...) -> Node {
         .element(named: "abbr", nodes: nodes)
     }
 

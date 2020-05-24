@@ -190,6 +190,24 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, #"<body class="b"></body>"#)
     }
 
+    func testTitleAttribute() {
+        let html = HTML(.body(
+            .div(.title("Division title"),
+                .p(.title("Paragraph title"), "Paragraph"),
+                .a(.href("#"), .title("Link title"), "Link")
+            )
+        ))
+        
+        assertEqualHTMLContent(html, """
+        <body>\
+        <div title="Division title">\
+        <p title="Paragraph title">Paragraph</p>\
+        <a href="#" title="Link title">Link</a>\
+        </div>\
+        </body>
+        """)
+    }
+
     func testUnorderedList() {
         let html = HTML(.body(.ul(.li("Text"))))
         assertEqualHTMLContent(html, "<body><ul><li>Text</li></ul></body>")
@@ -740,6 +758,7 @@ extension HTMLTests {
             ("testBodyWithID", testBodyWithID),
             ("testBodyWithCSSClass", testBodyWithCSSClass),
             ("testOverridingBodyCSSClass", testOverridingBodyCSSClass),
+            ("testTitleAttribute", testTitleAttribute),
             ("testUnorderedList", testUnorderedList),
             ("testOrderedList", testOrderedList),
             ("testDescriptionList", testDescriptionList),
