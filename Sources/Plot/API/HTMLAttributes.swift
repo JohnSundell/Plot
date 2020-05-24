@@ -103,9 +103,10 @@ public extension Node where Context == HTML.DocumentContext {
 }
 
 // MARK: - Body
+
 public extension Node where Context == HTML.BodyContext {
     /// Specify a title for the element.
-    /// - parameter class: The title for the element.
+    /// - parameter title: The title to assign to the element.
     static func title(_ title: String) -> Node {
         .attribute(named: "title", value: title)
     }
