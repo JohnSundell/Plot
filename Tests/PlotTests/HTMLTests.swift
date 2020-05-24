@@ -195,7 +195,9 @@ final class HTMLTests: XCTestCase {
             .div(.title("Division title"),
                 .p(.title("Paragraph title"), "Paragraph"),
                 .a(.href("#"), .title("Link title"), "Link")
-        )))
+            )
+        ))
+        
         assertEqualHTMLContent(html, """
         <body>\
         <div title="Division title">\
