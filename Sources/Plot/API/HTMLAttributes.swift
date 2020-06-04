@@ -102,6 +102,16 @@ public extension Node where Context == HTML.DocumentContext {
     }
 }
 
+// MARK: - Body
+
+public extension Node where Context: HTML.BodyContext {
+    /// Specify a title for the element.
+    /// - parameter title: The title to assign to the element.
+    static func title(_ title: String) -> Node {
+        .attribute(named: "title", value: title)
+    }
+}
+
 // MARK: - Links
 
 public extension Attribute where Context == HTML.LinkContext {
@@ -480,12 +490,13 @@ public extension Node where Context == HTML.ScriptContext {
     }
 }
 
-// MARK: - Other, element-specific attributes
+// MARK: - Javascript
 
-public extension Node where Context == HTML.AbbreviationContext {
-    /// Specify the abbreviation's full text through its `title` attribute.
-    /// - parameter title: The title to assign.
-    static func title(_ title: String) -> Node {
-        .attribute(named: "title", value: title)
+public extension Node where Context: HTML.BodyContext {
+    /// Add a script to execute when the user clicks the current element.
+    /// - parameter script: The script to execute when the user clicks on the node.
+    ///   Usually prefixed with `javascript:`.
+    static func onclick(_ script: String) -> Node {
+        .attribute(named: "onclick", value: script)
     }
 }
