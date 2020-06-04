@@ -667,7 +667,7 @@ final class HTMLTests: XCTestCase {
         """)
     }
     
-    func  testObject() {
+    func testObject() {
         let html = HTML(.body(.object(
             .data("vector.svg"),
             .attribute(.type("image/svg+xml")),

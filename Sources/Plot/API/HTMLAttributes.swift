@@ -179,7 +179,15 @@ public extension Node where Context: HTMLSourceContext {
     }
 }
 
-public extension Attribute where Context: HTMLLinkableDataContext {
+public extension Node where Context: HTMLMediaContext {
+    /// Assign whether the element's media controls should be enabled.
+    /// - parameter enableControls: Whether controls should be shown.
+    static func controls(_ enableControls: Bool) -> Node {
+        enableControls ? .attribute(named: "controls") : .empty
+    }
+}
+
+public extension Attribute where Context == HTML.ObjectContext {
     /// Assign an external resource to the element, using its `data` attribute.
     /// - parameter url: The data URL to assign.
     static func data(_ url: URLRepresentable) -> Attribute {
@@ -187,19 +195,11 @@ public extension Attribute where Context: HTMLLinkableDataContext {
     }
 }
 
-public extension Node where Context: HTMLLinkableDataContext {
+public extension Node where Context == HTML.ObjectContext {
     /// Assign an external resource to the element, using its `data` attribute.
     /// - parameter url: The data URL to assign.
     static func data(_ url: URLRepresentable) -> Node {
         .attribute(named: "data", value: url.string)
-    }
-}
-
-public extension Node where Context: HTMLMediaContext {
-    /// Assign whether the element's media controls should be enabled.
-    /// - parameter enableControls: Whether controls should be shown.
-    static func controls(_ enableControls: Bool) -> Node {
-        enableControls ? .attribute(named: "controls") : .empty
     }
 }
 
