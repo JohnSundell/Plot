@@ -585,14 +585,14 @@ final class HTMLTests: XCTestCase {
             ),
             .select(
                 .option(.value("C"), .isSelected(true)),
-                .option(.value("D"), .isSelected(false))
+                .option(.value("D"), .label("Dee"), .isSelected(false))
             )
         ))
 
         assertEqualHTMLContent(html, """
         <body>\
         <datalist><option value="A"/><option value="B"/></datalist>\
-        <select><option value="C" selected/><option value="D"/></select>\
+        <select><option value="C" selected/><option value="D" label="Dee"/></select>\
         </body>
         """)
     }
