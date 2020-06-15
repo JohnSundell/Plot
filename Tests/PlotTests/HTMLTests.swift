@@ -263,6 +263,46 @@ final class HTMLTests: XCTestCase {
         """)
     }
 
+    func testTableGroupingSemantics() {
+        let html = HTML(
+            .body(
+                .table(
+                    .thead(
+                        .tr(
+                            .th("Column1"),
+                            .th("Column2")
+                        )
+                    ),
+                    .tbody(
+                        .tr(
+                            .td("Body1"),
+                            .td("Body2")
+                        ),
+                        .tr(
+                            .td("Body3"),
+                            .td("Body4")
+                        )
+                    ),
+                    .tfoot(
+                        .tr(
+                            .td("Foot1"),
+                            .td("Foot2")
+                        )
+                    )
+                )
+            )
+        )
+
+        assertEqualHTMLContent(html, """
+        <body><table>\
+        <thead><tr><th>Column1</th><th>Column2</th></tr></thead>\
+        <tbody><tr><td>Body1</td><td>Body2</td></tr>\
+        <tr><td>Body3</td><td>Body4</td></tr></tbody>\
+        <tfoot><tr><td>Foot1</td><td>Foot2</td></tr></tfoot>\
+        </table></body>
+        """)
+    }
+
     func testData() {
         let html = HTML(.body(
             .data(.value("123"), .text("Hello"))
@@ -764,6 +804,7 @@ extension HTMLTests {
             ("testDescriptionList", testDescriptionList),
             ("testAnchors", testAnchors),
             ("testTable", testTable),
+            ("testTableGroupingSemantics", testTableGroupingSemantics),
             ("testData", testData),
             ("testEmbeddedObject", testEmbeddedObject),
             ("testForm", testForm),

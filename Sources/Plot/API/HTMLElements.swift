@@ -439,6 +439,24 @@ public extension Node where Context == HTML.TableContext {
     static func tr(_ nodes: Node<HTML.TableRowContext>...) -> Node {
         .element(named: "tr", nodes: nodes)
     }
+
+    /// Add a `<thead>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func thead(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "thead", nodes: nodes)
+    }
+
+    /// Add a `<tbody>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func tbody(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "tbody", nodes: nodes)
+    }
+
+    /// Add a `<tfoot>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func tfoot(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "tfoot", nodes: nodes)
+    }
 }
 
 public extension Node where Context == HTML.TableRowContext {
