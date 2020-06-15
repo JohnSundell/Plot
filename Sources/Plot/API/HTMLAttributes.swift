@@ -335,6 +335,12 @@ public extension Attribute where Context == HTML.OptionContext {
             ignoreIfValueIsEmpty: false
         )
     }
+
+    /// Assign a label to the given option.
+    /// - parameter label: The user displayed value of the option
+    static func label(_ label: String) -> Attribute {
+        Attribute(name: "label", value: label, ignoreIfValueIsEmpty: false)
+    }
 }
 
 // MARK: - Layout and styling
