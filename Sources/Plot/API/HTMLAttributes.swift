@@ -102,6 +102,16 @@ public extension Node where Context == HTML.DocumentContext {
     }
 }
 
+// MARK: - Body
+
+public extension Node where Context: HTML.BodyContext {
+    /// Specify a title for the element.
+    /// - parameter title: The title to assign to the element.
+    static func title(_ title: String) -> Node {
+        .attribute(named: "title", value: title)
+    }
+}
+
 // MARK: - Links
 
 public extension Attribute where Context == HTML.LinkContext {
@@ -238,6 +248,13 @@ public extension Node where Context == HTML.FormContext {
     static func method(_ method: HTMLFormMethod) -> Node {
         .attribute(named: "method", value: method.rawValue)
     }
+    
+    /// Add the `novalidate` attribute to the form, which
+    /// disables any native browser validation on the form.
+    /// - parameter isOn: Whether validation should be disabled.
+    static func novalidate(_ isOn: Bool = true) -> Node {
+        isOn ? .attribute(named: "novalidate") : .empty
+    }
 }
 
 public extension Node where Context == HTML.LabelContext {
@@ -253,6 +270,12 @@ public extension Attribute where Context == HTML.InputContext {
     /// - parameter type: The input type to assign.
     static func type(_ type: HTMLInputType) -> Attribute {
         Attribute(name: "type", value: type.rawValue)
+    }
+    
+    /// Assigns a placeholder to the input field.
+    /// - parameter placeholder: The placeholder to assign.
+    static func placeholder(_ placeholder: String) -> Attribute {
+        Attribute(name: "placeholder", value: placeholder)
     }
 
     /// Assign whether the element should have autocomplete turned on or off.
@@ -311,6 +334,12 @@ public extension Attribute where Context == HTML.OptionContext {
             value: nil,
             ignoreIfValueIsEmpty: false
         )
+    }
+
+    /// Assign a label to the given option.
+    /// - parameter label: The user displayed value of the option
+    static func label(_ label: String) -> Attribute {
+        Attribute(name: "label", value: label, ignoreIfValueIsEmpty: false)
     }
 }
 
@@ -410,6 +439,13 @@ public extension Node where Context: HTML.BodyContext {
     static func ariaExpanded(_ isExpanded: Bool) -> Node {
         .attribute(named: "aria-expanded", value: isExpanded ? "true" : "false")
     }
+    
+    /// Assign an accessibility attribute to an element,
+    /// which removes an element from the accessibility tree
+    /// - parameter isHidden: Whether the element is hidden or not
+    static func ariaHidden(_ isHidden: Bool) -> Node {
+        .attribute(named: "aria-hidden", value: isHidden ? "true" : "false")
+    }
 }
 
 // MARK: - Subresource Integrity
@@ -444,12 +480,13 @@ public extension Node where Context == HTML.ScriptContext {
     }
 }
 
-// MARK: - Other, element-specific attributes
+// MARK: - Javascript
 
-public extension Node where Context == HTML.AbbreviationContext {
-    /// Specify the abbreviation's full text through its `title` attribute.
-    /// - parameter title: The title to assign.
-    static func title(_ title: String) -> Node {
-        .attribute(named: "title", value: title)
+public extension Node where Context: HTML.BodyContext {
+    /// Add a script to execute when the user clicks the current element.
+    /// - parameter script: The script to execute when the user clicks on the node.
+    ///   Usually prefixed with `javascript:`.
+    static func onclick(_ script: String) -> Node {
+        .attribute(named: "onclick", value: script)
     }
 }

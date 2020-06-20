@@ -195,6 +195,24 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, #"<body class="a b"></body>"#)
     }
 
+    func testTitleAttribute() {
+        let html = HTML(.body(
+            .div(.title("Division title"),
+                .p(.title("Paragraph title"), "Paragraph"),
+                .a(.href("#"), .title("Link title"), "Link")
+            )
+        ))
+        
+        assertEqualHTMLContent(html, """
+        <body>\
+        <div title="Division title">\
+        <p title="Paragraph title">Paragraph</p>\
+        <a href="#" title="Link title">Link</a>\
+        </div>\
+        </body>
+        """)
+    }
+
     func testUnorderedList() {
         let html = HTML(.body(.ul(.li("Text"))))
         assertEqualHTMLContent(html, "<body><ul><li>Text</li></ul></body>")
@@ -250,6 +268,46 @@ final class HTMLTests: XCTestCase {
         """)
     }
 
+    func testTableGroupingSemantics() {
+        let html = HTML(
+            .body(
+                .table(
+                    .thead(
+                        .tr(
+                            .th("Column1"),
+                            .th("Column2")
+                        )
+                    ),
+                    .tbody(
+                        .tr(
+                            .td("Body1"),
+                            .td("Body2")
+                        ),
+                        .tr(
+                            .td("Body3"),
+                            .td("Body4")
+                        )
+                    ),
+                    .tfoot(
+                        .tr(
+                            .td("Foot1"),
+                            .td("Foot2")
+                        )
+                    )
+                )
+            )
+        )
+
+        assertEqualHTMLContent(html, """
+        <body><table>\
+        <thead><tr><th>Column1</th><th>Column2</th></tr></thead>\
+        <tbody><tr><td>Body1</td><td>Body2</td></tr>\
+        <tr><td>Body3</td><td>Body4</td></tr></tbody>\
+        <tfoot><tr><td>Foot1</td><td>Foot2</td></tr></tfoot>\
+        </table></body>
+        """)
+    }
+
     func testData() {
         let html = HTML(.body(
             .data(.value("123"), .text("Hello"))
@@ -283,7 +341,7 @@ final class HTMLTests: XCTestCase {
                 ),
                 .input(.name("b"), .type(.search), .autocomplete(false), .autofocus(true)),
                 .input(.name("c"), .type(.text), .autofocus(false)),
-                .input(.name("d"), .type(.email), .autocomplete(true), .required(true)),
+                .input(.name("d"), .type(.email), .placeholder("email address"), .autocomplete(true), .required(true)),
                 .textarea(.name("e"), .cols(50), .rows(10), .required(true), .text("Test")),
                 .textarea(.name("f"), .autofocus(true)),
                 .input(.type(.submit), .value("Send"))
@@ -298,7 +356,7 @@ final class HTMLTests: XCTestCase {
         </fieldset>\
         <input name="b" type="search" autocomplete="off" autofocus="true"/>\
         <input name="c" type="text"/>\
-        <input name="d" type="email" autocomplete="on" required="true"/>\
+        <input name="d" type="email" placeholder="email address" autocomplete="on" required="true"/>\
         <textarea name="e" cols="50" rows="10" required="true">Test</textarea>\
         <textarea name="f" autofocus="true"></textarea>\
         <input type="submit" value="Send"/>\
@@ -333,6 +391,40 @@ final class HTMLTests: XCTestCase {
         <form method="get"></form>\
         <form method="post"></form>\
         </body>
+        """)
+    }
+    
+    func testFormNoValidate() {
+        let html = HTML(.body(
+            .form(.novalidate())
+        ))
+        
+        assertEqualHTMLContent(html, """
+        <body>\
+        <form novalidate></form>\
+        </body>
+        """)
+    }
+
+    func testFormWithBodyNodes() {
+        let html = HTML(.body(
+            .form(
+                .method(.post),
+                .div(
+                    .class("wrapper"),
+                    .p("Text"),
+                    .input(
+                        .type(.submit),
+                        .value("Action")
+                    )
+                )
+            )
+        ))
+
+        assertEqualHTMLContent(html, """
+        <body><form method="post"><div class="wrapper">\
+        <p>Text</p><input type="submit" value="Action"/>\
+        </div></form></body>
         """)
     }
     
@@ -451,7 +543,8 @@ final class HTMLTests: XCTestCase {
             .u("Underlined"),
             .s("Strikethrough"),
             .ins("Inserted"),
-            .del("Deleted")
+            .del("Deleted"),
+            .small("Small")
         ))
 
         assertEqualHTMLContent(html, """
@@ -464,6 +557,7 @@ final class HTMLTests: XCTestCase {
         <s>Strikethrough</s>\
         <ins>Inserted</ins>\
         <del>Deleted</del>\
+        <small>Small</small>\
         </body>
         """)
     }
@@ -536,14 +630,14 @@ final class HTMLTests: XCTestCase {
             ),
             .select(
                 .option(.value("C"), .isSelected(true)),
-                .option(.value("D"), .isSelected(false))
+                .option(.value("D"), .label("Dee"), .isSelected(false))
             )
         ))
 
         assertEqualHTMLContent(html, """
         <body>\
         <datalist><option value="A"/><option value="B"/></datalist>\
-        <select><option value="C" selected/><option value="D"/></select>\
+        <select><option value="C" selected/><option value="D" label="Dee"/></select>\
         </body>
         """)
     }
@@ -568,6 +662,11 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, "<body>One<hr/>Two</body>")
     }
 
+    func testHorizontalLineAttributes() {
+        let html = HTML(.body("One", .hr(.class("alternate")), "Two"))
+        assertEqualHTMLContent(html, #"<body>One<hr class="alternate"/>Two</body>"#)
+    }
+
     func testNoScript() {
         let html = HTML(.body(.noscript("NoScript")))
         assertEqualHTMLContent(html, "<body><noscript>NoScript</noscript></body>")
@@ -581,6 +680,11 @@ final class HTMLTests: XCTestCase {
     func testSection() {
         let html = HTML(.body(.section("Section")))
         assertEqualHTMLContent(html, "<body><section>Section</section></body>")
+    }
+
+    func testAside() {
+        let html = HTML(.body(.aside("Aside")))
+        assertEqualHTMLContent(html, "<body><aside>Aside</aside></body>")
     }
 
     func testMain() {
@@ -605,6 +709,11 @@ final class HTMLTests: XCTestCase {
     func testAccessibilityExpanded() {
         let html = HTML(.body(.a(.ariaExpanded(true))))
         assertEqualHTMLContent(html, #"<body><a aria-expanded="true"></a></body>"#)
+    }
+    
+    func testAccessibilityHidden() {
+        let html = HTML(.body(.a(.ariaHidden(true))))
+        assertEqualHTMLContent(html, #"<body><a aria-hidden="true"></a></body>"#)
     }
 
     func testDataAttributes() {
@@ -654,6 +763,19 @@ final class HTMLTests: XCTestCase {
         </picture></body>
         """)
     }
+
+    func testOnClick() {
+        let html = HTML(
+            .body(
+                .div(
+                    .onclick("javascript:alert('Hello World')")
+                )
+            )
+        )
+        assertEqualHTMLContent(html, """
+        <body><div onclick="javascript:alert('Hello World')"></div></body>
+        """)
+    }
 }
 
 extension HTMLTests {
@@ -682,16 +804,20 @@ extension HTMLTests {
             ("testBodyWithCSSClass", testBodyWithCSSClass),
             ("testOverridingBodyCSSClass", testOverridingBodyCSSClass),
             ("testAppendingBodyCSSClass", testAppendingBodyCSSClass),
+            ("testTitleAttribute", testTitleAttribute),
             ("testUnorderedList", testUnorderedList),
             ("testOrderedList", testOrderedList),
             ("testDescriptionList", testDescriptionList),
             ("testAnchors", testAnchors),
             ("testTable", testTable),
+            ("testTableGroupingSemantics", testTableGroupingSemantics),
             ("testData", testData),
             ("testEmbeddedObject", testEmbeddedObject),
             ("testForm", testForm),
             ("testFormContentType", testFormContentType),
             ("testFormMethod", testFormMethod),
+            ("testFormNoValidate", testFormNoValidate),
+            ("testFormWithBodyNodes", testFormWithBodyNodes),
             ("testHeadings", testHeadings),
             ("testParagraph", testParagraph),
             ("testImage", testImage),
@@ -709,17 +835,21 @@ extension HTMLTests {
             ("testDetails", testDetails),
             ("testLineBreak", testLineBreak),
             ("testHorizontalLine", testHorizontalLine),
+            ("testHorizontalLineAttributes", testHorizontalLineAttributes),
             ("testNoScript", testNoScript),
             ("testNavigation", testNavigation),
             ("testSection", testSection),
+            ("testAside", testAside),
             ("testMain", testMain),
             ("testAccessibilityLabel", testAccessibilityLabel),
             ("testAccessibilityControls", testAccessibilityControls),
             ("testAccessibilityExpanded", testAccessibilityExpanded),
+            ("testAccessibilityHidden", testAccessibilityHidden),
             ("testDataAttributes", testDataAttributes),
             ("testSubresourceIntegrity", testSubresourceIntegrity),
             ("testComments", testComments),
-            ("testPicture", testPicture)
+            ("testPicture", testPicture),
+            ("testOnClick", testOnClick)
         ]
     }
 }

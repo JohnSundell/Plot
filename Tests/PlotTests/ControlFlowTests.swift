@@ -31,6 +31,7 @@ final class ControlFlowTests: XCTestCase {
 
         optional = nil
         XCTAssertEqual(Node<Any>.unwrap(optional, Node.text).render(), "")
+        XCTAssertEqual(Node<Any>.unwrap(optional, Node.text, else: .text("Is nil") ).render(), "Is nil")
     }
 
     func testForEach() {

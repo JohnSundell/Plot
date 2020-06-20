@@ -26,8 +26,12 @@ public extension Node {
     /// be created.
     /// - parameter optional: The optional value to unwrap.
     /// - parameter transform: The closure to use to transform the value into a node.
-    static func unwrap<T>(_ optional: T?, _ transform: (T) throws -> Node) rethrows -> Node {
-        try optional.map(transform) ?? .empty
+    /// - parameter fallbackNode: An optional node to fall back to in case
+    ///   the passed `optional` is `nil`.
+    static func unwrap<T>(_ optional: T?,
+                          _ transform: (T) throws -> Node,
+                          else fallbackNode: Node = .empty) rethrows -> Node {
+        try optional.map(transform) ?? fallbackNode
     }
 
     /// Transform any sequence of values into a group of nodes, by applying a
@@ -46,7 +50,11 @@ public extension Attribute {
     /// be created.
     /// - parameter optional: The optional value to unwrap.
     /// - parameter transform: The closure to use to transform the value into an attribute.
-    static func unwrap<T>(_ optional: T?, _ transform: (T) throws -> Self) rethrows -> Self {
-        try optional.map(transform) ?? .empty
+    /// - parameter fallbackAttribute: An optional attribute to fall back to in case
+    ///   the passed `optional` is `nil`.
+    static func unwrap<T>(_ optional: T?,
+                          _ transform: (T) throws -> Self,
+                          else fallbackAttribute: Self = .empty) rethrows -> Self {
+        try optional.map(transform) ?? fallbackAttribute
     }
 }
