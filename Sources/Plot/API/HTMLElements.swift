@@ -360,6 +360,12 @@ public extension Node where Context: HTML.BodyContext {
     static func table(_ nodes: Node<HTML.TableContext>...) -> Node {
         .element(named: "table", nodes: nodes)
     }
+    
+    /// Add a `<template>` HTML element with the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func template(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "template", nodes: nodes)
+    }
 
     /// Add a `<textarea>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and nodes.
