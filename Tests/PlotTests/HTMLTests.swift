@@ -190,6 +190,24 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, #"<body class="b"></body>"#)
     }
 
+    func testTitleAttribute() {
+        let html = HTML(.body(
+            .div(.title("Division title"),
+                .p(.title("Paragraph title"), "Paragraph"),
+                .a(.href("#"), .title("Link title"), "Link")
+            )
+        ))
+        
+        assertEqualHTMLContent(html, """
+        <body>\
+        <div title="Division title">\
+        <p title="Paragraph title">Paragraph</p>\
+        <a href="#" title="Link title">Link</a>\
+        </div>\
+        </body>
+        """)
+    }
+
     func testUnorderedList() {
         let html = HTML(.body(.ul(.li("Text"))))
         assertEqualHTMLContent(html, "<body><ul><li>Text</li></ul></body>")
@@ -241,6 +259,46 @@ final class HTMLTests: XCTestCase {
         <caption>Caption</caption>\
         <tr><th>Hello</th></tr>\
         <tr><td>World</td></tr>\
+        </table></body>
+        """)
+    }
+
+    func testTableGroupingSemantics() {
+        let html = HTML(
+            .body(
+                .table(
+                    .thead(
+                        .tr(
+                            .th("Column1"),
+                            .th("Column2")
+                        )
+                    ),
+                    .tbody(
+                        .tr(
+                            .td("Body1"),
+                            .td("Body2")
+                        ),
+                        .tr(
+                            .td("Body3"),
+                            .td("Body4")
+                        )
+                    ),
+                    .tfoot(
+                        .tr(
+                            .td("Foot1"),
+                            .td("Foot2")
+                        )
+                    )
+                )
+            )
+        )
+
+        assertEqualHTMLContent(html, """
+        <body><table>\
+        <thead><tr><th>Column1</th><th>Column2</th></tr></thead>\
+        <tbody><tr><td>Body1</td><td>Body2</td></tr>\
+        <tr><td>Body3</td><td>Body4</td></tr></tbody>\
+        <tfoot><tr><td>Foot1</td><td>Foot2</td></tr></tfoot>\
         </table></body>
         """)
     }
@@ -480,7 +538,8 @@ final class HTMLTests: XCTestCase {
             .u("Underlined"),
             .s("Strikethrough"),
             .ins("Inserted"),
-            .del("Deleted")
+            .del("Deleted"),
+            .small("Small")
         ))
 
         assertEqualHTMLContent(html, """
@@ -493,6 +552,7 @@ final class HTMLTests: XCTestCase {
         <s>Strikethrough</s>\
         <ins>Inserted</ins>\
         <del>Deleted</del>\
+        <small>Small</small>\
         </body>
         """)
     }
@@ -565,14 +625,14 @@ final class HTMLTests: XCTestCase {
             ),
             .select(
                 .option(.value("C"), .isSelected(true)),
-                .option(.value("D"), .isSelected(false))
+                .option(.value("D"), .label("Dee"), .isSelected(false))
             )
         ))
 
         assertEqualHTMLContent(html, """
         <body>\
         <datalist><option value="A"/><option value="B"/></datalist>\
-        <select><option value="C" selected/><option value="D"/></select>\
+        <select><option value="C" selected/><option value="D" label="Dee"/></select>\
         </body>
         """)
     }
@@ -595,6 +655,11 @@ final class HTMLTests: XCTestCase {
     func testHorizontalLine() {
         let html = HTML(.body("One", .hr(), "Two"))
         assertEqualHTMLContent(html, "<body>One<hr/>Two</body>")
+    }
+
+    func testHorizontalLineAttributes() {
+        let html = HTML(.body("One", .hr(.class("alternate")), "Two"))
+        assertEqualHTMLContent(html, #"<body>One<hr class="alternate"/>Two</body>"#)
     }
 
     func testNoScript() {
@@ -746,11 +811,13 @@ extension HTMLTests {
             ("testBodyWithID", testBodyWithID),
             ("testBodyWithCSSClass", testBodyWithCSSClass),
             ("testOverridingBodyCSSClass", testOverridingBodyCSSClass),
+            ("testTitleAttribute", testTitleAttribute),
             ("testUnorderedList", testUnorderedList),
             ("testOrderedList", testOrderedList),
             ("testDescriptionList", testDescriptionList),
             ("testAnchors", testAnchors),
             ("testTable", testTable),
+            ("testTableGroupingSemantics", testTableGroupingSemantics),
             ("testData", testData),
             ("testEmbeddedObject", testEmbeddedObject),
             ("testForm", testForm),
@@ -775,6 +842,7 @@ extension HTMLTests {
             ("testDetails", testDetails),
             ("testLineBreak", testLineBreak),
             ("testHorizontalLine", testHorizontalLine),
+            ("testHorizontalLineAttributes", testHorizontalLineAttributes),
             ("testNoScript", testNoScript),
             ("testNavigation", testNavigation),
             ("testSection", testSection),

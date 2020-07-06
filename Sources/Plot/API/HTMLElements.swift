@@ -89,7 +89,7 @@ public extension Node where Context: HTML.BodyContext {
 
     /// Add an `<abbr>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
-    static func abbr(_ nodes: Node<HTML.AbbreviationContext>...) -> Node {
+    static func abbr(_ nodes: Node<HTML.BodyContext>...) -> Node {
         .element(named: "abbr", nodes: nodes)
     }
 
@@ -249,8 +249,9 @@ public extension Node where Context: HTML.BodyContext {
     }
 
     /// Add a `<hr/>` HTML element within the current context.
-    static func hr() -> Node {
-        .selfClosedElement(named: "hr")
+    /// - parameter attributes: The element's attributes.
+    static func hr(_ attributes: Attribute<HTML.BodyContext>...) -> Node {
+        .selfClosedElement(named: "hr", attributes: attributes)
     }
 
     /// Add an `<i>` HTML element within the current context.
@@ -341,6 +342,12 @@ public extension Node where Context: HTML.BodyContext {
     /// - parameter nodes: The element's attributes and child elements.
     static func select(_ nodes: Node<HTML.SelectContext>...) -> Node {
         .element(named: "select", nodes: nodes)
+    }
+
+    /// Add a `<small>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func small(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "small", nodes: nodes)
     }
 
     /// Add a `<span>` HTML element within the current context.
@@ -437,6 +444,24 @@ public extension Node where Context == HTML.TableContext {
     /// - parameter nodes: The element's attributes and child elements.
     static func tr(_ nodes: Node<HTML.TableRowContext>...) -> Node {
         .element(named: "tr", nodes: nodes)
+    }
+
+    /// Add a `<thead>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func thead(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "thead", nodes: nodes)
+    }
+
+    /// Add a `<tbody>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func tbody(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "tbody", nodes: nodes)
+    }
+
+    /// Add a `<tfoot>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func tfoot(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "tfoot", nodes: nodes)
     }
 }
 
