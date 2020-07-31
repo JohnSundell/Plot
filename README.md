@@ -354,7 +354,7 @@ Plot is distributed using the [Swift Package Manager](https://swift.org/package-
 let package = Package(
     ...
     dependencies: [
-        .package(url: "https://github.com/johnsundell/plot.git", from: "0.1.0")
+        .package(name: "Plot", url: "https://github.com/johnsundell/plot.git", from: "0.1.0")
     ],
     ...
 )
