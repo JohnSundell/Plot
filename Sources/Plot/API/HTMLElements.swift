@@ -76,6 +76,15 @@ public extension Node where Context == HTML.HeadContext {
     static func style(_ css: String) -> Node {
         .element(named: "style", nodes: [.raw(css)])
     }
+    
+    /// Add a `<script/>` HTML element within the current context.
+    /// - parameter trackingID: The tracking ID for your website provided by Google Analytics.
+    static func gTag(_ trackingID: String) -> Node {
+        return group([
+            .script(.async(), .src("https://www.googletagmanager.com/gtag/js?id=\(trackingID)")),
+            .script("window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '\(trackingID)');")
+        ])
+    }
 }
 
 // MARK: - Body

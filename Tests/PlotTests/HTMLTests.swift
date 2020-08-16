@@ -771,6 +771,16 @@ final class HTMLTests: XCTestCase {
         <body><div onclick="javascript:alert('Hello World')"></div></body>
         """)
     }
+    
+    func testGtag() {
+        let html = HTML(.head(
+            .gTag("ID-1234567890-0")
+            )
+        )
+        assertEqualHTMLContent(html, """
+        <head><script async src="https://www.googletagmanager.com/gtag/js?id=ID-1234567890-0"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'ID-1234567890-0');</script></head>
+        """)
+    }
 }
 
 extension HTMLTests {
@@ -843,7 +853,8 @@ extension HTMLTests {
             ("testSubresourceIntegrity", testSubresourceIntegrity),
             ("testComments", testComments),
             ("testPicture", testPicture),
-            ("testOnClick", testOnClick)
+            ("testOnClick", testOnClick),
+            ("testGtag", testGtag)
         ]
     }
 }
