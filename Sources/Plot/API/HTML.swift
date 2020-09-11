@@ -68,7 +68,7 @@ public extension HTML {
     /// The context within an HTML `<iframe>` element.
     enum IFrameContext: HTMLNamableContext, HTMLSourceContext {}
     /// The context within an HTML `<img>` element.
-    enum ImageContext: HTMLSourceContext, HTMLStylableContext {}
+    enum ImageContext: HTMLSourceContext, HTMLStylableContext, HTMLDimensionContext {}
     /// The context within an HTML `<input>` element.
     enum InputContext: HTMLNamableContext, HTMLValueContext {}
     /// The context within an HTML `<textarea>` element.

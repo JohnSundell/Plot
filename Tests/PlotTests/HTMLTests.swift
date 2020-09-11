@@ -456,12 +456,14 @@ final class HTMLTests: XCTestCase {
                 .id("id"),
                 .class("image"),
                 .src("image.png"),
-                .alt("Text")
+                .alt("Text"),
+                .width(44),
+                .height(44)
             )
         ))
 
         assertEqualHTMLContent(html, """
-        <body><img id="id" class="image" src="image.png" alt="Text"/></body>
+        <body><img id="id" class="image" src="image.png" alt="Text" width="44" height="44"/></body>
         """)
     }
 
