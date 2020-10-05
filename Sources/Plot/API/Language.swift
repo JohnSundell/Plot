@@ -32,6 +32,7 @@ public enum Language: String {
     case bislama = "bi"
     case bosnian = "bs"
     case breton = "br"
+    case brPortuguese = "pt-br"
     case bulgarian = "bg"
     case burmese = "my"
     case catalan = "ca"
