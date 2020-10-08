@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "172F694C-4B2E-49BB-B3BA-611E6EE41BAD",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Plot.xcodeproj",
+        "identifier" : "Plot::PlotTests",
+        "name" : "PlotTests"
+      }
+    }
+  ],
+  "version" : 1
+}

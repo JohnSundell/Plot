@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "C89F38F9-E23F-4E0C-B30F-DB45F5957A1C",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:plotSVG.xcodeproj",
+        "identifier" : "plotSVG::plotSVGTests",
+        "name" : "plotSVGTests"
+      }
+    }
+  ],
+  "version" : 1
+}

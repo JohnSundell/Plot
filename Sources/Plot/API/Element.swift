@@ -34,10 +34,17 @@ public extension Element {
         case selfClosing
     }
 
+//    /// Create a custom element with a given name and array of child nodes.
+//    /// - parameter name: The name of the element to create.
+//    /// - parameter nodes: The nodes (child elements + attributes) to add to the element.
+//    static func named(_ name: String, nodes: [Node<Any>]) -> Element {
+//        Element(name: name, nodes: nodes)
+//    }
+    
     /// Create a custom element with a given name and array of child nodes.
     /// - parameter name: The name of the element to create.
     /// - parameter nodes: The nodes (child elements + attributes) to add to the element.
-    static func named(_ name: String, nodes: [Node<Any>]) -> Element {
+    static func named<C>(_ name: String, nodes: [Node<C>]) -> Element {
         Element(name: name, nodes: nodes)
     }
 
@@ -48,6 +55,7 @@ public extension Element {
                            attributes: [Attribute<Any>]) -> Element {
         Element(name: name, closingMode: .selfClosing, nodes: attributes.asNodes())
     }
+    
 }
 
 extension Element: Renderable {
@@ -63,3 +71,12 @@ extension Element: Renderable {
         return renderer.render(withClosingMode: closingMode)
     }
 }
+//
+//extension Element {
+//    /// Create a custom element with a given name and array of child nodes.
+//    /// - parameter name: The name of the element to create.
+//    /// - parameter nodes: The nodes (child elements + attributes) to add to the element.
+//    static func named(_ name: String, nodes: [Node]) -> Element {
+//        Element(name: name, nodes: nodes)
+//    }
+//}
