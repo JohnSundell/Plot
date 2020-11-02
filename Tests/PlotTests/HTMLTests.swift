@@ -233,7 +233,8 @@ final class HTMLTests: XCTestCase {
         let html = try HTML(.body(
             .a(.href("a.html"), .target(.blank), .text("A")),
             .a(.href("b.html"), .rel(.nofollow), .text("B")),
-            .a(.href(require(URL(string: "c.html"))), .text("C"))
+            .a(.href(require(URL(string: "c.html"))), .text("C")),
+            .a(href: "d.html", .text("D"))
         ))
 
         assertEqualHTMLContent(html, """
@@ -241,6 +242,7 @@ final class HTMLTests: XCTestCase {
         <a href="a.html" target="_blank">A</a>\
         <a href="b.html" rel="nofollow">B</a>\
         <a href="c.html">C</a>\
+        <a href="d.html">D</a>\
         </body>
         """)
     }

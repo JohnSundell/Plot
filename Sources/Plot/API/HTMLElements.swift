@@ -87,6 +87,15 @@ public extension Node where Context: HTML.BodyContext {
         .element(named: "a", nodes: nodes)
     }
 
+    /// Add an `<a>` HTML element within the current context.
+    /// - Parameters:
+    ///   - href: The URL to assign.
+    ///   - nodes: The element's attributes and child elements.
+    static func a(href url: URLRepresentable, _ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "a",
+                 nodes: [.attribute(named: "href", value: url.string)] + nodes)
+    }
+
     /// Add an `<abbr>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
     static func abbr(_ nodes: Node<HTML.BodyContext>...) -> Node {
