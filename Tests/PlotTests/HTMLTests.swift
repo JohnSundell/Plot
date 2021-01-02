@@ -467,6 +467,19 @@ final class HTMLTests: XCTestCase {
         """)
     }
 
+    func testImageWithEmptyAlt() {
+        let html = HTML(.body(
+            .img(
+                .src("image.png"),
+                .alt("")
+            )
+        ))
+
+        assertEqualHTMLContent(html, """
+        <body><img src="image.png" alt=""/></body>
+        """)
+    }
+
     func testAudioPlayer() {
         let html = HTML(.body(
             .audio(.source(.src("a.mp3"), .type(.mp3))),
@@ -817,6 +830,7 @@ extension HTMLTests {
             ("testHeadings", testHeadings),
             ("testParagraph", testParagraph),
             ("testImage", testImage),
+            ("testImageWithEmptyAlt", testImageWithEmptyAlt),
             ("testAudioPlayer", testAudioPlayer),
             ("testVideoPlayer", testVideoPlayer),
             ("testArticle", testArticle),

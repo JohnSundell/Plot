@@ -97,7 +97,7 @@ public extension Node {
         .attribute(Attribute(
             name: name,
             value: nil,
-            ignoreIfValueIsEmpty: false
+            ifValueIsEmpty: .renderJustName
         ))
     }
 
@@ -108,11 +108,11 @@ public extension Node {
     ///   its value is empty (default: true).
     static func attribute(named name: String,
                           value: String?,
-                          ignoreIfValueIsEmpty: Bool = true) -> Node {
+                          ifValueIsEmpty: Attribute<Context>.EmptyValueRenderingBehaviour = .ignore) -> Node {
         .attribute(Attribute(
             name: name,
             value: value,
-            ignoreIfValueIsEmpty: ignoreIfValueIsEmpty
+            ifValueIsEmpty: ifValueIsEmpty
         ))
     }
 
