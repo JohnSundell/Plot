@@ -11,21 +11,29 @@ import Foundation
 /// but rather use Plot's various DSL APIs to create them, for example by using
 /// the `id()` or `class()` modifier on an HTML element.
 public struct Attribute<Context> {
+    public enum EmptyValueRenderingBehaviour {
+        /// Attribute is completely ignored
+        case ignore
+        /// Only the name of attribute is rendered
+        case renderJustName
+        /// Attribute is rendered with empty value
+        case renderEmptyValue
+    }
     /// The name of the attribute
     public var name: String
     /// The attribute's value
     public var value: String?
-    /// Whether the attribute should be completely ignored if it has no value
-    public var ignoreIfValueIsEmpty: Bool
+    /// Defines how attribute is rendered if it's value is empty
+    public var ifValueIsEmpty: EmptyValueRenderingBehaviour
 
     /// Create a new `Attribute` instance with a name and a value, and optionally
     /// opt out of ignoring the attribute if its value is empty.
     public init(name: String,
                 value: String?,
-                ignoreIfValueIsEmpty: Bool = true) {
+                ifValueIsEmpty: EmptyValueRenderingBehaviour = .ignore) {
         self.name = name
         self.value = value
-        self.ignoreIfValueIsEmpty = ignoreIfValueIsEmpty
+        self.ifValueIsEmpty = ifValueIsEmpty
     }
 }
 
@@ -59,7 +67,14 @@ internal protocol AnyAttribute {
 extension Attribute: AnyAttribute {
     func render() -> String {
         guard let value = value, !value.isEmpty else {
-            return ignoreIfValueIsEmpty ? "" : name
+            switch ifValueIsEmpty {
+            case .ignore:
+                return ""
+            case .renderJustName:
+                return name
+            case .renderEmptyValue:
+                return #"\#(name)="""#
+            }
         }
 
         return "\(name)=\"\(value)\""

@@ -332,14 +332,14 @@ public extension Attribute where Context == HTML.OptionContext {
         return Attribute(
             name: "selected",
             value: nil,
-            ignoreIfValueIsEmpty: false
+            ifValueIsEmpty: .renderJustName
         )
     }
 
     /// Assign a label to the given option.
     /// - parameter label: The user displayed value of the option
     static func label(_ label: String) -> Attribute {
-        Attribute(name: "label", value: label, ignoreIfValueIsEmpty: false)
+        Attribute(name: "label", value: label, ifValueIsEmpty: .renderJustName)
     }
 }
 
@@ -412,7 +412,7 @@ public extension Attribute where Context == HTML.ImageContext {
     /// accessibility, and in case the referenced image can't be rendered.
     /// - parameter text: The alternative text to use.
     static func alt(_ text: String) -> Attribute {
-        Attribute(name: "alt", value: text)
+        Attribute(name: "alt", value: text, ifValueIsEmpty: .renderEmptyValue)
     }
 }
 
@@ -471,12 +471,12 @@ public extension Node where Context: HTMLIntegrityContext {
 public extension Node where Context == HTML.ScriptContext {
     /// Assign that the element's script should be loaded in `async` mode.
     static func async() -> Node {
-        .attribute(named: "async", value: nil, ignoreIfValueIsEmpty: false)
+        .attribute(named: "async", value: nil, ifValueIsEmpty: .renderJustName)
     }
     
     /// Assign that the element's script should be loaded in `defer` mode.
     static func `defer`() -> Node {
-        .attribute(named: "defer", value: nil, ignoreIfValueIsEmpty: false)
+        .attribute(named: "defer", value: nil, ifValueIsEmpty: .renderJustName)
     }
 }
 
