@@ -54,10 +54,6 @@ public extension Document {
     }
 }
 
-extension Document: Renderable {
-    public func render(indentedBy indentationKind: Indentation.Kind?) -> String {
-        let indentation = indentationKind.map(Indentation.init)
-        let html = elements.map { $0.render(indentedBy: indentation) }
-        return html.joined(separator: indentationKind == nil ? "" : "\n")
-    }
+extension Document: NodeConvertible {
+    public var node: Node<Format> { .document(self) }
 }

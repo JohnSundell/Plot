@@ -25,7 +25,7 @@ public extension Element where Context == SiteMap.RootContext {
 
         return Element(
             name: "urlset",
-            nodes: attributes.asNodes() + nodes
+            nodes: attributes.map(\.node) + nodes
         )
     }
 }

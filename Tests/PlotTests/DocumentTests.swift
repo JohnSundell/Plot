@@ -25,9 +25,10 @@ final class DocumentTests: XCTestCase {
                 .named("one", nodes: [
                     .element(named: "two", nodes: [
                         .selfClosedElement(named: "three")
-                    ])
+                    ]),
+                    .element(named: "four")
                 ]),
-                .selfClosed(named: "four", attributes: [
+                .selfClosed(named: "five", attributes: [
                     Attribute(name: "key", value: "value")
                 ])
             ]
@@ -38,8 +39,9 @@ final class DocumentTests: XCTestCase {
             <two>
                 <three/>
             </two>
+            <four></four>
         </one>
-        <four key="value"/>
+        <five key="value"/>
         """)
     }
 
@@ -50,9 +52,10 @@ final class DocumentTests: XCTestCase {
                 .named("one", nodes: [
                     .element(named: "two", nodes: [
                         .selfClosedElement(named: "three")
-                    ])
+                    ]),
+                    .element(named: "four")
                 ]),
-                .selfClosed(named: "four", attributes: [
+                .selfClosed(named: "five", attributes: [
                     Attribute(name: "key", value: "value")
                 ])
             ]
@@ -63,8 +66,9 @@ final class DocumentTests: XCTestCase {
         \t<two>
         \t\t<three/>
         \t</two>
+        \t<four></four>
         </one>
-        <four key="value"/>
+        <five key="value"/>
         """)
     }
 }

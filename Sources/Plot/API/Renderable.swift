@@ -12,22 +12,13 @@ import Foundation
 /// ships with multiple types that use this protocol, for example `Node`,
 /// `Element` and `Document`.
 public protocol Renderable {
-    /// The type of indentation that the value can be rendered using.
-    associatedtype IndentationType
-    /// Render this object into a string with a given type of indentation.
-    /// - parameter indentation: How to indent the rendered string.
-    func render(indentedBy indentation: IndentationType?) -> String
+    /// Render this object into a string, optionally with a certain kind of indentation.
+    /// - parameter indentationKind: What kind of indentation that should be used
+    ///   when rendering. Passing `nil` will result in a minified, unindented output string.
+    func render(indentedBy indentationKind: Indentation.Kind?) -> String
 }
 
 public extension Renderable {
     /// Render this object into a minified string, without any indentation.
     func render() -> String { render(indentedBy: nil) }
-}
-
-extension Array: Renderable where Element: Renderable {
-    public func render(indentedBy indentation: Element.IndentationType?) -> String {
-        reduce(into: "") { string, node in
-            string.append(node.render(indentedBy: indentation))
-        }
-    }
 }

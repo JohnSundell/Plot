@@ -26,10 +26,8 @@ public struct PodcastFeed: RSSBasedDocumentFormat {
     }
 }
 
-extension PodcastFeed: Renderable {
-    public func render(indentedBy indentationKind: Indentation.Kind?) -> String {
-        document.render(indentedBy: indentationKind)
-    }
+extension PodcastFeed: NodeConvertible {
+    public var node: Node<Self> { document.node }
 }
 
 public extension PodcastFeed {
