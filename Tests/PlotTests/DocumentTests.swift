@@ -74,14 +74,3 @@ private extension DocumentTests {
         enum RootContext {}
     }
 }
-
-extension DocumentTests {
-    static var allTests: Linux.TestList<DocumentTests> {
-        [
-            ("testEmptyDocument", testEmptyDocument),
-            ("testEmptyIndentedDocument", testEmptyIndentedDocument),
-            ("testIndentationWithSpaces", testIndentationWithSpaces),
-            ("testIndentationWithTabs", testIndentationWithTabs)
-        ]
-    }
-}

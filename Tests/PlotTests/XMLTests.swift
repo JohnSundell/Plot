@@ -44,15 +44,3 @@ final class XMLTests: XCTestCase {
         assertEqualXMLContent(xml, "<parent><a/><b/></parent>")
     }
 }
-
-extension XMLTests {
-    static var allTests: Linux.TestList<XMLTests> {
-        [
-            ("testEmptyXML", testEmptyXML),
-            ("testSingleElement", testSingleElement),
-            ("testSelfClosingElement", testSelfClosingElement),
-            ("testElementWithAttribute", testElementWithAttribute),
-            ("testElementWithChildren", testElementWithChildren)
-        ]
-    }
-}

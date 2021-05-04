@@ -40,13 +40,3 @@ final class IndentationTests: XCTestCase {
         )
     }
 }
-
-extension IndentationTests {
-    static var allTests: Linux.TestList<IndentationTests> {
-        [
-            ("testSpacesCoding", testSpacesCoding),
-            ("testTabsCoding", testTabsCoding),
-            ("testDecodingErrorForInvalidKind", testDecodingErrorForInvalidKind)
-        ]
-    }
-}
