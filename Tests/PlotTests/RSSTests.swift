@@ -124,26 +124,3 @@ final class RSSTests: XCTestCase {
         """)
     }
 }
-
-extension RSSTests {
-    static var allTests: Linux.TestList<RSSTests> {
-        [
-            ("testEmptyFeed", testEmptyFeed),
-            ("testFeedTitle", testFeedTitle),
-            ("testFeedDescription", testFeedDescription),
-            ("testFeedURL", testFeedURL),
-            ("testFeedAtomLink", testFeedAtomLink),
-            ("testFeedLanguage", testFeedLanguage),
-            ("testFeedTTL", testFeedTTL),
-            ("testFeedPublicationDate", testFeedPublicationDate),
-            ("testFeedLastBuildDate", testFeedLastBuildDate),
-            ("testItemGUID", testItemGUID),
-            ("testItemTitle", testItemTitle),
-            ("testItemDescription", testItemDescription),
-            ("testItemURL", testItemURL),
-            ("testItemPublicationDate", testItemPublicationDate),
-            ("testItemHTMLStringContent", testItemHTMLStringContent),
-            ("testItemHTMLDSLContent", testItemHTMLDSLContent)
-        ]
-    }
-}
