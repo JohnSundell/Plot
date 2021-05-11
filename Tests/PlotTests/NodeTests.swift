@@ -71,4 +71,18 @@ final class NodeTests: XCTestCase {
 
         XCTAssertEqual(node.render(), #"<custom key="value"/>"#)
     }
+
+    func testComponents() {
+        let node = Node<Any>.components {
+            Paragraph("One")
+            Paragraph("Two")
+        }
+
+        XCTAssertEqual(node.render(), "<p>One</p><p>Two</p>")
+    }
+
+    func testNodeComponentBodyIsEqualToSelf() {
+        let node = Node.p("Text")
+        XCTAssertEqual(node.render(), node.body.render())
+    }
 }

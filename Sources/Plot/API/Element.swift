@@ -10,7 +10,7 @@ import Foundation
 /// You normally don't construct `Element` values manually, but rather use Plot's
 /// various DSL APIs to create them, for example by creating a `<body>` tag using
 /// `.body()`, or a `<p>` tag using `.p()`.
-public struct Element<Context> {
+public struct Element<Context>: AnyElement {
     /// The name of the element
     public var name: String
     /// How the element is closed, for example if it's self-closing or if it can
@@ -22,17 +22,8 @@ public struct Element<Context> {
 }
 
 public extension Element {
-    /// Enum defining how a given element should be closed
-    enum ClosingMode {
-        /// The standard (default) closing mode, which creates a pair of opening
-        /// and closing tags, for example `<html></html>`.
-        case standard
-        /// For elements that are never closed, for example the leading declaration
-        /// tags found at the top of XML documents.
-        case neverClosed
-        /// For elements that close themselves, for example `<img src="..."/>`.
-        case selfClosing
-    }
+    /// Convenience shorthand for `ElementClosingMode`.
+    typealias ClosingMode = ElementClosingMode
 
     /// Create a custom element with a given name and array of child nodes.
     /// - parameter name: The name of the element to create.
@@ -46,20 +37,21 @@ public extension Element {
     /// - parameter attributes The attributes to add to the element.
     static func selfClosed(named name: String,
                            attributes: [Attribute<Any>]) -> Element {
-        Element(name: name, closingMode: .selfClosing, nodes: attributes.asNodes())
+        Element(name: name, closingMode: .selfClosing, nodes: attributes.map(\.node))
     }
 }
 
-extension Element: Renderable {
-    public func render(indentedBy indentation: Indentation?) -> String {
-        let renderer = ElementRenderer(
-            elementName: name,
-            paddingCharacter: paddingCharacter,
-            indentation: indentation
-        )
+extension Element: NodeConvertible {
+    public var node: Node<Context> { .element(self) }
+}
 
-        nodes.forEach { $0.render(into: renderer) }
+extension Element: Component where Context == Any {
+    public var body: Component { node }
 
-        return renderer.render(withClosingMode: closingMode)
+    public init(
+        name: String,
+        @ComponentBuilder content: @escaping ContentProvider
+    ) {
+        self.init(name: name, nodes: [Node<Any>.component(content())])
     }
 }

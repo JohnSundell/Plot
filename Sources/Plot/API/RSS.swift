@@ -28,10 +28,8 @@ public struct RSS: RSSBasedDocumentFormat {
     }
 }
 
-extension RSS: Renderable {
-    public func render(indentedBy indentationKind: Indentation.Kind?) -> String {
-        document.render(indentedBy: indentationKind)
-    }
+extension RSS: NodeConvertible {
+    public var node: Node<Self> { document.node }
 }
 
 public extension RSS {
