@@ -175,7 +175,7 @@ internal extension Node where Context == Any {
     static func modifiedComponent(_ component: ModifiedComponent) -> Node {
         Node { renderer in
             renderer.renderComponent(component.base,
-                deferredAttributes: component.deferredAttributes,
+                deferredAttributes: component.deferredAttributes + renderer.deferredAttributes,
                 environmentOverrides: component.environmentOverrides
             )
         }

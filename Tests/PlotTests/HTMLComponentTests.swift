@@ -88,7 +88,7 @@ final class HTMLComponentTests: XCTestCase {
         XCTAssertEqual(html, #"<p class="one two three">Hello</p>"#)
     }
 
-    func testNotAppendingEmptyClassNames() {
+    func testNotAppendingEmptyClasses() {
         let html = Paragraph("Hello")
             .class("")
             .class("one")
@@ -97,6 +97,23 @@ final class HTMLComponentTests: XCTestCase {
             .render()
 
         XCTAssertEqual(html, #"<p class="one two">Hello</p>"#)
+    }
+
+    func testAppendingClassesToWrappingComponents() {
+        struct InnerWrapper: Component {
+            var body: Component {
+                Paragraph("Hello").class("one")
+            }
+        }
+
+        struct OuterWrapper: Component {
+            var body: Component {
+                InnerWrapper().class("two")
+            }
+        }
+
+        let html = OuterWrapper().class("three").render()
+        XCTAssertEqual(html, #"<p class="one two three">Hello</p>"#)
     }
 
     func testReplacingClass() {
