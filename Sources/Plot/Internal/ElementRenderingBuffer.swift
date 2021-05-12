@@ -22,11 +22,7 @@ internal final class ElementRenderingBuffer {
         if let existingIndex = attributeIndexes[attribute.name] {
             if attribute.replaceExisting {
                 attributes[existingIndex].value = attribute.value
-            } else {
-                guard let newValue = attribute.nonEmptyValue else {
-                    return
-                }
-
+            } else if let newValue = attribute.nonEmptyValue {
                 if let existingValue = attributes[existingIndex].nonEmptyValue {
                     attributes[existingIndex].value = existingValue + " " + newValue
                 } else {
