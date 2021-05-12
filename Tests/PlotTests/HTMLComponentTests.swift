@@ -88,6 +88,17 @@ final class HTMLComponentTests: XCTestCase {
         XCTAssertEqual(html, #"<p class="one two three">Hello</p>"#)
     }
 
+    func testNotAppendingEmptyClassNames() {
+        let html = Paragraph("Hello")
+            .class("")
+            .class("one")
+            .class("")
+            .class("two")
+            .render()
+
+        XCTAssertEqual(html, #"<p class="one two">Hello</p>"#)
+    }
+
     func testReplacingClass() {
         let html = Paragraph("Hello")
             .class("one")
