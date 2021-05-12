@@ -64,7 +64,7 @@ extension Attribute: NodeConvertible {
 
 extension Attribute: AnyAttribute {
     func render() -> String {
-        guard let value = value, !value.isEmpty else {
+        guard let value = nonEmptyValue else {
             return ignoreIfValueIsEmpty ? "" : name
         }
 

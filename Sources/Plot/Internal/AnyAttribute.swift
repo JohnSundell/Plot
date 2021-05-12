@@ -11,3 +11,9 @@ internal protocol AnyAttribute {
 
     func render() -> String
 }
+
+extension AnyAttribute {
+    var nonEmptyValue: String? {
+        value?.isEmpty == false ? value : nil
+    }
+}
