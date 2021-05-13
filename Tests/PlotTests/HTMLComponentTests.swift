@@ -116,6 +116,21 @@ final class HTMLComponentTests: XCTestCase {
         XCTAssertEqual(html, #"<p class="one two three">Hello</p>"#)
     }
 
+    func testAppendingClassToWrappingComponentContainingGroup() {
+        struct Wrapper: Component {
+            var body: Component {
+                ComponentGroup {
+                    Paragraph("One")
+                    Paragraph("Two")
+                }
+                .class("one")
+            }
+        }
+
+        let html = Wrapper().class("two").render()
+        XCTAssertEqual(html, #"<p class="one two">One</p><p class="one two">Two</p>"#)
+    }
+
     func testReplacingClass() {
         let html = Paragraph("Hello")
             .class("one")
