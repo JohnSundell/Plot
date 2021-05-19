@@ -12,6 +12,7 @@ internal struct Renderer {
     private var environment: Environment
     private var elementWrapper: ElementWrapper?
     private var elementBuffer: ElementRenderingBuffer?
+    private var containsElement = false
 }
 
 extension Renderer {
@@ -30,7 +31,7 @@ extension Renderer {
     }
 
     mutating func renderRawText(_ text: String) {
-        renderRawText(text, wrapIfNeeded: true)
+        renderRawText(text, isPlainText: true, wrapIfNeeded: true)
     }
 
     mutating func renderText(_ text: String) {
@@ -72,8 +73,13 @@ extension Renderer {
         }
 
         deferredAttributes.forEach(buffer.add)
-        renderRawText(buffer.flush(), wrapIfNeeded: false)
         elementBuffer?.containsChildElements = true
+        containsElement = true
+
+        renderRawText(buffer.flush(),
+            isPlainText: false,
+            wrapIfNeeded: false
+        )
     }
 
     mutating func renderAttribute<T>(_ attribute: Attribute<T>) {
@@ -119,12 +125,21 @@ extension Renderer {
             )
         }
 
-        renderRawText(renderer.result, wrapIfNeeded: false)
+        renderRawText(renderer.result,
+            isPlainText: !renderer.containsElement,
+            wrapIfNeeded: false
+        )
+
+        containsElement = renderer.containsElement
     }
 }
 
 private extension Renderer {
-    mutating func renderRawText(_ text: String, wrapIfNeeded: Bool) {
+    mutating func renderRawText(
+        _ text: String,
+        isPlainText: Bool,
+        wrapIfNeeded: Bool
+    ) {
         if wrapIfNeeded {
             if let wrapper = elementWrapper {
                 return renderComponent(wrapper.body(Node<Any>.raw(text)))
@@ -132,7 +147,7 @@ private extension Renderer {
         }
 
         if let elementBuffer = elementBuffer {
-            elementBuffer.add(text)
+            elementBuffer.add(text, isPlainText: isPlainText)
         } else {
             if indentation != nil && !result.isEmpty {
                 result.append("\n")
