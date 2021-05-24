@@ -7,7 +7,7 @@
 import Foundation
 
 /// Type used to define an environment key, which can be used to pass a given
-/// value downward through a component/node hierarchy until its overriden by
+/// value downward through a component/node hierarchy until its overridden by
 /// another value for the same key. You can place values into the environment
 /// using the `environmentValue` modifier, and you can then retrieve those
 /// values within any component using the `EnvironmentValue` property wrapper.
