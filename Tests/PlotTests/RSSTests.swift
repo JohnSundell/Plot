@@ -23,6 +23,19 @@ final class RSSTests: XCTestCase {
         assertEqualRSSFeedContent(feed, "<description>Description</description>")
     }
 
+    func testFeedDescriptionWithHTMLContent() {
+        let feed = RSS(
+            .description(
+                .p(
+                    .text("Description with "),
+                    .em("emphasis"),
+                    .text(".")
+                )
+            )
+        )
+        assertEqualRSSFeedContent(feed, "<description><![CDATA[<p>Description with <em>emphasis</em>.</p>]]></description>")
+    }
+
     func testFeedURL() {
         let feed = RSS(.link("url.com"))
         assertEqualRSSFeedContent(feed, "<link>url.com</link>")
