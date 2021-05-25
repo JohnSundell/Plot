@@ -342,6 +342,12 @@ public extension Node where Context == HTML.TextAreaContext {
         .attribute(named: "rows", value: String(rows))
     }
     
+    /// Assigns a placeholder to the text area.
+    /// - parameter placeholder: The placeholder to assign.
+    static func placeholder(_ placeholder: String) -> Node {
+        .attribute(named: "placeholder", value: placeholder)
+    }
+
     /// Assign whether the element is required before submitting the form.
     /// - parameter isRequired: Whether the element is required.
     static func required(_ isRequired: Bool) -> Node {
