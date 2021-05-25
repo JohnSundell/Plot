@@ -386,7 +386,7 @@ final class HTMLComponentTests: XCTestCase {
         .render()
 
         XCTAssertEqual(html, """
-        <iframe src="url.com" frameborder="0" allowfullscreen="true" allow="gyroscope"></iframe>
+        <iframe src="url.com" frameborder="0" allowfullscreen allow="gyroscope"></iframe>
         """)
     }
 

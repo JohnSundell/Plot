@@ -589,7 +589,7 @@ final class HTMLTests: XCTestCase {
 
         assertEqualHTMLContent(html, """
         <body>\
-        <iframe src="url.com" frameborder="0" allow="gyroscope" allowfullscreen="true"></iframe>\
+        <iframe src="url.com" frameborder="0" allow="gyroscope" allowfullscreen></iframe>\
         </body>
         """)
     }

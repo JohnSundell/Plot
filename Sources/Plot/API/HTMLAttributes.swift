@@ -451,7 +451,7 @@ public extension Attribute where Context == HTML.IFrameContext {
     /// Assign whether to grant the iframe full screen capabilities.
     /// - parameter allow: Whether the iframe should be allowed to go full screen.
     static func allowfullscreen(_ allow: Bool) -> Attribute {
-        Attribute(name: "allowfullscreen", value: String(allow))
+        Attribute(name: "allowfullscreen", value: nil, ignoreIfValueIsEmpty: false)
     }
 }
 
