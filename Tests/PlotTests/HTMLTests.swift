@@ -659,11 +659,15 @@ final class HTMLTests: XCTestCase {
 
     func testDetails() {
         let html = HTML(.body(
-            .details(.summary("Summary"), .p("Text"))
+            .details(.open(true), .summary("Open Summary"), .p("Text")),
+            .details(.open(false), .summary("Closed Summary"), .p("Text"))
         ))
 
         assertEqualHTMLContent(html, """
-        <body><details><summary>Summary</summary><p>Text</p></details></body>
+        <body>\
+        <details open><summary>Open Summary</summary><p>Text</p></details>\
+        <details><summary>Closed Summary</summary><p>Text</p></details>\
+        </body>
         """)
     }
 

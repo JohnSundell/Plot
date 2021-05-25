@@ -185,6 +185,16 @@ public extension Node where Context == HTML.AnchorContext {
     }
 }
 
+// MARK: - Interactive elements
+
+public extension Node where Context == HTML.DetailsContext {
+    /// Assign whether the details element should be displayed as open.
+    /// - parameter isOpen: Whether the element is required.
+    static func open(_ isOpen: Bool) -> Node {
+        isOpen ? .attribute(named: "open") : .empty
+    }
+}
+
 // MARK: - Sources and media
 
 public extension Attribute where Context: HTMLSourceContext {
