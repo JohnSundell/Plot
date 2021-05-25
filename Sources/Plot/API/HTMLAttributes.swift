@@ -353,6 +353,18 @@ public extension Node where Context == HTML.TextAreaContext {
     static func autofocus(_ isOn: Bool) -> Node {
         isOn ? .attribute(named: "autofocus") : .empty
     }
+
+    /// Assign whether the element should be read-only.
+    /// - parameter isReadonly: Whether the input is read-only.
+    static func readonly(_ isReadonly: Bool) -> Node {
+        isReadonly ? .attribute(named: "readonly") : .empty
+    }
+
+    /// Assign whether the element should be disabled.
+    /// - parameter isDisabled: Whether the input is disabled.
+    static func disabled(_ isDisabled: Bool) -> Node {
+        isDisabled ? .attribute(named: "disabled") : .empty
+    }
 }
 
 public extension Attribute where Context == HTML.OptionContext {

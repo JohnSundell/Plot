@@ -351,7 +351,8 @@ final class HTMLTests: XCTestCase {
                 .input(.name("d"), .type(.email), .placeholder("email address"), .autocomplete(true), .required(true)),
                 .input(.name("e"), .type(.text), .readonly(true), .disabled(true)),
                 .textarea(.name("f"), .cols(50), .rows(10), .required(true), .text("Test")),
-                .textarea(.name("g"), .autofocus(true)),
+                .textarea(.name("g"), .autofocus(true), .readonly(false), .disabled(false)),
+                .textarea(.name("h"), .readonly(true), .disabled(true), .text("Test")),
                 .input(.type(.file), .multiple(true)),
                 .input(.type(.submit), .value("Send"))
             )
@@ -369,6 +370,7 @@ final class HTMLTests: XCTestCase {
         <input name="e" type="text" readonly disabled/>\
         <textarea name="f" cols="50" rows="10" required>Test</textarea>\
         <textarea name="g" autofocus></textarea>\
+        <textarea name="h" readonly disabled>Test</textarea>\
         <input type="file" multiple/>\
         <input type="submit" value="Send"/>\
         </form></body>
