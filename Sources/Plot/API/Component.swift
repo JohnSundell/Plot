@@ -80,7 +80,7 @@ public extension Component {
 
     /// Place a value into the environment used to render this component and any
     /// of its child components. An environment value will be passed downwards
-    /// through a component/node hierarchy until its overriden by another value
+    /// through a component/node hierarchy until its overridden by another value
     /// for the same key.
     /// - parameter value: The value to add. Must match the type of the key that
     ///   it's being added for. This value will override any value that was assigned
