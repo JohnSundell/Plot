@@ -301,13 +301,13 @@ public extension Attribute where Context == HTML.InputContext {
     /// Assign whether the element is required before submitting the form.
     /// - parameter isRequired: Whether the element is required.
     static func required(_ isRequired: Bool) -> Attribute {
-        isRequired ? Attribute(name: "required", value: "true") : .empty
+        isRequired ? Attribute(name: "required", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
     
     /// Assign whether the element should be autofocused when the page loads.
     /// - parameter isOn: Whether autofocus should be turned on.
     static func autofocus(_ isOn: Bool) -> Attribute {
-        isOn ? Attribute(name: "autofocus", value: "true") : .empty
+        isOn ? Attribute(name: "autofocus", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
 }
 
@@ -327,13 +327,13 @@ public extension Node where Context == HTML.TextAreaContext {
     /// Assign whether the element is required before submitting the form.
     /// - parameter isRequired: Whether the element is required.
     static func required(_ isRequired: Bool) -> Node {
-        isRequired ? .attribute(named: "required", value: "true") : .empty
+        isRequired ? .attribute(named: "required") : .empty
     }
     
     /// Assign whether the element should be autofocused when the page loads.
     /// - parameter isOn: Whether autofocus should be turned on.
     static func autofocus(_ isOn: Bool) -> Node {
-        isOn ? .attribute(named: "autofocus", value: "true") : .empty
+        isOn ? .attribute(named: "autofocus") : .empty
     }
 }
 

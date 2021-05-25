@@ -364,7 +364,7 @@ final class HTMLComponentTests: XCTestCase {
         <form action="url.com" method="post">\
         <fieldset>\
         <label>Username\
-        <input type="text" name="username" required="true" autofocus="true" autocomplete="off"/>\
+        <input type="text" name="username" required autofocus autocomplete="off"/>\
         </label>\
         <label class="password-label">Password\
         <input type="password" name="password" class="password-input"/>\

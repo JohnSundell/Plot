@@ -361,11 +361,11 @@ final class HTMLTests: XCTestCase {
         <label for="a">A label</label>\
         <input name="a" type="text"/>\
         </fieldset>\
-        <input name="b" type="search" autocomplete="off" autofocus="true"/>\
+        <input name="b" type="search" autocomplete="off" autofocus/>\
         <input name="c" type="text"/>\
-        <input name="d" type="email" placeholder="email address" autocomplete="on" required="true"/>\
-        <textarea name="e" cols="50" rows="10" required="true">Test</textarea>\
-        <textarea name="f" autofocus="true"></textarea>\
+        <input name="d" type="email" placeholder="email address" autocomplete="on" required/>\
+        <textarea name="e" cols="50" rows="10" required>Test</textarea>\
+        <textarea name="f" autofocus></textarea>\
         <input type="submit" value="Send"/>\
         </form></body>
         """)
