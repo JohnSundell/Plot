@@ -347,10 +347,12 @@ final class HTMLTests: XCTestCase {
                     .input(.name("a"), .type(.text))
                 ),
                 .input(.name("b"), .type(.search), .autocomplete(false), .autofocus(true)),
-                .input(.name("c"), .type(.text), .autofocus(false)),
+                .input(.name("c"), .type(.text), .autofocus(false), .readonly(false), .disabled(false)),
                 .input(.name("d"), .type(.email), .placeholder("email address"), .autocomplete(true), .required(true)),
-                .textarea(.name("e"), .cols(50), .rows(10), .required(true), .text("Test")),
-                .textarea(.name("f"), .autofocus(true)),
+                .input(.name("e"), .type(.text), .readonly(true), .disabled(true)),
+                .textarea(.name("f"), .cols(50), .rows(10), .required(true), .text("Test")),
+                .textarea(.name("g"), .autofocus(true)),
+                .input(.type(.file), .multiple(true)),
                 .input(.type(.submit), .value("Send"))
             )
         ))
@@ -364,8 +366,10 @@ final class HTMLTests: XCTestCase {
         <input name="b" type="search" autocomplete="off" autofocus/>\
         <input name="c" type="text"/>\
         <input name="d" type="email" placeholder="email address" autocomplete="on" required/>\
-        <textarea name="e" cols="50" rows="10" required>Test</textarea>\
-        <textarea name="f" autofocus></textarea>\
+        <input name="e" type="text" readonly disabled/>\
+        <textarea name="f" cols="50" rows="10" required>Test</textarea>\
+        <textarea name="g" autofocus></textarea>\
+        <input type="file" multiple/>\
         <input type="submit" value="Send"/>\
         </form></body>
         """)

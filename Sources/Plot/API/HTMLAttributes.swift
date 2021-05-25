@@ -309,6 +309,24 @@ public extension Attribute where Context == HTML.InputContext {
     static func autofocus(_ isOn: Bool) -> Attribute {
         isOn ? Attribute(name: "autofocus", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
+
+    /// Assign whether the element should be read-only.
+    /// - parameter isReadonly: Whether the input is read-only.
+    static func readonly(_ isReadonly: Bool) -> Attribute {
+        isReadonly ? Attribute(name: "readonly", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
+
+    /// Assign whether the element should be disabled.
+    /// - parameter isDisabled: Whether the input is disabled.
+    static func disabled(_ isDisabled: Bool) -> Attribute {
+        isDisabled ? Attribute(name: "disabled", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
+
+    /// Assign whether the element should allow the selection of multiple values.
+    /// - parameter isMultiple: Whether multiple values are allowed.
+    static func multiple(_ isMultiple: Bool) -> Attribute {
+        isMultiple ? Attribute(name: "multiple", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
 }
 
 public extension Node where Context == HTML.TextAreaContext {
