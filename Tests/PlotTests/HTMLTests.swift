@@ -723,6 +723,26 @@ final class HTMLTests: XCTestCase {
         <body data-user-name="John"><img data-icon="User"/></body>
         """)
     }
+
+    func testSpellcheckAttribute() {
+        let html = HTML(
+            .body(
+                .spellcheck(true),
+                .form(
+                    .input(.type(.text), .spellcheck(false)),
+                    .textarea(.spellcheck(false))
+                )
+            )
+        )
+        assertEqualHTMLContent(html, """
+            <body spellcheck="true">\
+            <form>\
+            <input type="text" spellcheck="false"/>\
+            <textarea spellcheck="false"></textarea>\
+            </form>\
+            </body>
+            """)
+    }
     
     func testSubresourceIntegrity() {
         let html = HTML(.head(

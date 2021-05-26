@@ -27,6 +27,12 @@ public extension Attribute where Context: HTMLContext {
     static func data(named name: String, value: String) -> Attribute {
         Attribute(name: "data-\(name)", value: value)
     }
+
+    /// Assign whether operating system level spell checking should be enabled.
+    /// - parameter isEnabled: Whether spell checking should be enabled..
+    static func spellcheck(_ isEnabled: Bool) -> Attribute {
+        Attribute(name: "spellcheck", value: String(isEnabled))
+    }
 }
 
 public extension Node where Context: HTMLContext {
@@ -49,6 +55,12 @@ public extension Node where Context: HTMLContext {
     /// - parameter value: The attribute's string value.
     static func data(named name: String, value: String) -> Node {
         .attribute(named: "data-\(name)", value: value)
+    }
+
+    /// Assign whether operating system level spell checking should be enabled.
+    /// - parameter isEnabled: Whether spell checking should be enabled..
+    static func spellcheck(_ isEnabled: Bool) -> Node {
+        .attribute(named: "spellcheck", value: String(isEnabled))
     }
 }
 
