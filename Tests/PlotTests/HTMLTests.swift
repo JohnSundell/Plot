@@ -596,11 +596,15 @@ final class HTMLTests: XCTestCase {
 
     func testButton() {
         let html = HTML(.body(
-            .button(.name("Name"), .value("Value"), .text("Text"))
+            .button(.type(.button), .name("Name"), .value("Value"), .text("Text")),
+            .button(.type(.submit), .text("Submit"))
         ))
 
         assertEqualHTMLContent(html, """
-        <body><button name="Name" value="Value">Text</button></body>
+        <body>\
+        <button type="button" name="Name" value="Value">Text</button>\
+        <button type="submit">Submit</button>\
+        </body>
         """)
     }
 
