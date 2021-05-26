@@ -343,6 +343,12 @@ public extension Attribute where Context == HTML.InputContext {
     static func multiple(_ isMultiple: Bool) -> Attribute {
         isMultiple ? Attribute(name: "multiple", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
+
+    /// Assign whether a checkbox or radio input element has an active state.
+    /// - parameter isChecked: Whether the element has an active state.
+    static func checked(_ isChecked: Bool) -> Attribute {
+        isChecked ? Attribute(name: "checked", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
 }
 
 public extension Node where Context == HTML.TextAreaContext {

@@ -361,6 +361,7 @@ final class HTMLTests: XCTestCase {
                 .textarea(.name("f"), .cols(50), .rows(10), .required(true), .text("Test")),
                 .textarea(.name("g"), .autofocus(true), .placeholder("Placeholder"), .readonly(false), .disabled(false)),
                 .textarea(.name("h"), .readonly(true), .disabled(true), .text("Test")),
+                .input(.name("i"), .type(.checkbox), .checked(true)),
                 .input(.type(.file), .multiple(true)),
                 .input(.type(.submit), .value("Send"))
             )
@@ -379,6 +380,7 @@ final class HTMLTests: XCTestCase {
         <textarea name="f" cols="50" rows="10" required>Test</textarea>\
         <textarea name="g" autofocus placeholder="Placeholder"></textarea>\
         <textarea name="h" readonly disabled>Test</textarea>\
+        <input name="i" type="checkbox" checked/>\
         <input type="file" multiple/>\
         <input type="submit" value="Send"/>\
         </form></body>
