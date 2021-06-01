@@ -311,6 +311,14 @@ public extension Attribute where Context == HTML.InputContext {
     }
 }
 
+public extension Node where Context == HTML.ButtonContext {
+    /// Assign a button type to the element.
+    /// - parameter type: The button type to assign.
+    static func type(_ type: HTMLButtonType) -> Node {
+        .attribute(named: "type", value: type.rawValue)
+    }
+}
+
 public extension Node where Context == HTML.TextAreaContext {
     /// Specify the number of columns that the text area should contain.
     /// - parameter columns: The number of columns to specify.
