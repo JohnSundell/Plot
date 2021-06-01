@@ -593,13 +593,17 @@ final class HTMLTests: XCTestCase {
                 .src("url.com"),
                 .frameborder(false),
                 .allow("gyroscope"),
+                .allowfullscreen(false)
+            ),
+            .iframe(
                 .allowfullscreen(true)
             )
         ))
 
         assertEqualHTMLContent(html, """
         <body>\
-        <iframe src="url.com" frameborder="0" allow="gyroscope" allowfullscreen></iframe>\
+        <iframe src="url.com" frameborder="0" allow="gyroscope"></iframe>\
+        <iframe allowfullscreen></iframe>\
         </body>
         """)
     }
