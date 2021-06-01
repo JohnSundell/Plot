@@ -340,8 +340,8 @@ public extension Attribute where Context == HTML.InputContext {
 
     /// Assign whether the element should allow the selection of multiple values.
     /// - parameter isMultiple: Whether multiple values are allowed.
-    static func multiple(_ isMultiple: Bool) -> Attribute {
-        isMultiple ? Attribute(name: "multiple", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    static func multiple(_ isEnabled: Bool) -> Attribute {
+        isEnabled ? Attribute(name: "multiple", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
 
     /// Assign whether a checkbox or radio input element has an active state.
