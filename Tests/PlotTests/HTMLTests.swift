@@ -113,6 +113,13 @@ final class HTMLTests: XCTestCase {
         <head><meta name="viewport" content="width=500, initial-scale=1.0"/></head>
         """)
     }
+    
+    func testViewportFit() {
+        let html = HTML(.head(.viewport(.accordingToDevice, fit: .cover)))
+        assertEqualHTMLContent(html, """
+        <head><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/></head>
+        """)
+    }
 
     func testFavicon() {
         let html = HTML(.head(.favicon("icon.png")))
