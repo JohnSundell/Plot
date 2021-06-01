@@ -33,6 +33,12 @@ public extension Attribute where Context: HTMLContext {
     static func spellcheck(_ isEnabled: Bool) -> Attribute {
         Attribute(name: "spellcheck", value: String(isEnabled))
     }
+
+    /// Specify a title for the element.
+    /// - parameter title: The title to assign to the element.
+    static func title(_ title: String) -> Attribute {
+        Attribute(name: "title", value: title)
+    }
 }
 
 public extension Node where Context: HTMLContext {
@@ -61,6 +67,12 @@ public extension Node where Context: HTMLContext {
     /// - parameter isEnabled: Whether spell checking should be enabled.
     static func spellcheck(_ isEnabled: Bool) -> Node {
         .attribute(named: "spellcheck", value: String(isEnabled))
+    }
+
+    /// Specify a title for the element.
+    /// - parameter title: The title to assign to the element.
+    static func title(_ title: String) -> Node {
+        .attribute(named: "title", value: title)
     }
 }
 
@@ -111,16 +123,6 @@ public extension Node where Context == HTML.DocumentContext {
     /// - parameter language: The language to specify.
     static func lang(_ language: Language) -> Node {
         .attribute(named: "lang", value: language.rawValue)
-    }
-}
-
-// MARK: - Body
-
-public extension Node where Context: HTML.BodyContext {
-    /// Specify a title for the element.
-    /// - parameter title: The title to assign to the element.
-    static func title(_ title: String) -> Node {
-        .attribute(named: "title", value: title)
     }
 }
 
