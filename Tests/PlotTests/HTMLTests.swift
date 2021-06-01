@@ -191,14 +191,26 @@ final class HTMLTests: XCTestCase {
     }
 
     func testTitleAttribute() {
-        let html = HTML(.body(
-            .div(.title("Division title"),
-                .p(.title("Paragraph title"), "Paragraph"),
-                .a(.href("#"), .title("Link title"), "Link")
+        let html = HTML(
+            .head(
+                .link(
+                    .rel(.alternate),
+                    .title("Alternative representation")
+                )
+            ),
+            .body(
+                .div(
+                    .title("Division title"),
+                    .p(.title("Paragraph title"), "Paragraph"),
+                    .a(.href("#"), .title("Link title"), "Link")
+                )
             )
-        ))
+        )
         
         assertEqualHTMLContent(html, """
+        <head>\
+        <link rel="alternate" title="Alternative representation"/>\
+        </head>\
         <body>\
         <div title="Division title">\
         <p title="Paragraph title">Paragraph</p>\
@@ -722,6 +734,26 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, """
         <body data-user-name="John"><img data-icon="User"/></body>
         """)
+    }
+
+    func testSpellcheckAttribute() {
+        let html = HTML(
+            .body(
+                .spellcheck(true),
+                .form(
+                    .input(.type(.text), .spellcheck(false)),
+                    .textarea(.spellcheck(false))
+                )
+            )
+        )
+        assertEqualHTMLContent(html, """
+            <body spellcheck="true">\
+            <form>\
+            <input type="text" spellcheck="false"/>\
+            <textarea spellcheck="false"></textarea>\
+            </form>\
+            </body>
+            """)
     }
     
     func testSubresourceIntegrity() {
