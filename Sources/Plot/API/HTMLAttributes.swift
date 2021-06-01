@@ -302,7 +302,7 @@ public extension Attribute where Context == HTML.InputContext {
         Attribute(name: "type", value: type.rawValue)
     }
     
-    /// Assigns a placeholder to the input field.
+    /// Assign a placeholder to the input field.
     /// - parameter placeholder: The placeholder to assign.
     static func placeholder(_ placeholder: String) -> Attribute {
         Attribute(name: "placeholder", value: placeholder)
@@ -364,7 +364,7 @@ public extension Node where Context == HTML.TextAreaContext {
         .attribute(named: "rows", value: String(rows))
     }
     
-    /// Assigns a placeholder to the text area.
+    /// Assign a placeholder to the text area.
     /// - parameter placeholder: The placeholder to assign.
     static func placeholder(_ placeholder: String) -> Node {
         .attribute(named: "placeholder", value: placeholder)
