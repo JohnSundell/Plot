@@ -190,6 +190,14 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, #"<body class="b"></body>"#)
     }
 
+    func testHiddenElements() {
+        let html = HTML(.body(
+            .div(.hidden(false)),
+            .div(.hidden(true))
+        ))
+        assertEqualHTMLContent(html, "<body><div></div><div hidden></div></body>")
+    }
+
     func testTitleAttribute() {
         let html = HTML(
             .head(
@@ -347,10 +355,14 @@ final class HTMLTests: XCTestCase {
                     .input(.name("a"), .type(.text))
                 ),
                 .input(.name("b"), .type(.search), .autocomplete(false), .autofocus(true)),
-                .input(.name("c"), .type(.text), .autofocus(false)),
+                .input(.name("c"), .type(.text), .autofocus(false), .readonly(false), .disabled(false)),
                 .input(.name("d"), .type(.email), .placeholder("email address"), .autocomplete(true), .required(true)),
-                .textarea(.name("e"), .cols(50), .rows(10), .required(true), .text("Test")),
-                .textarea(.name("f"), .autofocus(true)),
+                .input(.name("e"), .type(.text), .readonly(true), .disabled(true)),
+                .textarea(.name("f"), .cols(50), .rows(10), .required(true), .text("Test")),
+                .textarea(.name("g"), .autofocus(true), .placeholder("Placeholder"), .readonly(false), .disabled(false)),
+                .textarea(.name("h"), .readonly(true), .disabled(true), .text("Test")),
+                .input(.name("i"), .type(.checkbox), .checked(true)),
+                .input(.name("j"), .type(.file), .multiple(true)),
                 .input(.type(.submit), .value("Send"))
             )
         ))
@@ -361,11 +373,15 @@ final class HTMLTests: XCTestCase {
         <label for="a">A label</label>\
         <input name="a" type="text"/>\
         </fieldset>\
-        <input name="b" type="search" autocomplete="off" autofocus="true"/>\
+        <input name="b" type="search" autocomplete="off" autofocus/>\
         <input name="c" type="text"/>\
-        <input name="d" type="email" placeholder="email address" autocomplete="on" required="true"/>\
-        <textarea name="e" cols="50" rows="10" required="true">Test</textarea>\
-        <textarea name="f" autofocus="true"></textarea>\
+        <input name="d" type="email" placeholder="email address" autocomplete="on" required/>\
+        <input name="e" type="text" readonly disabled/>\
+        <textarea name="f" cols="50" rows="10" required>Test</textarea>\
+        <textarea name="g" autofocus placeholder="Placeholder"></textarea>\
+        <textarea name="h" readonly disabled>Test</textarea>\
+        <input name="i" type="checkbox" checked/>\
+        <input name="j" type="file" multiple/>\
         <input type="submit" value="Send"/>\
         </form></body>
         """)
@@ -577,13 +593,17 @@ final class HTMLTests: XCTestCase {
                 .src("url.com"),
                 .frameborder(false),
                 .allow("gyroscope"),
+                .allowfullscreen(false)
+            ),
+            .iframe(
                 .allowfullscreen(true)
             )
         ))
 
         assertEqualHTMLContent(html, """
         <body>\
-        <iframe src="url.com" frameborder="0" allow="gyroscope" allowfullscreen="true"></iframe>\
+        <iframe src="url.com" frameborder="0" allow="gyroscope"></iframe>\
+        <iframe allowfullscreen></iframe>\
         </body>
         """)
     }
@@ -657,11 +677,15 @@ final class HTMLTests: XCTestCase {
 
     func testDetails() {
         let html = HTML(.body(
-            .details(.summary("Summary"), .p("Text"))
+            .details(.open(true), .summary("Open Summary"), .p("Text")),
+            .details(.open(false), .summary("Closed Summary"), .p("Text"))
         ))
 
         assertEqualHTMLContent(html, """
-        <body><details><summary>Summary</summary><p>Text</p></details></body>
+        <body>\
+        <details open><summary>Open Summary</summary><p>Text</p></details>\
+        <details><summary>Closed Summary</summary><p>Text</p></details>\
+        </body>
         """)
     }
 
