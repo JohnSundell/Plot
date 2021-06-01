@@ -29,7 +29,7 @@ public extension Attribute where Context: HTMLContext {
     }
 
     /// Assign whether operating system level spell checking should be enabled.
-    /// - parameter isEnabled: Whether spell checking should be enabled..
+    /// - parameter isEnabled: Whether spell checking should be enabled.
     static func spellcheck(_ isEnabled: Bool) -> Attribute {
         Attribute(name: "spellcheck", value: String(isEnabled))
     }
@@ -58,7 +58,7 @@ public extension Node where Context: HTMLContext {
     }
 
     /// Assign whether operating system level spell checking should be enabled.
-    /// - parameter isEnabled: Whether spell checking should be enabled..
+    /// - parameter isEnabled: Whether spell checking should be enabled.
     static func spellcheck(_ isEnabled: Bool) -> Node {
         .attribute(named: "spellcheck", value: String(isEnabled))
     }
