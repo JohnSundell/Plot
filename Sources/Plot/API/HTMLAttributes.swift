@@ -74,6 +74,12 @@ public extension Node where Context: HTMLContext {
     static func title(_ title: String) -> Node {
         .attribute(named: "title", value: title)
     }
+
+    /// Assign whether the element should be hidden.
+    /// - parameter isHidden: Whether the element should be hidden or not.
+    static func hidden(_ isHidden: Bool) -> Node {
+        isHidden ? .attribute(named: "hidden") : .empty
+    }
 }
 
 public extension Attribute where Context: HTMLNamableContext {

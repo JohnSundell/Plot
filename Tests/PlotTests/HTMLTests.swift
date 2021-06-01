@@ -190,6 +190,14 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, #"<body class="b"></body>"#)
     }
 
+    func testHiddenElements() {
+        let html = HTML(.body(
+            .div(.hidden(false)),
+            .div(.hidden(true))
+        ))
+        assertEqualHTMLContent(html, "<body><div></div><div hidden></div></body>")
+    }
+
     func testTitleAttribute() {
         let html = HTML(
             .head(
