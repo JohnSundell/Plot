@@ -297,14 +297,6 @@ public extension Attribute where Context == HTML.InputContext {
     }
 }
 
-public extension Attribute where Context == HTML.ButtonContext {
-    /// Assign a button type to the element.
-    /// - parameter type: The button type to assign.
-    static func type(_ type: HTMLButtonType) -> Attribute {
-        Attribute(name: "type", value: type.rawValue)
-    }
-}
-
 public extension Node where Context == HTML.ButtonContext {
     /// Assign a button type to the element.
     /// - parameter type: The button type to assign.
