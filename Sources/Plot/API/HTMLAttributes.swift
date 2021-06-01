@@ -28,6 +28,12 @@ public extension Attribute where Context: HTMLContext {
         Attribute(name: "data-\(name)", value: value)
     }
 
+    /// Assign whether operating system level spell checking should be enabled.
+    /// - parameter isEnabled: Whether spell checking should be enabled.
+    static func spellcheck(_ isEnabled: Bool) -> Attribute {
+        Attribute(name: "spellcheck", value: String(isEnabled))
+    }
+
     /// Specify a title for the element.
     /// - parameter title: The title to assign to the element.
     static func title(_ title: String) -> Attribute {
@@ -55,6 +61,12 @@ public extension Node where Context: HTMLContext {
     /// - parameter value: The attribute's string value.
     static func data(named name: String, value: String) -> Node {
         .attribute(named: "data-\(name)", value: value)
+    }
+
+    /// Assign whether operating system level spell checking should be enabled.
+    /// - parameter isEnabled: Whether spell checking should be enabled.
+    static func spellcheck(_ isEnabled: Bool) -> Node {
+        .attribute(named: "spellcheck", value: String(isEnabled))
     }
 
     /// Specify a title for the element.
