@@ -88,7 +88,8 @@ final class HTMLTests: XCTestCase {
     func testSocialImageMetadata() {
         let html = HTML(.head(
             .socialImageLink("url.png"),
-            .twitterCardType(.summaryLargeImage)
+            .twitterCardType(.summaryLargeImage),
+            .twitterHandle("@SiteHandle", "@CreatorHandle")
         ))
 
         assertEqualHTMLContent(html, """
@@ -96,6 +97,8 @@ final class HTMLTests: XCTestCase {
         <meta name="twitter:image" content="url.png"/>\
         <meta name="og:image" content="url.png"/>\
         <meta name="twitter:card" content="summary_large_image"/>\
+        <meta name="twitter:site" content="@SiteHandle"/>\
+        <meta name="twitter:creator" content="@CreatorHandle"/>\
         </head>
         """)
     }
