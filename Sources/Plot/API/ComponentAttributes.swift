@@ -40,6 +40,12 @@ public extension Component {
         attribute(named: "id", value: id)
     }
 
+    /// Assign a directionality to this component's element.
+    /// - parameter directionality: The directionality to assign.
+    func dir(_ directionality: Directionality) -> Component {
+        attribute(named: "dir", value: directionality.rawValue)
+    }
+
     /// Assign whether this component hierarchy's `Input` components should have
     /// autocomplete turned on or off. This value is placed in the environment, and
     /// is thus inherited by all child components. Note that this modifier only
