@@ -78,6 +78,14 @@ final class HTMLComponentTests: XCTestCase {
         """)
     }
 
+    func testAssigningDirectionalityToElement() {
+        let html = Paragraph("Hello")
+            .dir(.leftToRight)
+            .render()
+
+        XCTAssertEqual(html, #"<p dir="ltr">Hello</p>"#)
+    }
+
     func testAppendingClasses() {
         let html = Paragraph("Hello")
             .class("one")
