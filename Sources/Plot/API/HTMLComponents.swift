@@ -150,6 +150,8 @@ public enum ElementDefinitions {
     public enum Navigation: ElementDefinition { public static var wrapper = Node.nav }
     /// Definition for the `<p>` element.
     public enum Paragraph: ElementDefinition { public static var wrapper = Node.p }
+    /// Definition for the `<section>` element.
+    public enum Section: ElementDefinition { public static var wrapper = Node.section }
     /// Definition for the `<span>` element.
     public enum Span: ElementDefinition { public static var wrapper = Node.span }
     /// Definition for the `<caption>` element.
@@ -190,6 +192,8 @@ public typealias ListItem = ElementComponent<ElementDefinitions.ListItem>
 public typealias Navigation = ElementComponent<ElementDefinitions.Navigation>
 /// A container component that's rendered using the `<p>` element.
 public typealias Paragraph = ElementComponent<ElementDefinitions.Paragraph>
+/// A container component that's rendered using the `<section>` element.
+public typealias Section = ElementComponent<ElementDefinitions.Section>
 /// A container component that's rendered using the `<span>` element.
 public typealias Span = ElementComponent<ElementDefinitions.Span>
 /// A container component that's rendered using the `<caption>` element.
