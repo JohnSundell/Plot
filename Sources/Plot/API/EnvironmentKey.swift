@@ -39,11 +39,11 @@ public extension EnvironmentKey {
     }
 }
 
-public extension EnvironmentKey where Value: ExpressibleByNilLiteral {
+public extension EnvironmentKey {
     /// Initialize a key with an explicit identifier.
     /// - parameter identifier: The identifier that the key should have. Must
     ///   be a static string that's defined using a compile time literal.
-    init(identifier: StaticString) {
+    init<T>(identifier: StaticString) where Value == T? {
         self.init(identifier: identifier, defaultValue: nil)
     }
 
@@ -51,7 +51,7 @@ public extension EnvironmentKey where Value: ExpressibleByNilLiteral {
     /// be computed based on the name of the property or function that created it.
     /// - parameter autoIdentifier: This parameter will be filled in by the
     ///   compiler based on the name of the call site's enclosing function/property.
-    init(autoIdentifier: StaticString = #function) {
+    init<T>(autoIdentifier: StaticString = #function) where Value == T? {
         self.init(identifier: autoIdentifier, defaultValue: nil)
     }
 }
