@@ -10,7 +10,7 @@ import Foundation
 /// attribute, which specifies how its URL should be opened.
 public enum HTMLAnchorTarget: String {
     /// The URL should be opened in the current browser context (default).
-    case current = "self"
+    case current = "_self"
     /// The URL should be opened in a new, blank tab or window.
     case blank = "_blank"
     /// The URL should be opened in any parent frame.
