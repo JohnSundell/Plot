@@ -203,7 +203,7 @@ final class HTMLComponentTests: XCTestCase {
         }
 
         let html = TestComponent()
-            .environmentValue("Value", key: .init(identifier: "key"))
+            .environmentValue("Value" as String?, key: .init(identifier: "key"))
             .render()
 
         XCTAssertEqual(html, "<p>Value</p>")
