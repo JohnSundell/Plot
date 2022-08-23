@@ -193,15 +193,35 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, #"<body class="b"></body>"#)
     }
 
-    func testTitleAttribute() {
+    func testHiddenElements() {
         let html = HTML(.body(
-            .div(.title("Division title"),
-                .p(.title("Paragraph title"), "Paragraph"),
-                .a(.href("#"), .title("Link title"), "Link")
-            )
+            .div(.hidden(false)),
+            .div(.hidden(true))
         ))
+        assertEqualHTMLContent(html, "<body><div></div><div hidden></div></body>")
+    }
+
+    func testTitleAttribute() {
+        let html = HTML(
+            .head(
+                .link(
+                    .rel(.alternate),
+                    .title("Alternative representation")
+                )
+            ),
+            .body(
+                .div(
+                    .title("Division title"),
+                    .p(.title("Paragraph title"), "Paragraph"),
+                    .a(.href("#"), .title("Link title"), "Link")
+                )
+            )
+        )
         
         assertEqualHTMLContent(html, """
+        <head>\
+        <link rel="alternate" title="Alternative representation"/>\
+        </head>\
         <body>\
         <div title="Division title">\
         <p title="Paragraph title">Paragraph</p>\
@@ -338,10 +358,14 @@ final class HTMLTests: XCTestCase {
                     .input(.name("a"), .type(.text))
                 ),
                 .input(.name("b"), .type(.search), .autocomplete(false), .autofocus(true)),
-                .input(.name("c"), .type(.text), .autofocus(false)),
+                .input(.name("c"), .type(.text), .autofocus(false), .readonly(false), .disabled(false)),
                 .input(.name("d"), .type(.email), .placeholder("email address"), .autocomplete(true), .required(true)),
-                .textarea(.name("e"), .cols(50), .rows(10), .required(true), .text("Test")),
-                .textarea(.name("f"), .autofocus(true)),
+                .input(.name("e"), .type(.text), .readonly(true), .disabled(true)),
+                .textarea(.name("f"), .cols(50), .rows(10), .required(true), .text("Test")),
+                .textarea(.name("g"), .autofocus(true), .placeholder("Placeholder"), .readonly(false), .disabled(false)),
+                .textarea(.name("h"), .readonly(true), .disabled(true), .text("Test")),
+                .input(.name("i"), .type(.checkbox), .checked(true)),
+                .input(.name("j"), .type(.file), .multiple(true)),
                 .input(.type(.submit), .value("Send"))
             )
         ))
@@ -352,11 +376,15 @@ final class HTMLTests: XCTestCase {
         <label for="a">A label</label>\
         <input name="a" type="text"/>\
         </fieldset>\
-        <input name="b" type="search" autocomplete="off" autofocus="true"/>\
+        <input name="b" type="search" autocomplete="off" autofocus/>\
         <input name="c" type="text"/>\
-        <input name="d" type="email" placeholder="email address" autocomplete="on" required="true"/>\
-        <textarea name="e" cols="50" rows="10" required="true">Test</textarea>\
-        <textarea name="f" autofocus="true"></textarea>\
+        <input name="d" type="email" placeholder="email address" autocomplete="on" required/>\
+        <input name="e" type="text" readonly disabled/>\
+        <textarea name="f" cols="50" rows="10" required>Test</textarea>\
+        <textarea name="g" autofocus placeholder="Placeholder"></textarea>\
+        <textarea name="h" readonly disabled>Test</textarea>\
+        <input name="i" type="checkbox" checked/>\
+        <input name="j" type="file" multiple/>\
         <input type="submit" value="Send"/>\
         </form></body>
         """)
@@ -459,12 +487,14 @@ final class HTMLTests: XCTestCase {
                 .id("id"),
                 .class("image"),
                 .src("image.png"),
-                .alt("Text")
+                .alt("Text"),
+                .width(44),
+                .height(44)
             )
         ))
 
         assertEqualHTMLContent(html, """
-        <body><img id="id" class="image" src="image.png" alt="Text"/></body>
+        <body><img id="id" class="image" src="image.png" alt="Text" width="44" height="44"/></body>
         """)
     }
 
@@ -566,13 +596,17 @@ final class HTMLTests: XCTestCase {
                 .src("url.com"),
                 .frameborder(false),
                 .allow("gyroscope"),
+                .allowfullscreen(false)
+            ),
+            .iframe(
                 .allowfullscreen(true)
             )
         ))
 
         assertEqualHTMLContent(html, """
         <body>\
-        <iframe src="url.com" frameborder="0" allow="gyroscope" allowfullscreen="true"></iframe>\
+        <iframe src="url.com" frameborder="0" allow="gyroscope"></iframe>\
+        <iframe allowfullscreen></iframe>\
         </body>
         """)
     }
@@ -597,11 +631,15 @@ final class HTMLTests: XCTestCase {
 
     func testButton() {
         let html = HTML(.body(
-            .button(.name("Name"), .value("Value"), .text("Text"))
+            .button(.type(.button), .name("Name"), .value("Value"), .text("Text")),
+            .button(.type(.submit), .text("Submit"))
         ))
 
         assertEqualHTMLContent(html, """
-        <body><button name="Name" value="Value">Text</button></body>
+        <body>\
+        <button type="button" name="Name" value="Value">Text</button>\
+        <button type="submit">Submit</button>\
+        </body>
         """)
     }
 
@@ -642,11 +680,15 @@ final class HTMLTests: XCTestCase {
 
     func testDetails() {
         let html = HTML(.body(
-            .details(.summary("Summary"), .p("Text"))
+            .details(.open(true), .summary("Open Summary"), .p("Text")),
+            .details(.open(false), .summary("Closed Summary"), .p("Text"))
         ))
 
         assertEqualHTMLContent(html, """
-        <body><details><summary>Summary</summary><p>Text</p></details></body>
+        <body>\
+        <details open><summary>Open Summary</summary><p>Text</p></details>\
+        <details><summary>Closed Summary</summary><p>Text</p></details>\
+        </body>
         """)
     }
 
@@ -724,6 +766,26 @@ final class HTMLTests: XCTestCase {
         <body data-user-name="John"><img data-icon="User"/></body>
         """)
     }
+
+    func testSpellcheckAttribute() {
+        let html = HTML(
+            .body(
+                .spellcheck(true),
+                .form(
+                    .input(.type(.text), .spellcheck(false)),
+                    .textarea(.spellcheck(false))
+                )
+            )
+        )
+        assertEqualHTMLContent(html, """
+            <body spellcheck="true">\
+            <form>\
+            <input type="text" spellcheck="false"/>\
+            <textarea spellcheck="false"></textarea>\
+            </form>\
+            </body>
+            """)
+    }
     
     func testSubresourceIntegrity() {
         let html = HTML(.head(
@@ -773,80 +835,5 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, """
         <body><div onclick="javascript:alert('Hello World')"></div></body>
         """)
-    }
-}
-
-extension HTMLTests {
-    static var allTests: Linux.TestList<HTMLTests> {
-        [
-            ("testEmptyHTML", testEmptyHTML),
-            ("testPageLanguage", testPageLanguage),
-            ("testHeadAndBody", testHeadAndBody),
-            ("testDocumentEncoding", testDocumentEncoding),
-            ("testCSSStylesheet", testCSSStylesheet),
-            ("testInlineCSS", testInlineCSS),
-            ("testSiteName", testSiteName),
-            ("testPageURL", testPageURL),
-            ("testPageTitle", testPageTitle),
-            ("testPageDescription", testPageDescription),
-            ("testSocialImageMetadata", testSocialImageMetadata),
-            ("testResponsiveViewport", testResponsiveViewport),
-            ("testStaticViewport", testStaticViewport),
-            ("testFavicon", testFavicon),
-            ("testRSSFeedLink", testRSSFeedLink),
-            ("testLinkWithHrefLang", testLinkWithHrefLang),
-            ("testAppleTouchIconLink", testAppleTouchIconLink),
-            ("testManifestLink", testManifestLink),
-            ("testMaskIconLink", testMaskIconLink),
-            ("testBodyWithID", testBodyWithID),
-            ("testBodyWithCSSClass", testBodyWithCSSClass),
-            ("testOverridingBodyCSSClass", testOverridingBodyCSSClass),
-            ("testTitleAttribute", testTitleAttribute),
-            ("testUnorderedList", testUnorderedList),
-            ("testOrderedList", testOrderedList),
-            ("testDescriptionList", testDescriptionList),
-            ("testAnchors", testAnchors),
-            ("testTable", testTable),
-            ("testTableGroupingSemantics", testTableGroupingSemantics),
-            ("testData", testData),
-            ("testEmbeddedObject", testEmbeddedObject),
-            ("testForm", testForm),
-            ("testFormContentType", testFormContentType),
-            ("testFormMethod", testFormMethod),
-            ("testFormNoValidate", testFormNoValidate),
-            ("testFormWithBodyNodes", testFormWithBodyNodes),
-            ("testHeadings", testHeadings),
-            ("testParagraph", testParagraph),
-            ("testImage", testImage),
-            ("testAudioPlayer", testAudioPlayer),
-            ("testVideoPlayer", testVideoPlayer),
-            ("testArticle", testArticle),
-            ("testCode", testCode),
-            ("testTextStyling", testTextStyling),
-            ("testIFrame", testIFrame),
-            ("testJavaScript", testJavaScript),
-            ("testButton", testButton),
-            ("testAbbreviation", testAbbreviation),
-            ("testBlockquote", testBlockquote),
-            ("testListsOfOptions", testListsOfOptions),
-            ("testDetails", testDetails),
-            ("testLineBreak", testLineBreak),
-            ("testHorizontalLine", testHorizontalLine),
-            ("testHorizontalLineAttributes", testHorizontalLineAttributes),
-            ("testNoScript", testNoScript),
-            ("testNavigation", testNavigation),
-            ("testSection", testSection),
-            ("testAside", testAside),
-            ("testMain", testMain),
-            ("testAccessibilityLabel", testAccessibilityLabel),
-            ("testAccessibilityControls", testAccessibilityControls),
-            ("testAccessibilityExpanded", testAccessibilityExpanded),
-            ("testAccessibilityHidden", testAccessibilityHidden),
-            ("testDataAttributes", testDataAttributes),
-            ("testSubresourceIntegrity", testSubresourceIntegrity),
-            ("testComments", testComments),
-            ("testPicture", testPicture),
-            ("testOnClick", testOnClick)
-        ]
     }
 }

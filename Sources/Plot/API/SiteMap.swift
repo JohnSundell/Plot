@@ -26,10 +26,8 @@ public struct SiteMap: DocumentFormat {
     }
 }
 
-extension SiteMap: Renderable {
-    public func render(indentedBy indentationKind: Indentation.Kind?) -> String {
-        document.render(indentedBy: indentationKind)
-    }
+extension SiteMap: NodeConvertible {
+    public var node: Node<Self> { document.node }
 }
 
 public extension SiteMap {

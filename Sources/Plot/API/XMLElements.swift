@@ -10,7 +10,7 @@ public extension Element where Context: XMLRootContext {
     static func xml(_ attributes: Attribute<XML.DeclarationContext>...) -> Element {
         Element(name: "xml",
                 closingMode: .neverClosed,
-                nodes: attributes.asNodes(),
+                nodes: attributes.map(\.node),
                 paddingCharacter: "?")
     }
 }

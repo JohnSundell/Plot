@@ -40,14 +40,3 @@ final class ControlFlowTests: XCTestCase {
         XCTAssertEqual(Node<Any>.forEach([], Node.text).render(), "")
     }
 }
-
-extension ControlFlowTests {
-    static var allTests: Linux.TestList<ControlFlowTests> {
-        [
-            ("testIfCondition", testIfCondition),
-            ("testIfElseCondition", testIfElseCondition),
-            ("testUnwrappingOptional", testUnwrappingOptional),
-            ("testForEach", testForEach)
-        ]
-    }
-}
