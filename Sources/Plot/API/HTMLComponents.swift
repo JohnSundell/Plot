@@ -81,6 +81,28 @@ public extension Node where Context == HTML.HeadContext {
     static func twitterCardType(_ type: TwitterCardType) -> Node {
         .meta(.name("twitter:card"), .content(type.rawValue))
     }
+    
+    /// Declare the Twitter handle of the author that Twitter should use when displaying a link
+    /// - parameter handle: The handle of the account on Twitter. For example: `@JohnSundell`
+    static func twitterCreatorHandle(_ handle: String) -> Self {
+        .meta(.name("twitter:creator"), .content(handle))
+    }
+    
+    /// Declare the Twitter handle of the site that Twitter should use when displaying a link
+    /// - parameter handle: The handle of the account on Twitter. For example: `@SwiftBySundell`
+    static func twitterSiteHandle(_ handle: String) -> Self {
+        .meta(.name("twitter:site"), .content(handle))
+    }
+    
+    /// Declare seperate Twitter handles of the creator of the site and of the site that Twitter should use when displaying a link
+    /// - parameter siteHandle: The handle of the site's account on Twitter. For example: `@SwiftBySundell`
+    /// - parameter creatorHandle: The handle of the author's account on Twitter. For example: `@JohnSundell`
+    static func twitterHandle(_ siteHandle: String, _ creatorHandle: String) -> Node {
+        .group([
+            .twitterSiteHandle(siteHandle),
+            .twitterCreatorHandle(creatorHandle)
+        ])
+    }
 
     /// Declare how the page should behave in terms of viewport responsiveness.
     /// This declaration is important when building HTML pages for display on
