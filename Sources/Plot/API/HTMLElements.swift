@@ -1,3 +1,4 @@
+import Foundation
 /**
 *  Plot
 *  Copyright (c) John Sundell 2019
@@ -381,6 +382,13 @@ public extension Node where Context: HTML.BodyContext {
     /// - parameter nodes: The element's attributes and nodes.
     static func textarea(_ nodes: Node<HTML.TextAreaContext>...) -> Node {
         .element(named: "textarea", nodes: nodes)
+    }
+    
+    /// Add a `<time>` HTML element within the current context.
+    /// - parameter datetime: The datetime that the element represents
+    /// - parameter nodes: The element's attributes and nodes.
+    static func time(_ nodes: Node<HTML.TimeContext>...) -> Node {
+        .element(named: "time", nodes: nodes)
     }
 
     /// Add a `<u>` HTML element within the current context.
