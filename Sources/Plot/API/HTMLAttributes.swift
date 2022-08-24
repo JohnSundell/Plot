@@ -1,3 +1,4 @@
+import Foundation
 /**
 *  Plot
 *  Copyright (c) John Sundell 2019
@@ -188,6 +189,13 @@ public extension Node where Context == HTML.AnchorContext {
     ///   `HTMLAnchorRelationship` for more info.
     static func rel(_ relationship: HTMLAnchorRelationship) -> Node {
         .attribute(named: "rel", value: relationship.rawValue)
+    }
+}
+
+// MARK: - DateTime
+public extension Node where Context == HTML.TimeContext {
+    static func datetime(_ datetime: Date) -> Node {
+        .attribute(named: "datetime", value: DateFormatter.ISOstring(from: datetime))
     }
 }
 
