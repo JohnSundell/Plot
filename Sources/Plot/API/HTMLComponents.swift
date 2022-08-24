@@ -499,7 +499,9 @@ public struct Label: Component {
 /// Component used to render a link/anchor using an `<a>` element.
 public struct Link: Component {
     /// The URL that the link should point to.
-    public var url: URLRepresentable
+    public var url: URLRepresentable?
+    /// The ID of the link.
+    public var id: String?
     /// A closure that provides the components that should make up the link's label.
     @ComponentBuilder public var label: ContentProvider
 
@@ -527,10 +529,19 @@ public struct Link: Component {
             Node<HTML.BodyContext>.text(label)
         }
     }
+    
+    /// Create a new link instance.
+    /// - parameters:
+    ///   - id: The link's ID to enable intra-page linking
+    public init(_ id: String) {
+        self.id = id
+        self.label = { ComponentGroup() }
+    }
 
     public var body: Component {
         Node.a(
-            .href(url),
+            .unwrap(url, Node.href),
+            .unwrap(id, Node.id),
             .unwrap(relationship, Node.rel),
             .unwrap(target, Node.target),
             .component(label())

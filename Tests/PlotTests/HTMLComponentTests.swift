@@ -418,6 +418,12 @@ final class HTMLComponentTests: XCTestCase {
         </div>
         """)
     }
+    
+    func testAnchorLink() {
+        let html = Link("testID").render()
+        
+        XCTAssertEqual(html, #"<a id="testID"></a>"#)
+    }
 
     func testOrderedList() {
         let html = List(["One", "Two"])
