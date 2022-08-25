@@ -4,6 +4,8 @@
 *  MIT license, see LICENSE file for details
 */
 
+import Foundation
+
 // MARK: - Nodes
 
 public extension Node where Context == HTML.HeadContext {
@@ -864,6 +866,27 @@ public struct TextArea: InputComponent {
             .unwrap(numberOfColumns, Node.cols),
             .required(isRequired),
             .unwrap(isAutoFocused, Node.autofocus)
+        )
+    }
+}
+
+/// Component that represents a datetime instance
+public struct Time: Component {
+    /// A closure that provides the components that the row should contain.
+    @ComponentBuilder public var content: ContentProvider
+    /// The datetime that the element represents
+    public var datetime: Date?
+    
+    public init(datetime: Date? = nil,
+                @ComponentBuilder content: @escaping ContentProvider) {
+        self.datetime = datetime
+        self.content = content
+    }
+    
+    public var body: Component {
+        Node.time(
+            .unwrap(datetime, Node.datetime),
+            .component(content())
         )
     }
 }
