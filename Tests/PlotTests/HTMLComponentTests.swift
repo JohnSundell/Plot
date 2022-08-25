@@ -426,6 +426,14 @@ final class HTMLComponentTests: XCTestCase {
 
         XCTAssertEqual(html, "<ol><li>One</li><li>Two</li></ol>")
     }
+    
+    func testTime() {
+        let html = Time(datetime: Date(timeIntervalSince1970: 1321628079)) {
+            Paragraph("Hello World")
+        }.render()
+        
+        XCTAssertEqual(html, #"<time datetime="2011-11-18T14:54:39Z"><p>Hello World</p></time>"#)
+    }
 
     func testOrderedListWithExplicitItems() {
         struct SeventhComponent: Component {
