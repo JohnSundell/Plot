@@ -10,9 +10,8 @@ import Foundation
 /// attribute, which specifies the relationship that the anchor has
 /// to the URL that it's linking to.
 public struct HTMLAnchorRelationship: RawRepresentable, Identifiable, ExpressibleByStringLiteral {
-    public var rawValue: String
-    
     public var id: String { rawValue }
+    public var rawValue: String
     
     public init(rawValue: String) {
         self.rawValue = rawValue
@@ -70,6 +69,6 @@ public struct HTMLAnchorRelationship: RawRepresentable, Identifiable, Expressibl
     /// https://webkit.org/blog/8421/viewing-augmented-reality-assets-in-safari-for-ios/
     public static let ar: HTMLAnchorRelationship = "ar"
 
+    /// The opposite of `noopener`.
     public static let opener: HTMLAnchorRelationship = "opener"
-
 }
