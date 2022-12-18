@@ -178,6 +178,11 @@ public extension Attribute where Context == HTML.LinkContext {
     static func color(_ color: String) -> Attribute {
         Attribute(name: "color", value: color)
     }
+
+    /// Assign a `crossorigin` attribute to the link.
+    static func crossorigin() -> Attribute {
+        Attribute(name: "crossorigin", value: nil, ignoreIfValueIsEmpty: false)
+    }
 }
 
 public extension Attribute where Context: HTMLLinkableContext {
