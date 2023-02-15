@@ -33,14 +33,14 @@ public extension Node where Context == HTML.HeadContext {
         return .group([
             .link(.rel(.canonical), .href(url)),
             .meta(.name("twitter:url"), .content(url)),
-            .meta(.name("og:url"), .content(url))
+            .meta(.property("og:url"), .content(url))
         ])
     }
 
     /// Declare the name of the site that this HTML page belongs to.
     /// - parameter name: The name to declare.
     static func siteName(_ name: String) -> Node {
-        .meta(.name("og:site_name"), .content(name))
+        .meta(.property("og:site_name"), .content(name))
     }
 
     /// Declare the HTML page's title, both for browsers and for social sharing.
@@ -49,7 +49,7 @@ public extension Node where Context == HTML.HeadContext {
         .group([
             .element(named: "title", text: title),
             .meta(.name("twitter:title"), .content(title)),
-            .meta(.name("og:title"), .content(title))
+            .meta(.property("og:title"), .content(title))
         ])
     }
 
@@ -59,7 +59,7 @@ public extension Node where Context == HTML.HeadContext {
         .group([
             .meta(.name("description"), .content(text)),
             .meta(.name("twitter:description"), .content(text)),
-            .meta(.name("og:description"), .content(text))
+            .meta(.property("og:description"), .content(text))
         ])
     }
 
@@ -71,7 +71,7 @@ public extension Node where Context == HTML.HeadContext {
 
         return .group([
             .meta(.name("twitter:image"), .content(url)),
-            .meta(.name("og:image"), .content(url))
+            .meta(.property("og:image"), .content(url))
         ])
     }
 

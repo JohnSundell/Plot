@@ -48,7 +48,7 @@ final class HTMLTests: XCTestCase {
     func testSiteName() {
         let html = HTML(.head(.siteName("MySite")))
         assertEqualHTMLContent(html, """
-        <head><meta name="og:site_name" content="MySite"/></head>
+        <head><meta property="og:site_name" content="MySite"/></head>
         """)
     }
 
@@ -58,7 +58,7 @@ final class HTMLTests: XCTestCase {
         <head>\
         <link rel="canonical" href="url.com"/>\
         <meta name="twitter:url" content="url.com"/>\
-        <meta name="og:url" content="url.com"/>\
+        <meta property="og:url" content="url.com"/>\
         </head>
         """)
     }
@@ -69,7 +69,7 @@ final class HTMLTests: XCTestCase {
         <head>\
         <title>Title</title>\
         <meta name="twitter:title" content="Title"/>\
-        <meta name="og:title" content="Title"/>\
+        <meta property="og:title" content="Title"/>\
         </head>
         """)
     }
@@ -80,7 +80,7 @@ final class HTMLTests: XCTestCase {
         <head>\
         <meta name="description" content="Description"/>\
         <meta name="twitter:description" content="Description"/>\
-        <meta name="og:description" content="Description"/>\
+        <meta property="og:description" content="Description"/>\
         </head>
         """)
     }
@@ -94,7 +94,7 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, """
         <head>\
         <meta name="twitter:image" content="url.png"/>\
-        <meta name="og:image" content="url.png"/>\
+        <meta property="og:image" content="url.png"/>\
         <meta name="twitter:card" content="summary_large_image"/>\
         </head>
         """)

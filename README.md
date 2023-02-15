@@ -44,7 +44,7 @@ Looking at the above, it may at first seem like Plot simply maps each function c
     <head>
         <title>My website</title>
         <meta name="twitter:title" content="My website"/>
-        <meta name="og:title" content="My website"/>
+        <meta property="og:title" content="My website"/>
         <link rel="stylesheet" href="styles.css" type="text/css"/>
     </head>
     <body>
