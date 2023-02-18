@@ -855,7 +855,7 @@ public struct TextArea: InputComponent {
 
 /// Component that represents a datetime instance
 public struct Time: Component {
-    /// A closure that provides the components that the row should contain.
+    /// A closure that provides the contained content.
     @ComponentBuilder public var content: ContentProvider
     /// The datetime that the element represents
     public var datetime: Date?
