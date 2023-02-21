@@ -261,6 +261,24 @@ public extension Attribute where Context == HTML.PictureSourceContext {
     static func type(_ type: String) -> Attribute {
         Attribute(name: "type", value: type)
     }
+
+    /// A string with a media query describing which image from the `srcset` attribute should be used.
+    /// - parameter sizes: The sizes used for the of sources that this element should point to.
+    static func sizes(_ sizes: String) -> Attribute {
+        Attribute(name: "sizes", value: sizes)
+    }
+
+    /// Assign an integer giving the intinsic height of the `srcset` image in pixels.
+    /// - parameter height: The height of the image in the source.
+    static func height(_ height: Int) -> Attribute {
+        Attribute(name: "height", value: String(height))
+    }
+
+    /// Assign an integer giving the intrinsic width of the `srcset` image in pixels.
+    /// - parameter width: The width of the image in the source.
+    static func width(_ width: Int) -> Attribute {
+        Attribute(name: "width", value: String(width))
+    }
 }
 
 // MARK: - Forms, input and options
