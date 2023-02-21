@@ -579,6 +579,96 @@ extension List: ComponentContainer where Items == ComponentGroup {
     }
 }
 
+// Component used to render an `<picture>` element for responsive image support.
+public struct Picture: Component {
+    /// Type used to define an  Picture source, which points to an image file (or set of them) and associated media queries (and other paramaters).
+    public struct Source {
+        /// image or images  to use - can have parameters
+        public var srcset: String
+        /// sizes for the `srcset` to use - can have parameters
+        public var sizes: String?
+        ///  Media querry (optional)
+        public var media: String?
+        ///  Media type (optional)
+        public var type: String?
+        ///  Intrinsic height of image in pixels - integer with no unit (optional)
+        public var height: Int?
+        ///  Intrinsic width of image in pixels - integer with no unit (optional)
+        public var width: Int?
+
+        /// Initialize a new source.
+        /// - parameter srcset: The set of sources to which this element should point.
+        /// - parameter sizes: Comma separated list of media queries for the `srcset` images.
+        /// - parameter media: Media query for the resources intended media.
+        /// - parameter type: MIME type of the image, with optional `codecs` paramater.
+        /// - parameter height: Intrinsic height of image in pixels - integer with no unit.
+        /// - parameter width:  Intrinsic width of image in pixels - integer with no unit.
+
+        internal init(srcset: String, sizes: String? = nil, media: String? = nil, type: String? = nil, height: Int? = nil, width: Int? = nil) {
+            self.srcset = srcset
+            self.sizes = sizes
+            self.media = media
+            self.type = type
+            self.height = height
+            self.width = width
+        }
+    }
+
+    /// Initialize a `Picture` component with multiple `source` elements.
+    /// Image to use as fallback.
+    public var image: Plot.Image
+    /// A set of `source` elments from which a user agent will chose based on its requirements.
+    public var sources: [Source]?
+
+    internal init(image: Plot.Image, sources: [Picture.Source]? = nil) {
+        self.image = image
+        self.sources = sources
+    }
+
+    /// Initialize a `Picture` component with a single `source` element.
+    /// Image to use as fallback.
+    /// A set of `source` elments from which a user agent will chose based on its requirements.
+    public init(image: Plot.Image, source: Source) {
+        self.init(image: image, sources: [source])
+    }
+
+    @ComponentBuilder
+    public var body: Component {
+        if let sources {
+            Node.picture(
+                .forEach(sources) { source in
+                    // This creates a source that has null strings for those strings that have `nil` values, and `.empty` nodes for those `Integer`s with nil values.
+                    // Null strings are not rendered, so nothing is generated for them.
+
+                    .source(
+                        .srcset(source.srcset),
+                        .media(source.media ?? ""),
+                        .type(source.type ?? ""),
+                        .sizes(source.sizes ?? ""),
+                        source.height == nil ? .empty : .height(source.height!),
+                        source.width == nil ? .empty : .width(source.width!)
+                    )
+                    // Tried to use `.if` but it says it takes too long for the compiler to figure out the types.
+                    // leaving it here to see if there is a better solution betwen this option and the one above.
+
+//                    .source(
+//                        .srcset(source.srcset),
+//                        .media(source.media ?? ""),
+//                        .type(source.type ?? ""),
+//                        .sizes(source.sizes ?? ""),
+//                        .if(source.height != nil, .height(source.height!)), .if(source.width != nil, .width(source.width!))
+//                        )
+                },
+                .component(image)
+            )
+        }
+        else {
+            Node.picture(.component(image))
+        }
+    }
+}
+
+
 /// Convenience type that can be used to create an `Input` component
 /// for submitting an HTML form.
 public struct SubmitButton: Component {
