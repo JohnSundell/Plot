@@ -634,7 +634,7 @@ public struct Picture: Component {
 
     @ComponentBuilder
     public var body: Component {
-        if let sources {
+        if let sources = sources {
             Node.picture(
                 .forEach(sources) { source in
                     // This creates a source that has null strings for those strings that have `nil` values, and `.empty` nodes for those `Integer`s with nil values.
