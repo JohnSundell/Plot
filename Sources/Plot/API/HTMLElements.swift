@@ -426,6 +426,17 @@ public extension Node where Context == HTML.DescriptionListContext {
     }
 }
 
+public extension Node where Context == HTML.DescriptionListContext {
+    /// The `<div>` element wraps a group, that is part of a term-description group in a description list (`<dl>` element).
+    ///
+    /// This is allowed according to the HTML spec: // https://html.spec.whatwg.org/multipage/grouping-content.html#the-dl-element
+    ///
+    /// - parameter nodes: The element's attributes and child elements (`<dl>` or `<dd>` elements).
+    static func dlDiv(_ nodes: Node<HTML.DescriptionListContext>...) -> Node {
+        .element(named: "div", nodes: nodes)
+    }
+}
+
 public extension Node where Context: HTMLOptionListContext {
     /// Add an `<option>` HTML element within the current context.
     /// - parameter nodes: The element's attributes.
