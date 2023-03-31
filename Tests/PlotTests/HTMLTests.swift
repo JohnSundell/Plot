@@ -273,15 +273,15 @@ final class HTMLTests: XCTestCase {
     
     func testDescriptionListWithDiv() {
         let html = HTML(.body(.dl(
-            .dlDiv(
+            .div(
                 .dt("Last modified time"),
                 .dd("2004-12-23T23:33Z")
             ),
-            .dlDiv(
+            .div(
                 .dt("Recommended update interval"),
                 .dd("60s")
             ),
-            .dlDiv(
+            .div(
                 .dt("Authors"),
                 .dt("Editors"),
                 .dd("Robert Rothman"),
