@@ -17,6 +17,21 @@ final class HTMLTests: XCTestCase {
         XCTAssertEqual(html.render(), #"<!DOCTYPE html><html lang="en"></html>"#)
     }
 
+    func testPageDirectionalityLeftToRight() {
+        let html = HTML(.dir(.leftToRight))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="ltr"></html>"#)
+    }
+
+    func testPageDirectionalityRightToLeft() {
+        let html = HTML(.dir(.rightToLeft))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="rtl"></html>"#)
+    }
+
+    func testPageDirectionalityAuto() {
+        let html = HTML(.dir(.auto))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="auto"></html>"#)
+    }
+
     func testHeadAndBody() {
         let html = HTML(.head(), .body())
         assertEqualHTMLContent(html, "<head></head><body></body>")
@@ -247,6 +262,46 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, """
         <body><dl><dt>Term</dt><dd>Description</dd></dl></body>
         """)
+    }
+
+    func testTextDirectionalityLeftToRight() {
+        let html = HTML(.body(
+            .h1(.dir(.leftToRight), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="ltr">Text</h1></body>"#)
+    }
+
+    func testTextDirectionalityRightToLeft() {
+        let html = HTML(.body(
+            .h1(.dir(.rightToLeft), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="rtl">Text</h1></body>"#)
+    }
+
+    func testTextDirectionalityAuto() {
+        let html = HTML(.body(
+            .h1(.dir(.auto), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="auto">Text</h1></body>"#)
+    }
+
+    func testInputDirectionalityAuto() {
+        let html = HTML(.body(
+            .input(.dir(.auto))
+        ))
+
+        assertEqualHTMLContent(html, #"<body><input dir="auto"/></body>"#)
+    }
+
+    func testTextAreaDirectionalityLeftToRight() {
+        let html = HTML(.body(
+            .textarea(.dir(.auto))
+        ))
+
+        assertEqualHTMLContent(html, #"<body><textarea dir="auto"></textarea></body>"#)
     }
 
     func testAnchors() throws {
