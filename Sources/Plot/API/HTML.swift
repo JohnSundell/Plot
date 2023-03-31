@@ -122,6 +122,8 @@ public extension HTML {
     enum ListContext: HTMLStylableContext {}
     /// The context within an HTML `<meta>` element.
     enum MetaContext: HTMLNamableContext {}
+    /// The contect within an HTML `<object>` element.
+    enum ObjectContext: HTMLDimensionContext, HTMLTypeContext  {}
     /// The context within an HTML `<option>` element.
     enum OptionContext: HTMLValueContext {}
     /// The context within an HTML `<picture>` element.

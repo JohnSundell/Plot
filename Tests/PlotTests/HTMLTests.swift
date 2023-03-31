@@ -17,6 +17,21 @@ final class HTMLTests: XCTestCase {
         XCTAssertEqual(html.render(), #"<!DOCTYPE html><html lang="en"></html>"#)
     }
 
+    func testPageDirectionalityLeftToRight() {
+        let html = HTML(.dir(.leftToRight))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="ltr"></html>"#)
+    }
+
+    func testPageDirectionalityRightToLeft() {
+        let html = HTML(.dir(.rightToLeft))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="rtl"></html>"#)
+    }
+
+    func testPageDirectionalityAuto() {
+        let html = HTML(.dir(.auto))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="auto"></html>"#)
+    }
+
     func testHeadAndBody() {
         let html = HTML(.head(), .body())
         assertEqualHTMLContent(html, "<head></head><body></body>")
@@ -111,6 +126,13 @@ final class HTMLTests: XCTestCase {
         let html = HTML(.head(.viewport(.constant(500))))
         assertEqualHTMLContent(html, """
         <head><meta name="viewport" content="width=500, initial-scale=1.0"/></head>
+        """)
+    }
+    
+    func testViewportFit() {
+        let html = HTML(.head(.viewport(.accordingToDevice, fit: .cover)))
+        assertEqualHTMLContent(html, """
+        <head><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/></head>
         """)
     }
 
@@ -270,6 +292,46 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, """
         <body><dl><div><dt>Last modified time</dt><dd>2004-12-23T23:33Z</dd></div><div><dt>Recommended update interval</dt><dd>60s</dd></div><div><dt>Authors</dt><dt>Editors</dt><dd>Robert Rothman</dd><dd>Daniel Jackson</dd></div></dl></body>
         """)
+    }
+
+    func testTextDirectionalityLeftToRight() {
+        let html = HTML(.body(
+            .h1(.dir(.leftToRight), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="ltr">Text</h1></body>"#)
+    }
+
+    func testTextDirectionalityRightToLeft() {
+        let html = HTML(.body(
+            .h1(.dir(.rightToLeft), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="rtl">Text</h1></body>"#)
+    }
+
+    func testTextDirectionalityAuto() {
+        let html = HTML(.body(
+            .h1(.dir(.auto), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="auto">Text</h1></body>"#)
+    }
+
+    func testInputDirectionalityAuto() {
+        let html = HTML(.body(
+            .input(.dir(.auto))
+        ))
+
+        assertEqualHTMLContent(html, #"<body><input dir="auto"/></body>"#)
+    }
+
+    func testTextAreaDirectionalityLeftToRight() {
+        let html = HTML(.body(
+            .textarea(.dir(.auto))
+        ))
+
+        assertEqualHTMLContent(html, #"<body><textarea dir="auto"></textarea></body>"#)
     }
 
     func testAnchors() throws {
@@ -841,6 +903,19 @@ final class HTMLTests: XCTestCase {
         <source srcset="dark.jpg" media="(prefers-color-scheme: dark)"/>\
         <img src="default.jpg"/>\
         </picture></body>
+        """)
+    }
+    
+    func testObject() {
+        let html = HTML(.body(.object(
+            .data("vector.svg"),
+            .attribute(.type("image/svg+xml")),
+            .attribute(.width(200)),
+            .attribute(.height(100))
+        )))
+        
+        assertEqualHTMLContent(html, """
+        <body><object data="vector.svg" type="image/svg+xml" width="200" height="100"></object></body>
         """)
     }
 

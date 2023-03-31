@@ -39,6 +39,12 @@ public extension Attribute where Context: HTMLContext {
     static func title(_ title: String) -> Attribute {
         Attribute(name: "title", value: title)
     }
+
+    /// Specify a directionality for the element.
+    /// - parameter directionality: The directionality to assign to the element.
+    static func dir(_ directionality: Directionality) -> Attribute {
+        Attribute(name: "dir", value: directionality.rawValue)
+    }
 }
 
 public extension Node where Context: HTMLContext {
@@ -79,6 +85,12 @@ public extension Node where Context: HTMLContext {
     /// - parameter isHidden: Whether the element should be hidden or not.
     static func hidden(_ isHidden: Bool) -> Node {
         isHidden ? .attribute(named: "hidden") : .empty
+    }
+
+    /// Specify a directionality for the element.
+    /// - parameter directionality: The directionality to assign to the element.
+    static func dir(_ directionality: Directionality) -> Node {
+        .attribute(named: "dir", value: directionality.rawValue)
     }
 }
 
@@ -224,6 +236,22 @@ public extension Node where Context: HTMLMediaContext {
     /// - parameter enableControls: Whether controls should be shown.
     static func controls(_ enableControls: Bool) -> Node {
         enableControls ? .attribute(named: "controls") : .empty
+    }
+}
+
+public extension Attribute where Context == HTML.ObjectContext {
+    /// Assign an external resource to the element, using its `data` attribute.
+    /// - parameter url: The data URL to assign.
+    static func data(_ url: URLRepresentable) -> Attribute {
+        Attribute(name: "data", value: url.string)
+    }
+}
+
+public extension Node where Context == HTML.ObjectContext {
+    /// Assign an external resource to the element, using its `data` attribute.
+    /// - parameter url: The data URL to assign.
+    static func data(_ url: URLRepresentable) -> Node {
+        .attribute(named: "data", value: url.string)
     }
 }
 
