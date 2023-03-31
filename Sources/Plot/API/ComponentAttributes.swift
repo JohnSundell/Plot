@@ -42,7 +42,7 @@ public extension Component {
 
     /// Assign a directionality to this component's element.
     /// - parameter directionality: The directionality to assign.
-    func dir(_ directionality: Directionality) -> Component {
+    func directionality(_ directionality: Directionality) -> Component {
         attribute(named: "dir", value: directionality.rawValue)
     }
 
