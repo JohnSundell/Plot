@@ -41,6 +41,8 @@ public enum Language: String {
     case chechen = "ce"
     case chichewa, chewa, nyanja = "ny"
     case chinese = "zh"
+    case traditionalChinese = "zh-Hant"
+    case simplifiedChinese = "zh-Hans"
     case chuvash = "cv"
     case cornish = "kw"
     case corsican = "co"
