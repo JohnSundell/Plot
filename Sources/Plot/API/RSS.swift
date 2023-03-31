@@ -28,10 +28,8 @@ public struct RSS: RSSBasedDocumentFormat {
     }
 }
 
-extension RSS: Renderable {
-    public func render(indentedBy indentationKind: Indentation.Kind?) -> String {
-        document.render(indentedBy: indentationKind)
-    }
+extension RSS: NodeConvertible {
+    public var node: Node<Self> { document.node }
 }
 
 public extension RSS {
@@ -89,7 +87,7 @@ internal extension Document where Format: RSSBasedDocumentFormat {
             .rss(
                 .version(2.0),
                 .namespace("atom", "http://www.w3.org/2005/Atom"),
-                .namespace("content", "http://purl.org/rss/1.0/modules/content"),
+                .namespace("content", "http://purl.org/rss/1.0/modules/content/"),
                 .group(nodes)
             )
         ])

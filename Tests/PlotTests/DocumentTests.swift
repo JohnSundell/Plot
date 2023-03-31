@@ -25,9 +25,17 @@ final class DocumentTests: XCTestCase {
                 .named("one", nodes: [
                     .element(named: "two", nodes: [
                         .selfClosedElement(named: "three")
+                    ]),
+                    .text("four "),
+                    .component(Text("five")),
+                    .component(Element.named("six", nodes: [
+                        .text("seven")
+                    ])),
+                    .element(named: "eight", nodes: [
+                        .text("nine")
                     ])
                 ]),
-                .selfClosed(named: "four", attributes: [
+                .selfClosed(named: "ten", attributes: [
                     Attribute(name: "key", value: "value")
                 ])
             ]
@@ -37,9 +45,11 @@ final class DocumentTests: XCTestCase {
         <one>
             <two>
                 <three/>
-            </two>
+            </two>four five
+            <six>seven</six>
+            <eight>nine</eight>
         </one>
-        <four key="value"/>
+        <ten key="value"/>
         """)
     }
 
@@ -50,9 +60,10 @@ final class DocumentTests: XCTestCase {
                 .named("one", nodes: [
                     .element(named: "two", nodes: [
                         .selfClosedElement(named: "three")
-                    ])
+                    ]),
+                    .element(named: "four")
                 ]),
-                .selfClosed(named: "four", attributes: [
+                .selfClosed(named: "five", attributes: [
                     Attribute(name: "key", value: "value")
                 ])
             ]
@@ -63,8 +74,9 @@ final class DocumentTests: XCTestCase {
         \t<two>
         \t\t<three/>
         \t</two>
+        \t<four></four>
         </one>
-        <four key="value"/>
+        <five key="value"/>
         """)
     }
 }
@@ -72,16 +84,5 @@ final class DocumentTests: XCTestCase {
 private extension DocumentTests {
     struct FormatStub: DocumentFormat {
         enum RootContext {}
-    }
-}
-
-extension DocumentTests {
-    static var allTests: Linux.TestList<DocumentTests> {
-        [
-            ("testEmptyDocument", testEmptyDocument),
-            ("testEmptyIndentedDocument", testEmptyIndentedDocument),
-            ("testIndentationWithSpaces", testIndentationWithSpaces),
-            ("testIndentationWithTabs", testIndentationWithTabs)
-        ]
     }
 }

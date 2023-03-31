@@ -115,6 +115,12 @@ public extension Node where Context: RSSContentContext {
         .element(named: "description", text: text)
     }
 
+    /// Define a description for the content as CDATA encoded HTML.
+    /// - parameter nodes: The HTML nodes to render as a description.
+    static func description(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "description", nodes: [Node.raw("<![CDATA[\(nodes.render())]]>")])
+    }
+
     /// Define the content's canonical URL.
     /// - parameter url: The content's URL.
     static func link(_ url: URLRepresentable) -> Node {

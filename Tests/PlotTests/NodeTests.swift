@@ -71,22 +71,18 @@ final class NodeTests: XCTestCase {
 
         XCTAssertEqual(node.render(), #"<custom key="value"/>"#)
     }
-}
 
-extension NodeTests {
-    static var allTests: Linux.TestList<NodeTests> {
-        [
-            ("testEscapingText", testEscapingText),
-            ("testEscapingDoubleAmpersands", testEscapingDoubleAmpersands),
-            ("testEscapingAmpersandFollowedByComparisonSymbols", testEscapingAmpersandFollowedByComparisonSymbols),
-            ("testNotDoubleEscapingText", testNotDoubleEscapingText),
-            ("testNotEscapingRawString", testNotEscapingRawString),
-            ("testGroup", testGroup),
-            ("testCustomElement", testCustomElement),
-            ("testCustomAttribute", testCustomAttribute),
-            ("testCustomElementWithCustomAttribute", testCustomElementWithCustomAttribute),
-            ("testCustomElementWithCustomAttributeWithSpecificContext", testCustomElementWithCustomAttributeWithSpecificContext),
-            ("testCustomSelfClosedElementWithCustomAttribute", testCustomSelfClosedElementWithCustomAttribute)
-        ]
+    func testComponents() {
+        let node = Node<Any>.components {
+            Paragraph("One")
+            Paragraph("Two")
+        }
+
+        XCTAssertEqual(node.render(), "<p>One</p><p>Two</p>")
+    }
+
+    func testNodeComponentBodyIsEqualToSelf() {
+        let node = Node.p("Text")
+        XCTAssertEqual(node.render(), node.body.render())
     }
 }

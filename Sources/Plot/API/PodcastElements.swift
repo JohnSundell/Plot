@@ -118,7 +118,7 @@ public extension Node where Context == PodcastFeed.ItemContext {
 
     /// Define the duration of the episode as a string.
     ///
-    /// Consider using the more type-safe `hours:minues:seconds:` variant
+    /// Consider using the more type-safe `hours:minutes:seconds:` variant
     /// if you're defining a duration in code.
     ///
     /// - parameter string: A string that describes the episode's duration.
@@ -204,7 +204,7 @@ public extension Node where Context == PodcastFeed.MediaContext {
     }
 
     /// Define the media item's title (usually the episode's title).
-    /// - paramter title: The title to define.
+    /// - Parameter title: The title to define.
     static func title(_ title: String) -> Node {
         .element(named: "media:title", nodes: [
             .attribute(named: "type", value: "plain"),

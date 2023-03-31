@@ -53,13 +53,3 @@ final class SiteMapTests: XCTestCase {
         """)
     }
 }
-
-extension SiteMapTests {
-    static var allTests: Linux.TestList<SiteMapTests> {
-        [
-            ("testEmptyMap", testEmptyMap),
-            ("testDailyUpdatedLocation", testDailyUpdatedLocation),
-            ("testMonthlyUpdatedLocation", testMonthlyUpdatedLocation)
-        ]
-    }
-}

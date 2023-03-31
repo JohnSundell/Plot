@@ -54,6 +54,15 @@ public extension Node where Context == HTML.DocumentContext {
     static func body(_ nodes: Node<HTML.BodyContext>...) -> Node {
         .element(named: "body", nodes: nodes)
     }
+
+    /// Add a `<body>` HTML element within the current context, which
+    /// makes up the renderable body of the page, and populate that element
+    /// with a set of components.
+    /// - parameter content: A closure that creates the components that
+    ///   should make up this element's content.
+    static func body(@ComponentBuilder _ content: @escaping () -> Component) -> Node {
+        .body(.component(content()))
+    }
 }
 
 // MARK: - Head
@@ -444,6 +453,24 @@ public extension Node where Context == HTML.TableContext {
     /// - parameter nodes: The element's attributes and child elements.
     static func tr(_ nodes: Node<HTML.TableRowContext>...) -> Node {
         .element(named: "tr", nodes: nodes)
+    }
+
+    /// Add a `<thead>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func thead(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "thead", nodes: nodes)
+    }
+
+    /// Add a `<tbody>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func tbody(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "tbody", nodes: nodes)
+    }
+
+    /// Add a `<tfoot>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func tfoot(_ nodes: Node<HTML.TableContext>...) -> Node {
+        .element(named: "tfoot", nodes: nodes)
     }
 }
 

@@ -24,10 +24,8 @@ public struct XML: DocumentFormat {
     }
 }
 
-extension XML: Renderable {
-    public func render(indentedBy indentationKind: Indentation.Kind?) -> String {
-        document.render(indentedBy: indentationKind)
-    }
+extension XML: NodeConvertible {
+    public var node: Node<Self> { document.node }
 }
 
 public extension XML {

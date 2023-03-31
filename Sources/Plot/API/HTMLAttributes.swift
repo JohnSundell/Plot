@@ -27,6 +27,24 @@ public extension Attribute where Context: HTMLContext {
     static func data(named name: String, value: String) -> Attribute {
         Attribute(name: "data-\(name)", value: value)
     }
+
+    /// Assign whether operating system level spell checking should be enabled.
+    /// - parameter isEnabled: Whether spell checking should be enabled.
+    static func spellcheck(_ isEnabled: Bool) -> Attribute {
+        Attribute(name: "spellcheck", value: String(isEnabled))
+    }
+
+    /// Specify a title for the element.
+    /// - parameter title: The title to assign to the element.
+    static func title(_ title: String) -> Attribute {
+        Attribute(name: "title", value: title)
+    }
+
+    /// Specify a directionality for the element.
+    /// - parameter directionality: The directionality to assign to the element.
+    static func dir(_ directionality: Directionality) -> Attribute {
+        Attribute(name: "dir", value: directionality.rawValue)
+    }
 }
 
 public extension Node where Context: HTMLContext {
@@ -49,6 +67,30 @@ public extension Node where Context: HTMLContext {
     /// - parameter value: The attribute's string value.
     static func data(named name: String, value: String) -> Node {
         .attribute(named: "data-\(name)", value: value)
+    }
+
+    /// Assign whether operating system level spell checking should be enabled.
+    /// - parameter isEnabled: Whether spell checking should be enabled.
+    static func spellcheck(_ isEnabled: Bool) -> Node {
+        .attribute(named: "spellcheck", value: String(isEnabled))
+    }
+
+    /// Specify a title for the element.
+    /// - parameter title: The title to assign to the element.
+    static func title(_ title: String) -> Node {
+        .attribute(named: "title", value: title)
+    }
+
+    /// Assign whether the element should be hidden.
+    /// - parameter isHidden: Whether the element should be hidden or not.
+    static func hidden(_ isHidden: Bool) -> Node {
+        isHidden ? .attribute(named: "hidden") : .empty
+    }
+
+    /// Specify a directionality for the element.
+    /// - parameter directionality: The directionality to assign to the element.
+    static func dir(_ directionality: Directionality) -> Node {
+        .attribute(named: "dir", value: directionality.rawValue)
     }
 }
 
@@ -99,16 +141,6 @@ public extension Node where Context == HTML.DocumentContext {
     /// - parameter language: The language to specify.
     static func lang(_ language: Language) -> Node {
         .attribute(named: "lang", value: language.rawValue)
-    }
-}
-
-// MARK: - Body
-
-public extension Node where Context: HTML.BodyContext {
-    /// Specify a title for the element.
-    /// - parameter title: The title to assign to the element.
-    static func title(_ title: String) -> Node {
-        .attribute(named: "title", value: title)
     }
 }
 
@@ -168,6 +200,16 @@ public extension Node where Context == HTML.AnchorContext {
     ///   `HTMLAnchorRelationship` for more info.
     static func rel(_ relationship: HTMLAnchorRelationship) -> Node {
         .attribute(named: "rel", value: relationship.rawValue)
+    }
+}
+
+// MARK: - Interactive elements
+
+public extension Node where Context == HTML.DetailsContext {
+    /// Assign whether the details element is opened/expanded.
+    /// - parameter isOpen: Whether the element should be displayed as open.
+    static func open(_ isOpen: Bool) -> Node {
+        isOpen ? .attribute(named: "open") : .empty
     }
 }
 
@@ -241,6 +283,12 @@ public extension Attribute where Context == HTML.PictureSourceContext {
     static func media(_ query: String) -> Attribute {
         Attribute(name: "media", value: query)
     }
+
+    /// Assign a string describing the MIME type, using the `type` attribute.
+    /// - parameter type: The type (MIME type) for this element.
+    static func type(_ type: String) -> Attribute {
+        Attribute(name: "type", value: type)
+    }
 }
 
 // MARK: - Forms, input and options
@@ -288,7 +336,7 @@ public extension Attribute where Context == HTML.InputContext {
         Attribute(name: "type", value: type.rawValue)
     }
     
-    /// Assigns a placeholder to the input field.
+    /// Assign a placeholder to the input field.
     /// - parameter placeholder: The placeholder to assign.
     static func placeholder(_ placeholder: String) -> Attribute {
         Attribute(name: "placeholder", value: placeholder)
@@ -303,13 +351,45 @@ public extension Attribute where Context == HTML.InputContext {
     /// Assign whether the element is required before submitting the form.
     /// - parameter isRequired: Whether the element is required.
     static func required(_ isRequired: Bool) -> Attribute {
-        isRequired ? Attribute(name: "required", value: "true") : .empty
+        isRequired ? Attribute(name: "required", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
     
     /// Assign whether the element should be autofocused when the page loads.
     /// - parameter isOn: Whether autofocus should be turned on.
     static func autofocus(_ isOn: Bool) -> Attribute {
-        isOn ? Attribute(name: "autofocus", value: "true") : .empty
+        isOn ? Attribute(name: "autofocus", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
+
+    /// Assign whether the element should be read-only.
+    /// - parameter isReadonly: Whether the input is read-only.
+    static func readonly(_ isReadonly: Bool) -> Attribute {
+        isReadonly ? Attribute(name: "readonly", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
+
+    /// Assign whether the element should be disabled.
+    /// - parameter isDisabled: Whether the input is disabled.
+    static func disabled(_ isDisabled: Bool) -> Attribute {
+        isDisabled ? Attribute(name: "disabled", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
+
+    /// Assign whether the element should allow the selection of multiple values.
+    /// - parameter isMultiple: Whether multiple values are allowed.
+    static func multiple(_ isEnabled: Bool) -> Attribute {
+        isEnabled ? Attribute(name: "multiple", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
+
+    /// Assign whether a checkbox or radio input element has an active state.
+    /// - parameter isChecked: Whether the element has an active state.
+    static func checked(_ isChecked: Bool) -> Attribute {
+        isChecked ? Attribute(name: "checked", value: nil, ignoreIfValueIsEmpty: false) : .empty
+    }
+}
+
+public extension Node where Context == HTML.ButtonContext {
+    /// Assign a button type to the element.
+    /// - parameter type: The button type to assign.
+    static func type(_ type: HTMLButtonType) -> Node {
+        .attribute(named: "type", value: type.rawValue)
     }
 }
 
@@ -326,16 +406,34 @@ public extension Node where Context == HTML.TextAreaContext {
         .attribute(named: "rows", value: String(rows))
     }
     
+    /// Assign a placeholder to the text area.
+    /// - parameter placeholder: The placeholder to assign.
+    static func placeholder(_ placeholder: String) -> Node {
+        .attribute(named: "placeholder", value: placeholder)
+    }
+
     /// Assign whether the element is required before submitting the form.
     /// - parameter isRequired: Whether the element is required.
     static func required(_ isRequired: Bool) -> Node {
-        isRequired ? .attribute(named: "required", value: "true") : .empty
+        isRequired ? .attribute(named: "required") : .empty
     }
     
     /// Assign whether the element should be autofocused when the page loads.
     /// - parameter isOn: Whether autofocus should be turned on.
     static func autofocus(_ isOn: Bool) -> Node {
-        isOn ? .attribute(named: "autofocus", value: "true") : .empty
+        isOn ? .attribute(named: "autofocus") : .empty
+    }
+
+    /// Assign whether the element should be read-only.
+    /// - parameter isReadonly: Whether the input is read-only.
+    static func readonly(_ isReadonly: Bool) -> Node {
+        isReadonly ? .attribute(named: "readonly") : .empty
+    }
+
+    /// Assign whether the element should be disabled.
+    /// - parameter isDisabled: Whether the input is disabled.
+    static func disabled(_ isDisabled: Bool) -> Node {
+        isDisabled ? .attribute(named: "disabled") : .empty
     }
 }
 
@@ -350,6 +448,12 @@ public extension Attribute where Context == HTML.OptionContext {
             value: nil,
             ignoreIfValueIsEmpty: false
         )
+    }
+
+    /// Assign a label to the given option.
+    /// - parameter label: The user displayed value of the option
+    static func label(_ label: String) -> Attribute {
+        Attribute(name: "label", value: label, ignoreIfValueIsEmpty: false)
     }
 }
 
@@ -411,7 +515,7 @@ public extension Attribute where Context == HTML.IFrameContext {
     /// Assign whether to grant the iframe full screen capabilities.
     /// - parameter allow: Whether the iframe should be allowed to go full screen.
     static func allowfullscreen(_ allow: Bool) -> Attribute {
-        Attribute(name: "allowfullscreen", value: String(allow))
+        allow ? Attribute(name: "allowfullscreen", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
 }
 

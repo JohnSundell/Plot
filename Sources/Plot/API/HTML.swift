@@ -11,6 +11,7 @@ import Foundation
 /// call the `render()` method to turn it into an HTML string.
 public struct HTML: DocumentFormat {
     private let document: Document<HTML>
+    private var environmentOverrides = [Environment.Override]()
 
     /// Create an HTML document with a collection of nodes that make
     /// up its elements and attributes. Start by specifying its root
@@ -26,9 +27,49 @@ public struct HTML: DocumentFormat {
     }
 }
 
-extension HTML: Renderable {
-    public func render(indentedBy indentationKind: Indentation.Kind?) -> String {
-        document.render(indentedBy: indentationKind)
+public extension HTML {
+    /// Create an HTML document with a set of `<head>` nodes and a closure
+    /// that defines the components that should make up its `<body>`.
+    /// - parameter head: The nodes that should be placed within this HTML
+    ///   document's `<head>` element.
+    /// - parameter body: A closure that defines a set of components that
+    ///   should be placed within this HTML document's `<body>` element.
+    init(head: [Node<HTML.HeadContext>] = [],
+         @ComponentBuilder body: @escaping () -> Component) {
+        self.init(
+            .if(!head.isEmpty, .head(.group(head))),
+            .body(body)
+        )
+    }
+
+    /// Place a value into the environment used to render this HTML document and
+    /// any components within it. An environment value will be passed downwards
+    /// through a component/node hierarchy until its overriden by another value
+    /// for the same key.
+    /// - parameter value: The value to add. Must match the type of the key that
+    ///   it's being added for. This value will override any value that was assigned
+    ///   by a parent component for the same key, or the key's default value.
+    /// - parameter key: The key to associate the value wth. You can either use any
+    ///   of the built-in key definitions that Plot ships with, or define your own.
+    ///   See `EnvironmentKey` for more information.
+    func environmentValue<T>(_ value: T, key: EnvironmentKey<T>) -> HTML {
+        var html = self
+        html.environmentOverrides.append(.init(key: key, value: value))
+        return html
+    }
+}
+
+extension HTML: NodeConvertible {
+    public var node: Node<Self> {
+        if environmentOverrides.isEmpty {
+            return document.node
+        }
+
+        return ModifiedComponent(
+            base: document.node,
+            environmentOverrides: environmentOverrides
+        )
+        .convertToNode()
     }
 }
 
@@ -68,7 +109,7 @@ public extension HTML {
     /// The context within an HTML `<iframe>` element.
     enum IFrameContext: HTMLNamableContext, HTMLSourceContext {}
     /// The context within an HTML `<img>` element.
-    enum ImageContext: HTMLSourceContext, HTMLStylableContext {}
+    enum ImageContext: HTMLSourceContext, HTMLStylableContext, HTMLDimensionContext {}
     /// The context within an HTML `<input>` element.
     enum InputContext: HTMLNamableContext, HTMLValueContext {}
     /// The context within an HTML `<textarea>` element.

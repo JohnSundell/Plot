@@ -140,7 +140,7 @@ func assertEqualPodcastFeedContent(
         type: "podcast",
         namespaces: [
             ("atom", "http://www.w3.org/2005/Atom"),
-            ("content", "http://purl.org/rss/1.0/modules/content"),
+            ("content", "http://purl.org/rss/1.0/modules/content/"),
             ("itunes", "http://www.itunes.com/dtds/podcast-1.0.dtd"),
             ("media", "http://www.rssboard.org/media-rss")
         ],
@@ -161,7 +161,7 @@ func assertEqualRSSFeedContent(
         type: "RSS",
         namespaces: [
             ("atom", "http://www.w3.org/2005/Atom"),
-            ("content", "http://purl.org/rss/1.0/modules/content")
+            ("content", "http://purl.org/rss/1.0/modules/content/")
         ],
         file: file,
         line: line
