@@ -882,6 +882,19 @@ final class HTMLTests: XCTestCase {
         </picture></body>
         """)
     }
+    
+    func testObject() {
+        let html = HTML(.body(.object(
+            .data("vector.svg"),
+            .attribute(.type("image/svg+xml")),
+            .attribute(.width(200)),
+            .attribute(.height(100))
+        )))
+        
+        assertEqualHTMLContent(html, """
+        <body><object data="vector.svg" type="image/svg+xml" width="200" height="100"></object></body>
+        """)
+    }
 
     func testOnClick() {
         let html = HTML(

@@ -310,6 +310,12 @@ public extension Node where Context: HTML.BodyContext {
     static func noscript(_ nodes: Node<HTML.BodyContext>...) -> Node {
         .element(named: "noscript", nodes: nodes)
     }
+    
+    /// Add an `<object>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func object(_ nodes: Node<HTML.ObjectContext>...) -> Node {
+        .element(named: "object", nodes: nodes)
+    }
 
     /// Add an `<ol>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.

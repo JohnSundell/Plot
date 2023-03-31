@@ -239,6 +239,22 @@ public extension Node where Context: HTMLMediaContext {
     }
 }
 
+public extension Attribute where Context == HTML.ObjectContext {
+    /// Assign an external resource to the element, using its `data` attribute.
+    /// - parameter url: The data URL to assign.
+    static func data(_ url: URLRepresentable) -> Attribute {
+        Attribute(name: "data", value: url.string)
+    }
+}
+
+public extension Node where Context == HTML.ObjectContext {
+    /// Assign an external resource to the element, using its `data` attribute.
+    /// - parameter url: The data URL to assign.
+    static func data(_ url: URLRepresentable) -> Node {
+        .attribute(named: "data", value: url.string)
+    }
+}
+
 public extension Attribute where Context == HTML.AudioSourceContext {
     /// Assign a type to this audio source. See `HTMLAudioFormat` for more info.
     /// - parameter format: The audio format to assign.
