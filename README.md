@@ -454,7 +454,7 @@ let string = header.render()
 
 Just like nodes, components can also be rendered on their own:
 
-```
+```swift
 let header = Header {
     H1("Title")
     Span("Description")

@@ -267,6 +267,12 @@ public extension Attribute where Context == HTML.PictureSourceContext {
     static func media(_ query: String) -> Attribute {
         Attribute(name: "media", value: query)
     }
+
+    /// Assign a string describing the MIME type, using the `type` attribute.
+    /// - parameter type: The type (MIME type) for this element.
+    static func type(_ type: String) -> Attribute {
+        Attribute(name: "type", value: type)
+    }
 }
 
 // MARK: - Forms, input and options
