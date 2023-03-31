@@ -80,7 +80,7 @@ final class HTMLComponentTests: XCTestCase {
 
     func testAssigningDirectionalityToElement() {
         let html = Paragraph("Hello")
-            .dir(.leftToRight)
+            .directionality(.leftToRight)
             .render()
 
         XCTAssertEqual(html, #"<p dir="ltr">Hello</p>"#)
