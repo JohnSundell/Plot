@@ -438,7 +438,7 @@ public extension Node where Context == HTML.DescriptionListContext {
     // This is allowed according to the HTML spec: // https://html.spec.whatwg.org/multipage/grouping-content.html#the-dl-element
     //
     /// - parameter nodes: The element's attributes and child elements (`<dl>` or `<dd>` elements).
-    static func Div(_ nodes: Node<HTML.DescriptionListContext>...) -> Node {
+    static func div(_ nodes: Node<HTML.DescriptionListContext>...) -> Node {
         .element(named: "div", nodes: nodes)
     }
 }
