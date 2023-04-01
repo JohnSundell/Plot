@@ -106,14 +106,6 @@ public extension Attribute where Context == HTML.MetaContext {
     }
 }
 
-public extension Node where Context: HTMLNamableContext {
-    /// Assign a property to the element.
-    /// - parameter property: The property to assign.
-    static func property(_ property: String) -> Node {
-        .attribute(named: "property", value: property)
-    }
-}
-
 public extension Attribute where Context: HTMLTypeContext {
     /// Assign a type string to this element.
     /// - parameter type: The name of the type to assign.
