@@ -578,7 +578,6 @@ extension List: ComponentContainer where Items == ComponentGroup {
         self.init(content()) { $0 }
     }
 }
-
 // Component used to render a `<picture>` element for responsive image support.
 public struct Picture: Component {
 
@@ -596,18 +595,13 @@ public struct Picture: Component {
     /// Initialize a `Picture` component with a single `source` element.
     /// Image to use as fallback.
     /// A set of `source` elments from which a user agent will chose based on its requirements.
-    public init(image: Plot.Image, source: Source) {
+    public init(image: Image, source: Source) {
         self.init(image: image, sources: [source])
     }
 
-    @ComponentBuilder
     public var body: Component {
-//        if let sources = sources {
             Node.picture(
                 .forEach(sources) { source in
-                    // This creates a source that has null strings for those strings that have `nil` values, and `.empty` nodes for those `Integer`s with nil values.
-                    // Null strings are not rendered, so nothing is generated for them.
-
                     .source(
                         .srcset(source.sourceSet),
                         .media(source.media ?? ""),
@@ -620,10 +614,6 @@ public struct Picture: Component {
                 .component(image)
             )
         }
-//        else {
-//            Node.picture(.component(image))
-//        }
-//    }
 }
 
 public extension Picture {
