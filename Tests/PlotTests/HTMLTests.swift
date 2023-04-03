@@ -174,15 +174,27 @@ final class HTMLTests: XCTestCase {
         """)
     }
 
-    func testCrossoriginLink() {
+    func testCrossoriginLinkEnabled() {
         let html = HTML(.head(.link(
             .rel(.preconnect),
             .href("https://foo.com"),
-            .crossorigin()
+            .crossorigin(true)
         )))
 
         assertEqualHTMLContent(html, """
         <head><link rel="preconnect" href="https://foo.com" crossorigin/></head>
+        """)
+    }
+
+    func testCrossoriginLinkDisabled() {
+        let html = HTML(.head(.link(
+            .rel(.preconnect),
+            .href("https://foo.com"),
+            .crossorigin(false)
+        )))
+
+        assertEqualHTMLContent(html, """
+        <head><link rel="preconnect" href="https://foo.com"/></head>
         """)
     }
 

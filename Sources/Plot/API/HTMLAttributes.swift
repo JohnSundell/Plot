@@ -180,8 +180,8 @@ public extension Attribute where Context == HTML.LinkContext {
     }
 
     /// Assign a `crossorigin` attribute to the link.
-    static func crossorigin() -> Attribute {
-        Attribute(name: "crossorigin", value: nil, ignoreIfValueIsEmpty: false)
+    static func crossorigin(_ crossOrigin: Bool) -> Attribute {
+        crossOrigin ? Attribute(name: "crossorigin", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
 }
 
