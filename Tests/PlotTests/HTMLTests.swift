@@ -294,6 +294,29 @@ final class HTMLTests: XCTestCase {
         <body><dl><dt>Term</dt><dd>Description</dd></dl></body>
         """)
     }
+    
+    func testDescriptionListWithDiv() {
+        let html = HTML(.body(.dl(
+            .div(
+                .dt("Last modified time"),
+                .dd("2004-12-23T23:33Z")
+            ),
+            .div(
+                .dt("Recommended update interval"),
+                .dd("60s")
+            ),
+            .div(
+                .dt("Authors"),
+                .dt("Editors"),
+                .dd("Robert Rothman"),
+                .dd("Daniel Jackson")
+            )
+        )))
+
+        assertEqualHTMLContent(html, """
+        <body><dl><div><dt>Last modified time</dt><dd>2004-12-23T23:33Z</dd></div><div><dt>Recommended update interval</dt><dd>60s</dd></div><div><dt>Authors</dt><dt>Editors</dt><dd>Robert Rothman</dd><dd>Daniel Jackson</dd></div></dl></body>
+        """)
+    }
 
     func testTextDirectionalityLeftToRight() {
         let html = HTML(.body(

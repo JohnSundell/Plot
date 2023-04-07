@@ -131,7 +131,7 @@ public enum ElementDefinitions {
     /// Definition for the `<button>` element.
     public enum Button: ElementDefinition { public static var wrapper = Node.button }
     /// Definition for the `<div>` element.
-    public enum Div: ElementDefinition { public static var wrapper = Node.div }
+    public enum Div: ElementDefinition { public static var wrapper = Node<HTML.BodyContext>.div }
     /// Definition for the `<fieldset>` element.
     public enum FieldSet: ElementDefinition { public static var wrapper = Node.fieldset }
     /// Definition for the `<footer>` element.
