@@ -173,12 +173,6 @@ public extension Node where Context: HTML.BodyContext {
         .element(named: "details", nodes: nodes)
     }
 
-    /// Add a `<div>` HTML element within the current context.
-    /// - parameter nodes: The element's attributes and child elements.
-    static func div(_ nodes: Node<HTML.BodyContext>...) -> Node {
-        .element(named: "div", nodes: nodes)
-    }
-
     /// Add a `<dl>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
     static func dl(_ nodes: Node<HTML.DescriptionListContext>...) -> Node {
@@ -432,17 +426,6 @@ public extension Node where Context == HTML.DescriptionListContext {
     }
 }
 
-public extension Node where Context == HTML.DescriptionListContext {
-    // The `<div>` element wraps a group, that is part of a term-description group in a description list (`<dl>` element).
-    //
-    // This is allowed according to the HTML spec: // https://html.spec.whatwg.org/multipage/grouping-content.html#the-dl-element
-    //
-    /// - parameter nodes: The element's attributes and child elements (`<dl>` or `<dd>` elements).
-    static func div(_ nodes: Node<HTML.DescriptionListContext>...) -> Node {
-        .element(named: "div", nodes: nodes)
-    }
-}
-
 public extension Node where Context: HTMLOptionListContext {
     /// Add an `<option>` HTML element within the current context.
     /// - parameter nodes: The element's attributes.
@@ -532,5 +515,13 @@ public extension Node where Context: HTMLScriptableContext {
     /// - parameter nodes: The element's attributes and text content.
     static func script(_ nodes: Node<HTML.ScriptContext>...) -> Node {
         .element(named: "script", nodes: nodes)
+    }
+}
+
+public extension Node where Context: HTMLDividableContext {
+    /// Add a `<div>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func div(_ nodes: Node<Context>...) -> Node {
+        .element(named: "div", nodes: nodes)
     }
 }

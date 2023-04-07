@@ -83,7 +83,7 @@ public extension HTML {
     /// The context within an HTML document's `<head>` element.
     enum HeadContext: HTMLContext, HTMLScriptableContext {}
     /// The context within an HTML document's `<body>` element.
-    class BodyContext: HTMLStylableContext, HTMLScriptableContext, HTMLImageContainerContext {}
+    class BodyContext: HTMLStylableContext, HTMLScriptableContext, HTMLImageContainerContext, HTMLDividableContext {}
     /// The context within an HTML `<a>` element.
     final class AnchorContext: BodyContext, HTMLLinkableContext {}
     /// The context within an HTML `<audio>` element.
@@ -99,7 +99,7 @@ public extension HTML {
     /// The context within an HTML `<datalist>` element.
     enum DataListContext: HTMLOptionListContext {}
     /// The context within an HTML `<dl>` element.
-    enum DescriptionListContext: HTMLStylableContext {}
+    enum DescriptionListContext: HTMLStylableContext, HTMLDividableContext {}
     /// The context within an HTML `<details>` element.
     final class DetailsContext: BodyContext {}
     /// The context within an HTML `<embed>` element.
@@ -153,6 +153,8 @@ public protocol HTMLContext {}
 /// Context shared among all HTML elements that can have their dimensions
 /// (width and height) specified through attributes, such as `<video>`.
 public protocol HTMLDimensionContext: HTMLContext {}
+/// Context shared among all HTML elements can be divided using `<div>` elements.
+public protocol HTMLDividableContext: HTMLContext {}
 /// Context shared among all HTML elements that can contain an `<img>` element.
 public protocol HTMLImageContainerContext: HTMLContext {}
 /// Context shared among all HTML elements that act as some form
