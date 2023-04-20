@@ -824,7 +824,7 @@ final class HTMLTests: XCTestCase {
     func testTime() {
         let html = HTML(.body(.time(
             .text("Hello World!"),
-            .datetime(Date(timeIntervalSince1970: 1321628079))
+            .datetime("2011-11-18T14:54:39Z")
         )))
         
         assertEqualHTMLContent(html, """

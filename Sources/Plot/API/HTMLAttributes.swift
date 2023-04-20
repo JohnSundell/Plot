@@ -194,8 +194,8 @@ public extension Node where Context == HTML.AnchorContext {
 
 // MARK: - DateTime
 public extension Node where Context == HTML.TimeContext {
-    static func datetime(_ datetime: Date) -> Node {
-        .attribute(named: "datetime", value: DateFormatter.ISOstring(from: datetime))
+    static func datetime(_ datetime: String) -> Node {
+        .attribute(named: "datetime", value: datetime)
     }
 }
 

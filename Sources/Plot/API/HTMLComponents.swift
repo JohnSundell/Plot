@@ -858,9 +858,9 @@ public struct Time: Component {
     /// A closure that provides the contained content.
     @ComponentBuilder public var content: ContentProvider
     /// The datetime that the element represents
-    public var datetime: Date?
+    public var datetime: String?
     
-    public init(datetime: Date? = nil,
+    public init(datetime: String? = nil,
                 @ComponentBuilder content: @escaping ContentProvider) {
         self.datetime = datetime
         self.content = content
