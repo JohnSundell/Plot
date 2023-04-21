@@ -430,7 +430,8 @@ final class HTMLComponentTests: XCTestCase {
     func testTime() {
         let html = Time(datetime: "2011-11-18T14:54:39Z") {
             Paragraph("Hello World")
-        }.render()
+        }
+        .render()
         
         XCTAssertEqual(html, #"<time datetime="2011-11-18T14:54:39Z"><p>Hello World</p></time>"#)
     }

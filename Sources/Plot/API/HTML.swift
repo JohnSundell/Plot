@@ -139,7 +139,7 @@ public extension HTML {
     /// The context within an HTML `<tr>` element.
     enum TableRowContext: HTMLStylableContext {}
     /// The context within an HTML `<time>` element.
-    final class TimeContext: BodyContext, HTMLDateTimeContext {}
+    final class TimeContext: BodyContext {}
     /// The context within an HTML `<video>` element.
     enum VideoContext: HTMLMediaContext {
         public typealias SourceContext = VideoSourceContext
@@ -150,9 +150,6 @@ public extension HTML {
 
 /// Context shared among all HTML elements.
 public protocol HTMLContext {}
-/// Context shared among all HTML elements that support the `datetime`
-/// attribute, such as `<time>`.
-public protocol HTMLDateTimeContext: HTMLContext {}
 /// Context shared among all HTML elements that can have their dimensions
 /// (width and height) specified through attributes, such as `<video>`.
 public protocol HTMLDimensionContext: HTMLContext {}

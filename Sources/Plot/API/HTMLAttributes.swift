@@ -1,4 +1,3 @@
-import Foundation
 /**
 *  Plot
 *  Copyright (c) John Sundell 2019
@@ -193,6 +192,7 @@ public extension Node where Context == HTML.AnchorContext {
 }
 
 // MARK: - DateTime
+
 public extension Node where Context == HTML.TimeContext {
     /// Attach a datetime to the time element, to translate the element into
     /// a machine readable format for browsers.

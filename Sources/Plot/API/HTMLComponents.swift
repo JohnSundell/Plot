@@ -4,8 +4,6 @@
 *  MIT license, see LICENSE file for details
 */
 
-import Foundation
-
 // MARK: - Nodes
 
 public extension Node where Context == HTML.HeadContext {
@@ -860,6 +858,10 @@ public struct Time: Component {
     /// The datetime that the element represents
     public var datetime: String?
     
+    /// Initialize a time component.
+    /// - parameters:
+    ///   - datetime: An optional, machine-readable, datetime string to describe the time represented.
+    ///   - content: A closure that provides the form's child components.
     public init(datetime: String? = nil,
                 @ComponentBuilder content: @escaping ContentProvider) {
         self.datetime = datetime

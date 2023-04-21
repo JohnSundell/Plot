@@ -1,4 +1,3 @@
-import Foundation
 /**
 *  Plot
 *  Copyright (c) John Sundell 2019
@@ -385,7 +384,6 @@ public extension Node where Context: HTML.BodyContext {
     }
     
     /// Add a `<time>` HTML element within the current context.
-    /// - parameter datetime: The datetime that the element represents
     /// - parameter nodes: The element's attributes and nodes.
     static func time(_ nodes: Node<HTML.TimeContext>...) -> Node {
         .element(named: "time", nodes: nodes)
