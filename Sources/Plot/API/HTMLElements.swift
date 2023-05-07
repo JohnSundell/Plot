@@ -98,6 +98,12 @@ public extension Node where Context: HTML.BodyContext {
     static func article(_ nodes: Node<HTML.BodyContext>...) -> Node {
         .element(named: "article", nodes: nodes)
     }
+    
+    /// Add an `<aside>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func aside(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "aside", nodes: nodes)
+    }
 
     /// Add an `<audio>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
