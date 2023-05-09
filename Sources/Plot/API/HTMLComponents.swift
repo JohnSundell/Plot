@@ -135,6 +135,8 @@ public extension Node where Context == HTML.HeadContext {
 public enum ElementDefinitions {
     /// Definition for the `<article>` element.
     public enum Article: ElementDefinition { public static var wrapper = Node.article }
+    /// Definition for the `<aside>` element.
+    public enum Aside: ElementDefinition { public static var wrapper = Node.aside }
     /// Definition for the `<button>` element.
     public enum Button: ElementDefinition { public static var wrapper = Node.button }
     /// Definition for the `<div>` element.
@@ -175,6 +177,8 @@ public enum ElementDefinitions {
 
 /// A container component that's rendered using the `<article>` element.
 public typealias Article = ElementComponent<ElementDefinitions.Article>
+/// A container component that's rendered using the `<aside>` element.
+public typealias Aside = ElementComponent<ElementDefinitions.Aside>
 /// A container component that's rendered using the `<button>` element.
 public typealias Button = ElementComponent<ElementDefinitions.Button>
 /// A container component that's rendered using the `<div>` element.
