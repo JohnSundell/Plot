@@ -217,6 +217,19 @@ public extension Node where Context == HTML.AnchorContext {
     }
 }
 
+// MARK: - DateTime
+
+public extension Node where Context == HTML.TimeContext {
+    /// Attach a datetime to the time element, to translate the element into
+    /// a machine readable format for browsers.
+    /// - parameter datetime: The datetime string to attach. See
+    /// [datetime reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time#valid_datetime_values)
+    /// for more info
+    static func datetime(_ datetime: String) -> Node {
+        .attribute(named: "datetime", value: datetime)
+    }
+}
+
 // MARK: - Interactive elements
 
 public extension Node where Context == HTML.DetailsContext {

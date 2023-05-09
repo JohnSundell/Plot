@@ -140,6 +140,8 @@ public extension HTML {
     enum TableContext: HTMLStylableContext {}
     /// The context within an HTML `<tr>` element.
     enum TableRowContext: HTMLStylableContext {}
+    /// The context within an HTML `<time>` element.
+    final class TimeContext: BodyContext {}
     /// The context within an HTML `<video>` element.
     enum VideoContext: HTMLMediaContext {
         public typealias SourceContext = VideoSourceContext
