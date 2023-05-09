@@ -853,15 +853,15 @@ public struct TextArea: InputComponent {
 
 /// Component that represents a datetime instance
 public struct Time: Component {
-    /// A closure that provides the contained content.
-    @ComponentBuilder public var content: ContentProvider
     /// The datetime that the element represents
     public var datetime: String?
+    /// A closure that provides the contained content.
+    @ComponentBuilder public var content: ContentProvider
     
     /// Initialize a time component.
     /// - parameters:
     ///   - datetime: An optional, machine-readable, datetime string to describe the time represented.
-    ///   - content: A closure that provides the form's child components.
+    ///   - content: A closure that provides the contained content.
     public init(datetime: String? = nil,
                 @ComponentBuilder content: @escaping ContentProvider) {
         self.datetime = datetime
