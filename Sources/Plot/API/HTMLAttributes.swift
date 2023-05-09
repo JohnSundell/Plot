@@ -39,6 +39,12 @@ public extension Attribute where Context: HTMLContext {
     static func title(_ title: String) -> Attribute {
         Attribute(name: "title", value: title)
     }
+
+    /// Specify a directionality for the element.
+    /// - parameter directionality: The directionality to assign to the element.
+    static func dir(_ directionality: Directionality) -> Attribute {
+        Attribute(name: "dir", value: directionality.rawValue)
+    }
 }
 
 public extension Node where Context: HTMLContext {
@@ -80,6 +86,12 @@ public extension Node where Context: HTMLContext {
     static func hidden(_ isHidden: Bool) -> Node {
         isHidden ? .attribute(named: "hidden") : .empty
     }
+
+    /// Specify a directionality for the element.
+    /// - parameter directionality: The directionality to assign to the element.
+    static func dir(_ directionality: Directionality) -> Node {
+        .attribute(named: "dir", value: directionality.rawValue)
+    }
 }
 
 public extension Attribute where Context: HTMLNamableContext {
@@ -95,6 +107,14 @@ public extension Node where Context: HTMLNamableContext {
     /// - parameter name: The name to assign.
     static func name(_ name: String) -> Node {
         .attribute(named: "name", value: name)
+    }
+}
+
+public extension Attribute where Context == HTML.MetaContext {
+    /// Assign a property to the element.
+    /// - parameter property: The property to assign.
+    static func property(_ property: String) -> Attribute {
+        Attribute(name: "property", value: property)
     }
 }
 
@@ -157,6 +177,12 @@ public extension Attribute where Context == HTML.LinkContext {
     /// - parameter color: The icon color string to assign.
     static func color(_ color: String) -> Attribute {
         Attribute(name: "color", value: color)
+    }
+
+    /// Assign whether the link should have the crossorigin attribute.
+    /// - parameter isEnabled: Whether crossorigin should be enabled.
+    static func crossorigin(_ isEnabled: Bool) -> Attribute {
+        isEnabled ? Attribute(name: "crossorigin", value: nil, ignoreIfValueIsEmpty: false) : .empty
     }
 }
 
@@ -237,6 +263,22 @@ public extension Node where Context: HTMLMediaContext {
     /// - parameter enableControls: Whether controls should be shown.
     static func controls(_ enableControls: Bool) -> Node {
         enableControls ? .attribute(named: "controls") : .empty
+    }
+}
+
+public extension Attribute where Context == HTML.ObjectContext {
+    /// Assign an external resource to the element, using its `data` attribute.
+    /// - parameter url: The data URL to assign.
+    static func data(_ url: URLRepresentable) -> Attribute {
+        Attribute(name: "data", value: url.string)
+    }
+}
+
+public extension Node where Context == HTML.ObjectContext {
+    /// Assign an external resource to the element, using its `data` attribute.
+    /// - parameter url: The data URL to assign.
+    static func data(_ url: URLRepresentable) -> Node {
+        .attribute(named: "data", value: url.string)
     }
 }
 

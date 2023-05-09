@@ -78,6 +78,14 @@ final class HTMLComponentTests: XCTestCase {
         """)
     }
 
+    func testAssigningDirectionalityToElement() {
+        let html = Paragraph("Hello")
+            .directionality(.leftToRight)
+            .render()
+
+        XCTAssertEqual(html, #"<p dir="ltr">Hello</p>"#)
+    }
+
     func testAppendingClasses() {
         let html = Paragraph("Hello")
             .class("one")
@@ -153,8 +161,8 @@ final class HTMLComponentTests: XCTestCase {
     }
 
     func testAddingClassToNode() {
-        let html = Node.div().class("hello").render()
-        XCTAssertEqual(html, #"<div class="hello"></div>"#)
+        let html = Node.div(.p()).class("hello").render()
+        XCTAssertEqual(html, #"<div class="hello"><p></p></div>"#)
     }
 
     func testEnvironmentValuesDoNotApplyToSiblings() {

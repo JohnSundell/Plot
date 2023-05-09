@@ -173,12 +173,6 @@ public extension Node where Context: HTML.BodyContext {
         .element(named: "details", nodes: nodes)
     }
 
-    /// Add a `<div>` HTML element within the current context.
-    /// - parameter nodes: The element's attributes and child elements.
-    static func div(_ nodes: Node<HTML.BodyContext>...) -> Node {
-        .element(named: "div", nodes: nodes)
-    }
-
     /// Add a `<dl>` HTML element within the current context.
     /// - parameter nodes: The element's attributes and child elements.
     static func dl(_ nodes: Node<HTML.DescriptionListContext>...) -> Node {
@@ -309,6 +303,12 @@ public extension Node where Context: HTML.BodyContext {
     /// - parameter nodes: The element's attributes and child elements.
     static func noscript(_ nodes: Node<HTML.BodyContext>...) -> Node {
         .element(named: "noscript", nodes: nodes)
+    }
+    
+    /// Add an `<object>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func object(_ nodes: Node<HTML.ObjectContext>...) -> Node {
+        .element(named: "object", nodes: nodes)
     }
 
     /// Add an `<ol>` HTML element within the current context.
@@ -521,5 +521,13 @@ public extension Node where Context: HTMLScriptableContext {
     /// - parameter nodes: The element's attributes and text content.
     static func script(_ nodes: Node<HTML.ScriptContext>...) -> Node {
         .element(named: "script", nodes: nodes)
+    }
+}
+
+public extension Node where Context: HTMLDividableContext {
+    /// Add a `<div>` HTML element within the current context.
+    /// - parameter nodes: The element's attributes and child elements.
+    static func div(_ nodes: Node<Context>...) -> Node {
+        .element(named: "div", nodes: nodes)
     }
 }

@@ -17,6 +17,21 @@ final class HTMLTests: XCTestCase {
         XCTAssertEqual(html.render(), #"<!DOCTYPE html><html lang="en"></html>"#)
     }
 
+    func testPageDirectionalityLeftToRight() {
+        let html = HTML(.dir(.leftToRight))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="ltr"></html>"#)
+    }
+
+    func testPageDirectionalityRightToLeft() {
+        let html = HTML(.dir(.rightToLeft))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="rtl"></html>"#)
+    }
+
+    func testPageDirectionalityAuto() {
+        let html = HTML(.dir(.auto))
+        XCTAssertEqual(html.render(), #"<!DOCTYPE html><html dir="auto"></html>"#)
+    }
+
     func testHeadAndBody() {
         let html = HTML(.head(), .body())
         assertEqualHTMLContent(html, "<head></head><body></body>")
@@ -48,7 +63,7 @@ final class HTMLTests: XCTestCase {
     func testSiteName() {
         let html = HTML(.head(.siteName("MySite")))
         assertEqualHTMLContent(html, """
-        <head><meta name="og:site_name" content="MySite"/></head>
+        <head><meta property="og:site_name" content="MySite"/></head>
         """)
     }
 
@@ -58,7 +73,7 @@ final class HTMLTests: XCTestCase {
         <head>\
         <link rel="canonical" href="url.com"/>\
         <meta name="twitter:url" content="url.com"/>\
-        <meta name="og:url" content="url.com"/>\
+        <meta property="og:url" content="url.com"/>\
         </head>
         """)
     }
@@ -69,7 +84,7 @@ final class HTMLTests: XCTestCase {
         <head>\
         <title>Title</title>\
         <meta name="twitter:title" content="Title"/>\
-        <meta name="og:title" content="Title"/>\
+        <meta property="og:title" content="Title"/>\
         </head>
         """)
     }
@@ -80,7 +95,7 @@ final class HTMLTests: XCTestCase {
         <head>\
         <meta name="description" content="Description"/>\
         <meta name="twitter:description" content="Description"/>\
-        <meta name="og:description" content="Description"/>\
+        <meta property="og:description" content="Description"/>\
         </head>
         """)
     }
@@ -88,14 +103,16 @@ final class HTMLTests: XCTestCase {
     func testSocialImageMetadata() {
         let html = HTML(.head(
             .socialImageLink("url.png"),
-            .twitterCardType(.summaryLargeImage)
+            .twitterCardType(.summaryLargeImage),
+            .twitterUsername("@CreatorHandle")
         ))
 
         assertEqualHTMLContent(html, """
         <head>\
         <meta name="twitter:image" content="url.png"/>\
-        <meta name="og:image" content="url.png"/>\
+        <meta property="og:image" content="url.png"/>\
         <meta name="twitter:card" content="summary_large_image"/>\
+        <meta name="twitter:site" content="@CreatorHandle"/>\
         </head>
         """)
     }
@@ -111,6 +128,13 @@ final class HTMLTests: XCTestCase {
         let html = HTML(.head(.viewport(.constant(500))))
         assertEqualHTMLContent(html, """
         <head><meta name="viewport" content="width=500, initial-scale=1.0"/></head>
+        """)
+    }
+    
+    func testViewportFit() {
+        let html = HTML(.head(.viewport(.accordingToDevice, fit: .cover)))
+        assertEqualHTMLContent(html, """
+        <head><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/></head>
         """)
     }
 
@@ -149,6 +173,30 @@ final class HTMLTests: XCTestCase {
 
         assertEqualHTMLContent(html, """
         <head><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/></head>
+        """)
+    }
+
+    func testCrossoriginLinkEnabled() {
+        let html = HTML(.head(.link(
+            .rel(.preconnect),
+            .href("https://foo.com"),
+            .crossorigin(true)
+        )))
+
+        assertEqualHTMLContent(html, """
+        <head><link rel="preconnect" href="https://foo.com" crossorigin/></head>
+        """)
+    }
+
+    func testCrossoriginLinkDisabled() {
+        let html = HTML(.head(.link(
+            .rel(.preconnect),
+            .href("https://foo.com"),
+            .crossorigin(false)
+        )))
+
+        assertEqualHTMLContent(html, """
+        <head><link rel="preconnect" href="https://foo.com"/></head>
         """)
     }
 
@@ -247,6 +295,69 @@ final class HTMLTests: XCTestCase {
         assertEqualHTMLContent(html, """
         <body><dl><dt>Term</dt><dd>Description</dd></dl></body>
         """)
+    }
+    
+    func testDescriptionListWithDiv() {
+        let html = HTML(.body(.dl(
+            .div(
+                .dt("Last modified time"),
+                .dd("2004-12-23T23:33Z")
+            ),
+            .div(
+                .dt("Recommended update interval"),
+                .dd("60s")
+            ),
+            .div(
+                .dt("Authors"),
+                .dt("Editors"),
+                .dd("Robert Rothman"),
+                .dd("Daniel Jackson")
+            )
+        )))
+
+        assertEqualHTMLContent(html, """
+        <body><dl><div><dt>Last modified time</dt><dd>2004-12-23T23:33Z</dd></div><div><dt>Recommended update interval</dt><dd>60s</dd></div><div><dt>Authors</dt><dt>Editors</dt><dd>Robert Rothman</dd><dd>Daniel Jackson</dd></div></dl></body>
+        """)
+    }
+
+    func testTextDirectionalityLeftToRight() {
+        let html = HTML(.body(
+            .h1(.dir(.leftToRight), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="ltr">Text</h1></body>"#)
+    }
+
+    func testTextDirectionalityRightToLeft() {
+        let html = HTML(.body(
+            .h1(.dir(.rightToLeft), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="rtl">Text</h1></body>"#)
+    }
+
+    func testTextDirectionalityAuto() {
+        let html = HTML(.body(
+            .h1(.dir(.auto), "Text")
+        ))
+
+        assertEqualHTMLContent(html, #"<body><h1 dir="auto">Text</h1></body>"#)
+    }
+
+    func testInputDirectionalityAuto() {
+        let html = HTML(.body(
+            .input(.dir(.auto))
+        ))
+
+        assertEqualHTMLContent(html, #"<body><input dir="auto"/></body>"#)
+    }
+
+    func testTextAreaDirectionalityLeftToRight() {
+        let html = HTML(.body(
+            .textarea(.dir(.auto))
+        ))
+
+        assertEqualHTMLContent(html, #"<body><textarea dir="auto"></textarea></body>"#)
     }
 
     func testAnchors() throws {
@@ -831,6 +942,19 @@ final class HTMLTests: XCTestCase {
         <body><time datetime="2011-11-18T14:54:39Z">\
         Hello World!\
         </time></body>
+        """)
+    }
+                               
+    func testObject() {
+        let html = HTML(.body(.object(
+            .data("vector.svg"),
+            .attribute(.type("image/svg+xml")),
+            .attribute(.width(200)),
+            .attribute(.height(100))
+        )))
+        
+        assertEqualHTMLContent(html, """
+        <body><object data="vector.svg" type="image/svg+xml" width="200" height="100"></object></body>
         """)
     }
 

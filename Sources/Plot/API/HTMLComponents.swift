@@ -33,14 +33,14 @@ public extension Node where Context == HTML.HeadContext {
         return .group([
             .link(.rel(.canonical), .href(url)),
             .meta(.name("twitter:url"), .content(url)),
-            .meta(.name("og:url"), .content(url))
+            .meta(.property("og:url"), .content(url))
         ])
     }
 
     /// Declare the name of the site that this HTML page belongs to.
     /// - parameter name: The name to declare.
     static func siteName(_ name: String) -> Node {
-        .meta(.name("og:site_name"), .content(name))
+        .meta(.property("og:site_name"), .content(name))
     }
 
     /// Declare the HTML page's title, both for browsers and for social sharing.
@@ -49,7 +49,7 @@ public extension Node where Context == HTML.HeadContext {
         .group([
             .element(named: "title", text: title),
             .meta(.name("twitter:title"), .content(title)),
-            .meta(.name("og:title"), .content(title))
+            .meta(.property("og:title"), .content(title))
         ])
     }
 
@@ -59,7 +59,7 @@ public extension Node where Context == HTML.HeadContext {
         .group([
             .meta(.name("description"), .content(text)),
             .meta(.name("twitter:description"), .content(text)),
-            .meta(.name("og:description"), .content(text))
+            .meta(.property("og:description"), .content(text))
         ])
     }
 
@@ -71,7 +71,7 @@ public extension Node where Context == HTML.HeadContext {
 
         return .group([
             .meta(.name("twitter:image"), .content(url)),
-            .meta(.name("og:image"), .content(url))
+            .meta(.property("og:image"), .content(url))
         ])
     }
 
@@ -81,6 +81,13 @@ public extension Node where Context == HTML.HeadContext {
     static func twitterCardType(_ type: TwitterCardType) -> Node {
         .meta(.name("twitter:card"), .content(type.rawValue))
     }
+    
+    /// Declare the Twitter handle of the site that Twitter should use when displaying a link
+    /// - parameter handle: The handle of the account on Twitter. For example: `@SwiftBySundell`
+    static func twitterUsername(_ username: String) -> Node {
+        .meta(.name("twitter:site"), .content(username))
+    }
+
 
     /// Declare how the page should behave in terms of viewport responsiveness.
     /// This declaration is important when building HTML pages for display on
@@ -88,9 +95,15 @@ public extension Node where Context == HTML.HeadContext {
     /// - parameter widthMode: How the viewport's width should scale according
     ///   to the device the page is being rendered on. See `HTMLViewportWidthMode`.
     /// - parameter initialScale: The initial scale that the page should use.
+    /// - parameter fit: How the viewport should be laid out on screen in relation
+    ///   to the screen’s safe area insets. See `HTMLViewportFitMode`.
     static func viewport(_ widthMode: HTMLViewportWidthMode,
-                         initialScale: Double = 1) -> Node {
-        let content = "width=\(widthMode.string), initial-scale=\(initialScale)"
+                         initialScale: Double = 1,
+                         fit: HTMLViewportFitMode? = nil) -> Node {
+        var content = "width=\(widthMode.string), initial-scale=\(initialScale)"
+        if let fit = fit {
+            content += ", viewport-fit=\(fit.rawValue)"
+        }
         return .meta(.name("viewport"), .content(content))
     }
 
@@ -122,10 +135,12 @@ public extension Node where Context == HTML.HeadContext {
 public enum ElementDefinitions {
     /// Definition for the `<article>` element.
     public enum Article: ElementDefinition { public static var wrapper = Node.article }
+    /// Definition for the `<aside>` element.
+    public enum Aside: ElementDefinition { public static var wrapper = Node.aside }
     /// Definition for the `<button>` element.
     public enum Button: ElementDefinition { public static var wrapper = Node.button }
     /// Definition for the `<div>` element.
-    public enum Div: ElementDefinition { public static var wrapper = Node.div }
+    public enum Div: ElementDefinition { public static var wrapper = Node<HTML.BodyContext>.div }
     /// Definition for the `<fieldset>` element.
     public enum FieldSet: ElementDefinition { public static var wrapper = Node.fieldset }
     /// Definition for the `<footer>` element.
@@ -162,6 +177,8 @@ public enum ElementDefinitions {
 
 /// A container component that's rendered using the `<article>` element.
 public typealias Article = ElementComponent<ElementDefinitions.Article>
+/// A container component that's rendered using the `<aside>` element.
+public typealias Aside = ElementComponent<ElementDefinitions.Aside>
 /// A container component that's rendered using the `<button>` element.
 public typealias Button = ElementComponent<ElementDefinitions.Button>
 /// A container component that's rendered using the `<div>` element.
