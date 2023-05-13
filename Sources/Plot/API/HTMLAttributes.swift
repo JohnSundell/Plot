@@ -510,6 +510,23 @@ public extension Node where Context: HTMLStylableContext {
 
 // MARK: - Metadata
 
+/// see for example: https://www.w3schools.com/tags/att_meta_http_equiv.asp
+public enum HTTP_Equiv_Value {
+    case contentSecurityPolicy  // Specifies a content policy for the document.
+    case contentType            // Specifies the character encoding for the document.
+    case defaultStyle           // Specified the preferred style sheet to use.
+    case refresh                // Defines a time interval for the document to refresh itself.
+    
+    public var value: String {
+        switch self {
+            case .contentSecurityPolicy: return "content-security-policy"
+            case .contentType:  return "content-type"
+            case .defaultStyle: return "default-style"
+            case .refresh:      return "refresh"
+        }
+    }
+}
+
 public extension Attribute where Context == HTML.MetaContext {
     /// Assign an encoding to the element, using its `charset` attribute.
     /// - parameter encoding: The encoding to assign. See `DocumentEncoding`.
@@ -521,6 +538,12 @@ public extension Attribute where Context == HTML.MetaContext {
     /// - parameter content: The content value to assign.
     static func content(_ content: String) -> Attribute {
         Attribute(name: "content", value: content)
+    }
+    
+    /// Make use of http-equiv attribute in meta tag
+    /// - parameter value: see HTTP_Equiv_Valye enum for explanation
+    static func http_equiv(value: HTTP_Equiv_Value) -> Attribute {
+        Attribute(name: "http-equiv", value: value.value)
     }
 }
 
