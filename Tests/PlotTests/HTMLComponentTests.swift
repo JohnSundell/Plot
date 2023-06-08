@@ -277,6 +277,7 @@ final class HTMLComponentTests: XCTestCase {
         let html = HTML {
             Article("Article")
             Button("Button")
+            Details("Details")
             Div("Div")
             FieldSet("FieldSet")
             Footer("Footer")
@@ -288,9 +289,11 @@ final class HTMLComponentTests: XCTestCase {
             H6("H6")
             Header("Header")
             ListItem("ListItem")
+            Main("Main")
             Navigation("Navigation")
             Paragraph("Paragraph")
             Span("Span")
+            Summary("Summary")
             TableCaption("TableCaption")
             TableCell("TableCell")
             TableHeaderCell("TableHeaderCell")
@@ -300,6 +303,7 @@ final class HTMLComponentTests: XCTestCase {
         <body>\
         <article>Article</article>\
         <button>Button</button>\
+        <details>Details</details>\
         <div>Div</div>\
         <fieldset>FieldSet</fieldset>\
         <footer>Footer</footer>\
@@ -311,9 +315,11 @@ final class HTMLComponentTests: XCTestCase {
         <h6>H6</h6>\
         <header>Header</header>\
         <li>ListItem</li>\
+        <main>Main</main>\
         <nav>Navigation</nav>\
         <p>Paragraph</p>\
         <span>Span</span>\
+        <summary>Summary</summary>\
         <caption>TableCaption</caption>\
         <td>TableCell</td>\
         <th>TableHeaderCell</th>\

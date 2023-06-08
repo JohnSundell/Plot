@@ -139,6 +139,8 @@ public enum ElementDefinitions {
     public enum Aside: ElementDefinition { public static var wrapper = Node.aside }
     /// Definition for the `<button>` element.
     public enum Button: ElementDefinition { public static var wrapper = Node.button }
+    /// Definition for the `<details>` element.
+    public enum Details: ElementDefinition { public static var wrapper = Node.details }
     /// Definition for the `<div>` element.
     public enum Div: ElementDefinition { public static var wrapper = Node<HTML.BodyContext>.div }
     /// Definition for the `<fieldset>` element.
@@ -161,12 +163,16 @@ public enum ElementDefinitions {
     public enum Header: ElementDefinition { public static var wrapper = Node.header }
     /// Definition for the `<li>` element.
     public enum ListItem: ElementDefinition { public static var wrapper = Node.li }
+    /// Definition for the `<main>` element.
+    public enum Main: ElementDefinition { public static var wrapper = Node.main }
     /// Definition for the `<nav>` element.
     public enum Navigation: ElementDefinition { public static var wrapper = Node.nav }
     /// Definition for the `<p>` element.
     public enum Paragraph: ElementDefinition { public static var wrapper = Node.p }
     /// Definition for the `<span>` element.
     public enum Span: ElementDefinition { public static var wrapper = Node.span }
+    /// Definition for the `<summary>` element.
+    public enum Summary: ElementDefinition { public static var wrapper = Node.summary }
     /// Definition for the `<caption>` element.
     public enum TableCaption: ElementDefinition { public static var wrapper = Node.caption }
     /// Definition for the `<td>` element.
@@ -181,6 +187,8 @@ public typealias Article = ElementComponent<ElementDefinitions.Article>
 public typealias Aside = ElementComponent<ElementDefinitions.Aside>
 /// A container component that's rendered using the `<button>` element.
 public typealias Button = ElementComponent<ElementDefinitions.Button>
+/// A container component that's rendered using the `<div>` element.
+public typealias Details = ElementComponent<ElementDefinitions.Details>
 /// A container component that's rendered using the `<div>` element.
 public typealias Div = ElementComponent<ElementDefinitions.Div>
 /// A container component that's rendered using the `<fieldset>` element.
@@ -203,12 +211,16 @@ public typealias H6 = ElementComponent<ElementDefinitions.H6>
 public typealias Header = ElementComponent<ElementDefinitions.Header>
 /// A container component that's rendered using the `<li>` element.
 public typealias ListItem = ElementComponent<ElementDefinitions.ListItem>
+/// A container component that's rendered using the `<main>` element.
+public typealias Main = ElementComponent<ElementDefinitions.Main>
 /// A container component that's rendered using the `<nav>` element.
 public typealias Navigation = ElementComponent<ElementDefinitions.Navigation>
 /// A container component that's rendered using the `<p>` element.
 public typealias Paragraph = ElementComponent<ElementDefinitions.Paragraph>
 /// A container component that's rendered using the `<span>` element.
 public typealias Span = ElementComponent<ElementDefinitions.Span>
+/// A container component that's rendered using the `<summary>` element.
+public typealias Summary = ElementComponent<ElementDefinitions.Summary>
 /// A container component that's rendered using the `<caption>` element.
 public typealias TableCaption = ElementComponent<ElementDefinitions.TableCaption>
 /// A container component that's rendered using the `<td>` element.
