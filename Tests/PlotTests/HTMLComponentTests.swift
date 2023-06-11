@@ -595,4 +595,26 @@ final class HTMLComponentTests: XCTestCase {
         </table>
         """)
     }
+    
+    func testTableWithHeadersAndCells() {
+        let html = Table {
+            TableRow {
+                TableHeaderCell("Header one")
+                TableHeaderCell("Header two")
+            }
+            
+            TableRow {
+                TableCell("Cell one")
+                TableCell("Cell two")
+            }
+        }
+        .render()
+
+        XCTAssertEqual(html, """
+        <table>\
+        <tr><th>Header one</th><th>Header two</th></tr>\
+        <tr><td>Cell one</td><td>Cell two</td></tr>\
+        </table>
+        """)
+    }
 }
