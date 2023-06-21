@@ -607,6 +607,62 @@ extension List: ComponentContainer where Items == ComponentGroup {
         self.init(content()) { $0 }
     }
 }
+// Component used to render a `<picture>` element for responsive image support.
+public struct Picture: Component {
+
+    /// Image to use as fallback.
+    public var image: Image
+    /// A set of `source` elments from which a user agent will chose based on its requirements.
+    public var sources: [Source]
+
+    /// Initialize a `Picture` component with multiple `source` elements.
+    internal init(image: Image, sources: [Picture.Source] = []) {
+        self.image = image
+        self.sources = sources
+    }
+
+    /// Initialize a `Picture` component with a single `source` element.
+    /// Image to use as fallback.
+    /// A set of `source` elments from which a user agent will chose based on its requirements.
+    public init(image: Image, source: Source) {
+        self.init(image: image, sources: [source])
+    }
+
+    public var body: Component {
+            Node.picture(
+                .forEach(sources) { source in
+                    .source(
+                        .srcset(source.sourceSet),
+                        .media(source.media ?? ""),
+                        .type(source.type ?? ""),
+                        .sizes(source.sizes ?? ""),
+                        .unwrap(source.height, Attribute.height),
+                        .unwrap(source.width, Attribute.width)
+                    )
+                },
+                .component(image)
+            )
+        }
+}
+
+public extension Picture {
+    /// Type used to define a Picture source, which points to an image file (or set of them) and associated media queries (and other paramaters).
+    struct Source {
+        /// Image or images to use - can have parameters
+        public var sourceSet: String
+        /// Sizes for the `srcset` to use - can have parameters
+        public var sizes: String?
+        ///  Media querry (optional)
+        public var media: String?
+        ///  Media type (optional)
+        public var type: String?
+        ///  Intrinsic height of image in pixels - integer with no unit (optional)
+        public var height: Int?
+        ///  Intrinsic width of image in pixels - integer with no unit (optional)
+        public var width: Int?
+    }
+
+}
 
 /// Convenience type that can be used to create an `Input` component
 /// for submitting an HTML form.
