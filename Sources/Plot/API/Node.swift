@@ -159,6 +159,14 @@ public extension Node {
     static func components(@ComponentBuilder _ content: () -> Component) -> Node {
         .component(content())
     }
+
+    /// Create a node that lazily evaluates its contents at rendering time.
+    /// - parameter closure: A closure which evaluates to the contents of this node
+    static func `lazy`(_ closure: @escaping () -> Node ) -> Node {
+        Node { renderer in
+            closure().rendering(&renderer)
+        }
+    }
 }
 
 internal extension Node where Context: DocumentFormat {
