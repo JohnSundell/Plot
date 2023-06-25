@@ -161,6 +161,8 @@ public enum ElementDefinitions {
     public enum Header: ElementDefinition { public static var wrapper = Node.header }
     /// Definition for the `<li>` element.
     public enum ListItem: ElementDefinition { public static var wrapper = Node.li }
+    /// Definition for the `<main>` element.
+    public enum Main: ElementDefinition { public static var wrapper = Node.main }
     /// Definition for the `<nav>` element.
     public enum Navigation: ElementDefinition { public static var wrapper = Node.nav }
     /// Definition for the `<p>` element.
@@ -203,6 +205,8 @@ public typealias H6 = ElementComponent<ElementDefinitions.H6>
 public typealias Header = ElementComponent<ElementDefinitions.Header>
 /// A container component that's rendered using the `<li>` element.
 public typealias ListItem = ElementComponent<ElementDefinitions.ListItem>
+/// A container component that's rendered using the `<main>` element.
+public typealias Main = ElementComponent<ElementDefinitions.Main>
 /// A container component that's rendered using the `<nav>` element.
 public typealias Navigation = ElementComponent<ElementDefinitions.Navigation>
 /// A container component that's rendered using the `<p>` element.
