@@ -528,6 +528,18 @@ let package = Package(
 )
 ```
 
+When importing Plot in a package, you need to give it a name to reference it:
+
+```swift
+    dependencies: [
+        .package(name: "Plot", url: "https://github.com/johnsundell/plot.git", from: "0.9.0")
+    ],
+    ...
+    dependencies: [
+        "Plot"
+    ],
+```
+
 Then import Plot wherever you’d like to use it:
 
 ```swift
