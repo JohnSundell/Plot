@@ -452,6 +452,7 @@ public struct Input: InputComponent {
     /// Any placeholder to render within the input element.
     public var placeholder: String?
     public var isAutoFocused = false
+    public var checked: Bool
 
     @EnvironmentValue(.isAutoCompleteEnabled) private var isAutoCompleteEnabled
 
@@ -466,12 +467,14 @@ public struct Input: InputComponent {
                 name: String? = nil,
                 value: String? = nil,
                 isRequired: Bool = false,
-                placeholder: String? = nil) {
+                placeholder: String? = nil,
+                checked: Bool = false) {
         self.type = type
         self.name = name
         self.value = value
         self.isRequired = isRequired
         self.placeholder = placeholder
+        self.checked = checked
     }
 
     public var body: Component {
@@ -482,7 +485,9 @@ public struct Input: InputComponent {
             .required(isRequired),
             .unwrap(placeholder, Attribute.placeholder),
             .autofocus(isAutoFocused),
+            .checked(checked),
             .unwrap(isAutoCompleteEnabled, Attribute.autocomplete)
+            
         )
     }
 }
@@ -846,6 +851,8 @@ public struct TextArea: InputComponent {
     public var isRequired: Bool
     /// Whether the browser should auto-focus the text field.
     public var isAutoFocused = false
+    /// Optional Placeholder
+    public var placeholder : String?
 
     /// Create a new text area.
     /// - parameters:
@@ -860,12 +867,14 @@ public struct TextArea: InputComponent {
                 name: String? = nil,
                 numberOfRows: Int? = nil,
                 numberOfColumns: Int? = nil,
-                isRequired: Bool = false) {
+                isRequired: Bool = false,
+                placeholder: String? = nil) {
         self.text = text
         self.name = name
         self.numberOfRows = numberOfRows
         self.numberOfColumns = numberOfColumns
         self.isRequired = isRequired
+        self.placeholder = placeholder
     }
 
     public var body: Component {
@@ -875,6 +884,7 @@ public struct TextArea: InputComponent {
             .unwrap(numberOfRows, Node.rows),
             .unwrap(numberOfColumns, Node.cols),
             .required(isRequired),
+            .unwrap(placeholder, Node.placeholder),
             .unwrap(isAutoFocused, Node.autofocus)
         )
     }

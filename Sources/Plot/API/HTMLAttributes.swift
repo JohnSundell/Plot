@@ -522,6 +522,12 @@ public extension Attribute where Context == HTML.MetaContext {
     static func content(_ content: String) -> Attribute {
         Attribute(name: "content", value: content)
     }
+    
+    /// Make use of http-equiv attribute in meta tag
+    /// - parameter value: see HTTP_Equiv_Valye enum for explanation
+    static func http_equiv(value: HTTP_Equiv_Value) -> Attribute {
+        Attribute(name: "http-equiv", value: value.value)
+    }
 }
 
 // MARK: - iFrames
