@@ -452,6 +452,7 @@ public struct Input: InputComponent {
     /// Any placeholder to render within the input element.
     public var placeholder: String?
     public var isAutoFocused = false
+    public var isChecked: Bool
 
     @EnvironmentValue(.isAutoCompleteEnabled) private var isAutoCompleteEnabled
 
@@ -466,12 +467,14 @@ public struct Input: InputComponent {
                 name: String? = nil,
                 value: String? = nil,
                 isRequired: Bool = false,
-                placeholder: String? = nil) {
+                placeholder: String? = nil,
+                isChecked: Bool = false) {
         self.type = type
         self.name = name
         self.value = value
         self.isRequired = isRequired
         self.placeholder = placeholder
+        self.isChecked = isChecked
     }
 
     public var body: Component {
@@ -482,7 +485,9 @@ public struct Input: InputComponent {
             .required(isRequired),
             .unwrap(placeholder, Attribute.placeholder),
             .autofocus(isAutoFocused),
+            .checked(isChecked),
             .unwrap(isAutoCompleteEnabled, Attribute.autocomplete)
+            
         )
     }
 }
