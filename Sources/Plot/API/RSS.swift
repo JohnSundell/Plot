@@ -72,12 +72,12 @@ public protocol RSSContentContext {}
 public protocol RSSItemContext: RSSContentContext {}
 
 internal extension RSS {
-    static let dateFormatter: DateFormatter = {
+    static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
-    }()
+    }
 }
 
 internal extension Document where Format: RSSBasedDocumentFormat {
