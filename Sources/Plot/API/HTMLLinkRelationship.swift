@@ -20,6 +20,7 @@ public enum HTMLLinkRelationship: String {
     case license
     case manifest
     case maskIcon = "mask-icon"
+    case me
     case next
     case pingback
     case preconnect
