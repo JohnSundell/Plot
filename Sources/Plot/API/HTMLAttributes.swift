@@ -198,7 +198,7 @@ public extension Node where Context: HTMLLinkableContext {
     /// Assign a URL to link the element to, using its `href` attribute.
     /// - parameter url: The URL to assign.
     static func href(_ url: URLRepresentable) -> Node {
-        .attribute(named: "href", value: url.string)
+        .attribute(named: "href", value: url.string + "/")
     }
 }
 
