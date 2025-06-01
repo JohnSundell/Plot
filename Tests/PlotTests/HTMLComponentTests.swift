@@ -342,7 +342,16 @@ final class HTMLComponentTests: XCTestCase {
         </body>
         """)
     }
-
+    
+    func testTextAreaPlaceholder() {
+        let html = TextArea(placeholder: "testplaceholder").render()
+        XCTAssertEqual(html, "<textarea placeholder=\"testplaceholder\"></textarea>")
+        
+        let html2 = TextArea().render()
+        XCTAssertEqual(html2, "<textarea></textarea>")
+    }
+    
+    
     func testForm() {
         let html = Form(
             url: "url.com",

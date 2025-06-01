@@ -116,6 +116,15 @@ final class HTMLTests: XCTestCase {
         </head>
         """)
     }
+    
+    func testColorScheme() {
+        let html = HTML(.head(.themeColor("#ffffff")))
+        assertEqualHTMLContent(html, """
+        <head>\
+        <meta name="theme-color" content="#ffffff"/>\
+        </head>
+        """)
+    }
 
     func testResponsiveViewport() {
         let html = HTML(.head(.viewport(.accordingToDevice)))
