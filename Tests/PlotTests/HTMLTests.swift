@@ -967,7 +967,7 @@ final class HTMLTests: XCTestCase {
             )
         )
         assertEqualHTMLContent(html, """
-        <body><div onclick="javascript:alert('Hello World')"></div></body>
+        <body><div onclick="javascript:alert(&#39;Hello World&#39;)"></div></body>
         """)
     }
 }

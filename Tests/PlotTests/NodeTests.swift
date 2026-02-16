@@ -48,6 +48,42 @@ final class NodeTests: XCTestCase {
         XCTAssertEqual(node.render(), #"key="value""#)
     }
 
+    func testEscapingDoubleQuotesInAttributeValue() {
+        let node = Node<Any>.attribute(named: "key", value: #"a"b"#)
+        XCTAssertEqual(node.render(), #"key="a&quot;b""#)
+    }
+
+    func testEscapingSingleQuotesInAttributeValue() {
+        let node = Node<Any>.attribute(named: "key", value: "a'b")
+        XCTAssertEqual(node.render(), #"key="a&#39;b""#)
+    }
+
+    func testEscapingAngleBracketsInAttributeValue() {
+        let node = Node<Any>.attribute(named: "key", value: "<script>alert(1)</script>")
+        XCTAssertEqual(node.render(), #"key="&lt;script&gt;alert(1)&lt;/script&gt;""#)
+    }
+
+    func testEscapingAmpersandInAttributeValue() {
+        let node = Node<Any>.attribute(named: "key", value: "a&b")
+        XCTAssertEqual(node.render(), #"key="a&amp;b""#)
+    }
+
+    func testNotDoubleEscapingAttributeValue() {
+        let node = Node<Any>.attribute(named: "key", value: "&amp;")
+        XCTAssertEqual(node.render(), #"key="&amp;""#)
+    }
+
+    func testEscapingXSSInAttributeValue() {
+        let node = Node<Any>.attribute(
+            named: "value",
+            value: #""><img src=x onerror=alert(1)><input value=""#
+        )
+        XCTAssertEqual(
+            node.render(),
+            #"value="&quot;&gt;&lt;img src=x onerror=alert(1)&gt;&lt;input value=&quot;""#
+        )
+    }
+
     func testCustomElementWithCustomAttribute() {
         let node = Node<Any>.element(named: "custom", attributes: [
             Attribute(name: "key", value: "value")

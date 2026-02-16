@@ -5,6 +5,11 @@
 */
 
 internal extension String {
+    func escapedForAttribute() -> String {
+        escaped().replacingOccurrences(of: "\"", with: "&quot;")
+            .replacingOccurrences(of: "'", with: "&#39;")
+    }
+
     func escaped() -> String {
         var pendingAmpersandString: String?
 

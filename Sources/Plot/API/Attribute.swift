@@ -68,6 +68,6 @@ extension Attribute: AnyAttribute {
             return ignoreIfValueIsEmpty ? "" : name
         }
 
-        return "\(name)=\"\(value)\""
+        return "\(name)=\"\(value.escapedForAttribute())\""
     }
 }
